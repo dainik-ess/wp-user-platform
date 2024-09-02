@@ -1,0 +1,96 @@
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Basic TImeline Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="timeline-basic">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                            [plotOptions]="chartOptions.plotOptions" [xaxis]="chartOptions.xaxis"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Multiple Colored TImeline Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="timeline-colors">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                            [fill]="chartOptions1.fill" [grid]="chartOptions1.grid"
+                            [dataLabels]="chartOptions1.dataLabels" [plotOptions]="chartOptions1.plotOptions"
+                            [xaxis]="chartOptions1.xaxis"   [colors]="chartOptions1.colors" [yaxis]="chartOptions1.yaxis"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Multi Series Timeline Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="timeline-multi">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart"
+                            [dataLabels]="chartOptions2.dataLabels" [plotOptions]="chartOptions2.plotOptions"
+                            [xaxis]="chartOptions2.xaxis" [legend]="chartOptions2.legend"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Advanced Timeline Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="timeline-advanced">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+                            [fill]="chartOptions3.fill" [legend]="chartOptions3.legend"
+                            [plotOptions]="chartOptions3.plotOptions" [xaxis]="chartOptions3.xaxis"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Timeline-Grouped Rows</div>
+            </div>
+            <div class="card-body">
+                <div id="timeline-grouped">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart"
+                            [stroke]="chartOptions4.stroke" [dataLabels]="chartOptions4.dataLabels"
+                            [plotOptions]="chartOptions4.plotOptions" [xaxis]="chartOptions4.xaxis"
+                            [colors]="chartOptions4.colors" [fill]="chartOptions4.fill" [yaxis]="chartOptions4.yaxis"
+                            [legend]="chartOptions4.legend" [grid]="chartOptions4.grid"
+                            [title]="chartOptions4.title"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End::row-1 -->

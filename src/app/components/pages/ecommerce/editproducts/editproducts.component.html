@@ -1,0 +1,335 @@
+<!-- Start::row-1 -->
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card custom-card">
+      <div class="card-body add-products p-0">
+        <div class="p-4">
+          <div class="row gx-5">
+            <div class="col-xxl-6 col-xl-12 col-lg-12 col-md-6">
+              <div class="card custom-card shadow-none mb-0 border-0">
+                <div class="card-body p-0">
+                  <div class="row gy-3">
+                    <div class="col-xl-12">
+                      <label for="product-name-add" class="form-label"
+                        >Product Name</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product-name-add"
+                        placeholder="Name"
+                        value="Light Blue Sweat Shirt"
+                      />
+                      <label
+                        for="product-name-add"
+                        class="form-label mt-1 fs-12 op-5 text-muted mb-0"
+                        >*Product Name should not exceed 30 characters</label
+                      >
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-category-add" class="form-label"
+                        >Category</label
+                      >
+                      <ng-select
+                        [items]="simpleItems"
+                        [(ngModel)]="selectedSimpleItem"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-gender-add" class="form-label"
+                        >Gender</label
+                      >
+
+                      <ng-select
+                        [items]="simpleItems1"
+                        [(ngModel)]="selectedSimpleItem1"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-size-add" class="form-label"
+                        >Size</label
+                      >
+
+                      <ng-select
+                        [items]="simpleItems2"
+                        [(ngModel)]="selectedSimpleItem2"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-brand-add" class="form-label"
+                        >Brand</label
+                      >
+
+                      <ng-select
+                        [items]="simpleItems3"
+                        [(ngModel)]="selectedSimpleItem3"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="col-xl-6 color-selection">
+                      <label for="product-color-add" class="form-label"
+                        >Colors</label
+                      >
+                      <ng-select
+                        [items]="simpleItems4"
+                        [(ngModel)]="selectedSimpleItem4"
+                        placeholder="select"
+                        [multiple]="true"
+                        [hideSelected]="true"
+                        [closeOnSelect]="false"
+                        [selectableGroup]="true"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-cost-add" class="form-label"
+                        >Enter Cost</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product-cost-add"
+                        placeholder="Cost"
+                        value="$1299.99"
+                      />
+                      <label
+                        for="product-cost-add"
+                        class="form-label mt-1 fs-12 op-5 text-muted mb-0"
+                        >*Mention final price of the product</label
+                      >
+                    </div>
+                    <div class="col-xl-12">
+                      <label for="product-description-add" class="form-label"
+                        >Product Description</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="product-description-add"
+                        rows="2"
+                        value="Ultra soft:the fabri"
+                      >
+                                                c</textarea
+                      >
+                      <label
+                        for="product-description-add"
+                        class="form-label mt-1 fs-12 op-5 text-muted mb-0"
+                        >*Description should not exceed 500 letters</label
+                      >
+                    </div>
+                    <div class="col-xl-12">
+                      <label class="form-label">Product Features</label>
+                      <div id="product-features">
+                        <angular-editor
+                          [(ngModel)]="htmlContent"
+                          [config]="config"
+                        >
+                        </angular-editor>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xxl-6 col-xl-12 col-lg-12 col-md-6">
+              <div class="card custom-card shadow-none mb-0 border-0">
+                <div class="card-body p-0">
+                  <div class="row gy-4">
+                    <div class="col-xl-4">
+                      <label for="product-actual-price" class="form-label"
+                        >Actual Price</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product-actual-price"
+                        placeholder="Actual Price"
+                        value="$149.99"
+                      />
+                    </div>
+                    <div class="col-xl-4">
+                      <label for="product-dealer-price" class="form-label"
+                        >Dealer Price</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product-dealer-price"
+                        placeholder="Dealer Price"
+                        value="$1299.99"
+                      />
+                    </div>
+                    <div class="col-xl-4">
+                      <label for="product-discount" class="form-label"
+                        >Discount</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product-discount"
+                        placeholder="Discount in %"
+                        value="0.57"
+                      />
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-type" class="form-label"
+                        >Product Type</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product-type"
+                        placeholder="Type"
+                        value="Watch"
+                      />
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-discount" class="form-label"
+                        >Item Weight</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product-discount1"
+                        placeholder="Weight in gms"
+                        value="180gms"
+                      />
+                    </div>
+                    <div class="col-xl-12 product-documents-container">
+                      <p class="fw-semibold mb-2 fs-14">Product Images :</p>
+                      <ngx-dropzone
+                        class="box-container flex-col dropzone"
+                        [accept]="'image/*'"
+                        (change)="OnSelect2($event)"
+                      >
+                        <ngx-dropzone-label
+                          >Drop Files here to upload</ngx-dropzone-label
+                        >
+                        @for(f of files2;track $index){
+                        <ngx-dropzone-preview
+                          class="dropzone-preview"
+                          [removable]="true"
+                          (removed)="OnRemove2(f)"
+                        >
+                          <ngx-dropzone-label
+                            >{{ f.name }} ({{ f.type }})</ngx-dropzone-label
+                          >
+                        </ngx-dropzone-preview>
+                        }
+                      </ngx-dropzone>
+                    </div>
+                    <label class="form-label op-5 mt-3"
+                      >Minimum 0f 6 images are need to be uploaded,make sure the
+                      image size match the proper background size and all images
+                      should be uniformly maintained with width and height to
+                      the image container,image size should not exceed 2MB,once
+                      uploaded to change the image you need to wait minimum of
+                      24hrs.
+                    </label>
+                    <div class="col-xl-12 product-documents-container">
+                      <p class="fw-semibold mb-2 fs-14">Warrenty Documents :</p>
+                      <ngx-dropzone
+                        class="box-container flex-col dropzone"
+                        [accept]="'image/*'"
+                        (change)="OnSelect3($event)"
+                      >
+                        <ngx-dropzone-label
+                          >Drop Files here to upload</ngx-dropzone-label
+                        >
+                        @for(f1 of files3;track $index){
+                        <ngx-dropzone-preview
+                          class="dropzone-preview"
+                          [removable]="true"
+                          (removed)="OnRemove3(f1)"
+                        >
+                          <ngx-dropzone-label
+                            >{{ f1.name }} ({{ f1.type }})</ngx-dropzone-label
+                          >
+                        </ngx-dropzone-preview>
+                        }
+                      </ngx-dropzone>
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="publish-date" class="form-label"
+                        >Publish Date</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        name="dp"
+                        mwlFlatpickr
+                        [(ngModel)]="basicDemoValue"
+                      />
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="publish-time" class="form-label"
+                        >Publish Time</label
+                      >
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Choose Time"
+                        mwlFlatpickr
+                        [(ngModel)]="timePicker"
+                        [noCalendar]="true"
+                        [enableTime]="true"
+                        [dateFormat]="'h:i'"
+                      />
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-status-add" class="form-label"
+                        >Published Status</label
+                      >
+                      <ng-select
+                        [items]="simpleItems5"
+                        [(ngModel)]="selectedSimpleItem5"
+                      >
+                      </ng-select>
+                    </div>
+                    <div class="col-xl-6">
+                      <label for="product-tags" class="form-label"
+                        >Product Tags</label
+                      >
+
+                      <ng-select [multiple]="true" [(ngModel)]="producttags">
+                        @for (tag of tags; track tag) {
+                        <ng-option [value]="tag.id">{{ tag.name }}</ng-option>
+                        }
+                        <ng-option [value]="'custom'">Custom</ng-option>
+                      </ng-select>
+                    </div>
+                    <div class="col-xl-12">
+                      <label for="product-status-add1" class="form-label"
+                        >Availability</label
+                      >
+
+                      <ng-select
+                        [items]="simpleItems6"
+                        [(ngModel)]="selectedSimpleItem6"
+                      >
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="px-4 py-3 border-top border-block-start-dashed d-sm-flex justify-content-end"
+        >
+          <button class="btn btn-primary-light m-1">
+            Add Product<i class="bi bi-plus-lg ms-2"></i>
+          </button>
+          <button class="btn btn-success-light m-1">
+            Save Product<i class="bi bi-download ms-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End::row-1 -->

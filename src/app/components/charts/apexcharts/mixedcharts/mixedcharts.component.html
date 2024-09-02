@@ -1,0 +1,80 @@
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Line & Column Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="mixed-linecolumn">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                            [yaxis]="chartOptions.yaxis" [xaxis]="chartOptions.xaxis" [labels]="chartOptions.labels"
+                            [stroke]="chartOptions.stroke" [title]="chartOptions.title"
+                            [dataLabels]="chartOptions.dataLabels" [fill]="chartOptions.fill"
+                            [tooltip]="chartOptions.tooltip"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Multiple Y-Axis Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="mixed-multiple-y">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                            [xaxis]="chartOptions1.xaxis" [markers]="chartOptions1.markers"
+                            [stroke]="chartOptions1.stroke" [yaxis]="chartOptions1.yaxis"
+                            [dataLabels]="chartOptions1.dataLabels" [title]="chartOptions1.title"
+                            [fill]="chartOptions1.fill" [tooltip]="chartOptions1.tooltip"
+                            [legend]="chartOptions1.legend"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Line & Area Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="mixed-linearea">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart"
+                            [yaxis]="chartOptions2.yaxis" [xaxis]="chartOptions2.xaxis" [labels]="chartOptions2.labels"
+                            [stroke]="chartOptions2.stroke" [markers]="chartOptions2.markers"
+                            [fill]="chartOptions2.fill" [tooltip]="chartOptions2.tooltip"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Line,Column & Area Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="mixed-all"><!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+                            [yaxis]="chartOptions3.yaxis" [xaxis]="chartOptions3.xaxis" [labels]="chartOptions3.labels"
+                            [stroke]="chartOptions3.stroke" [plotOptions]="chartOptions3.plotOptions"
+                            [markers]="chartOptions3.markers" [fill]="chartOptions3.fill"
+                            [tooltip]="chartOptions3.tooltip"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End::row-1 -->

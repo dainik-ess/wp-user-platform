@@ -1,0 +1,18 @@
+<!-- page header Start -->
+<div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+  <h1 class="page-title fw-semibold fs-18 mb-0">
+    <a href="javascript:void(0);">{{routerEvents[routerEvents.length - 1] | titlecase}}</a>
+  </h1>
+  <div class="ms-md-1 ms-0">
+    <nav>
+      <ol class="breadcrumb mb-0">
+        @for (path of routerEvents; track path; let i = $index) {
+          <li
+            [ngClass]="{'active': routerEvents.length - 1 == i,'custom-color': i === routerEvents.length - 1 }" class="breadcrumb-item">
+            <a href="javascript:void(0);" [ngStyle]="{'color': i ===routerEvents.length - 1 ? '#333335' : 'defaultColor'}" >{{path | titlecase}}</a>
+          </li>
+        }
+      </ol>
+    </nav>
+  </div>
+</div>

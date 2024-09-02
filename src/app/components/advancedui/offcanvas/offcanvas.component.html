@@ -1,0 +1,752 @@
+<!-- Start:: row-1 -->
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title">
+                    Live demo
+                </div>
+                <div class="prism-toggle">
+                    <button class="btn btn-sm btn-primary-light" appShowCode>Show Code<i
+                            class="ri-code-line ms-2 d-inline-block align-middle"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-primary mb-1"  (click)="open(content)">
+                    Link with href
+                </a> &nbsp;
+                <button class="btn btn-primary mb-1"   (click)="open(content)">
+                    Button with data-bs-target
+                </button>
+              
+            </div>
+            <div class="card-footer d-none border-top-0">
+                <!-- Prism Code -->
+                <pre class="language-html"><code class="language-html">&lt;a class="btn btn-primary mb-1" data-bs-toggle="offcanvas" href="#offcanvasExample"
+role="button" aria-controls="offcanvasExample"&gt;
+Link with href
+&lt;/a&gt;
+&lt;button class="btn btn-primary mb-1" type="button" data-bs-toggle="offcanvas"
+data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"&gt;
+Button with data-bs-target
+&lt;/button&gt;
+&lt;div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+aria-labelledby="offcanvasExampleLabel"&gt;
+&lt;div class="offcanvas-header border-bottom border-block-end-dashed"&gt;
+&lt;h5 class="offcanvas-title" id="offcanvasExampleLabel"&gt;Notifications&lt;/h5&gt;
+&lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+aria-label="Close"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="offcanvas-body p-0"&gt;
+-------
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                <!-- Prism Code -->
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title">
+                   Disable BackDrop Offcanvas
+                </div>
+                <div class="prism-toggle">
+                    <button class="btn btn-sm btn-primary-light" appShowCode>Show Code<i
+                            class="ri-code-line ms-2 d-inline-block align-middle"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-primary" (click)="openNoBackdrop(content)">No BackDrop
+                </button>
+              </div>
+            <div class="card-footer d-none border-top-0">
+                <!-- Prism Code -->
+                <pre class="language-html"><code class="language-html">&lt;button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Enable
+body scrolling
+&lt;/button&gt;
+&lt;div class="offcanvas offcanvas-start" data-bs-scroll="true"
+data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling"
+aria-labelledby="offcanvasScrollingLabel"&gt;
+&lt;div class="offcanvas-header border-bottom border-block-end-dashed"&gt;
+&lt;h5 class="offcanvas-title" id="offcanvasScrollingLabel"&gt;Notifications&lt;/h5&gt;
+&lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+aria-label="Close"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="offcanvas-body p-0"&gt;
+-----
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                <!-- Prism Code -->
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title">
+                    Static backdrop
+                </div>
+                <div class="prism-toggle">
+                    <button class="btn btn-sm btn-primary-light" appShowCode>Show Code<i
+                            class="ri-code-line ms-2 d-inline-block align-middle"></i></button>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <button class="btn btn-primary" (click)="openStaticBackdrop(content)">
+                    Toggle static offcanvas
+                </button>
+                <ng-template #content let-offcanvas>
+                    <div class="offcanvas-header border-bottom border-block-end-dashed">
+                        <h5 class="offcanvas-title" id="staticBackdropLabel">Notifications</h5>
+                        <button type="button" class="btn-close" (click)="offcanvas.close('Close click')"></button>
+                    </div>
+
+                    <div class="offcanvas-body p-0">
+                        <div>
+                            <ul class="list-group list-group-flush mb-0">
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-primary avatar-rounded">
+                                                NW
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">New Website Created<span
+                                                    class="badge bg-light text-muted float-end">20 Nov 2022</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>30 mins
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-danger avatar-rounded">
+                                                CH
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Prepare for the new project<span
+                                                    class="badge bg-light text-muted float-end">3 Jan 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>2 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-info avatar-rounded">
+                                                S
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Decide the live discussion<span
+                                                    class="badge bg-light text-muted float-end">17 Feb 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>3 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md avatar-rounded">
+                                                <img src="./assets/images/faces/12.jpg" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Meeting at 3:00 pm<span
+                                                    class="badge bg-light text-muted float-end">29 Dec 2022</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>4 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-success avatar-rounded">
+                                                RC
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Prepare for presentation<span
+                                                    class="badge bg-light text-muted float-end">31 Dec 2022</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>4 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md avatar-rounded">
+                                                <img src="./assets/images/faces/1.jpg" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Brenda New product launching<span
+                                                    class="badge bg-light text-muted float-end">1 Jan 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>7 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-secondary avatar-rounded">
+                                                M
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Medeleine Hey! there i'm available<span
+                                                    class="badge bg-light text-muted float-end">5 Jan 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>3 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-info avatar-rounded">
+                                                OL
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Olivia New schedule release<span
+                                                    class="badge bg-light text-muted float-end">6 Jan 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>45 mins
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-warning avatar-rounded">
+                                                A
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Kamala Preparing for new admin launch<span
+                                                    class="badge bg-light text-muted float-end">7 Jan 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>28 mins
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md avatar-rounded">
+                                                <img src="./assets/images/faces/6.jpg" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Oisha Meeting with clinet for dinner<span
+                                                    class="badge bg-light text-muted float-end">10 Jan 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>14 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-danger avatar-rounded">
+                                                CH
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Prepare for the new project<span
+                                                    class="badge bg-light text-muted float-end">3 Jan 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>2 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-info avatar-rounded">
+                                                S
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Decide the live discussion<span
+                                                    class="badge bg-light text-muted float-end">17 Feb 2023</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>3 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md avatar-rounded">
+                                                <img src="./assets/images/faces/14.jpg" alt="">
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Meeting at 3:00 pm<span
+                                                    class="badge bg-light text-muted float-end">29 Dec 2022</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>4 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md bg-success avatar-rounded">
+                                                RC
+                                            </span>
+                                        </div>
+                                        <div class="flex-fill">
+                                            <p class="fw-semibold mb-0">Prepare for presentation<span
+                                                    class="badge bg-light text-muted float-end">31 Dec 2022</span></p>
+                                            <span class="fs-12 text-muted"><i
+                                                    class="ri-time-line align-middle me-1 d-inline-block"></i>4 hrs
+                                                ago</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="text-end">
+
+                        </div>
+                    </div>
+                </ng-template>
+               </div>
+
+            <div class="card-footer d-none border-top-0">
+                <!-- Prism Code -->
+                <pre class="language-html"><code class="language-html">&lt;button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+data-bs-target="#staticBackdrop" aria-controls="staticBackdrop"&gt;
+Toggle static offcanvas
+&lt;/button&gt;
+&lt;div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1"
+id="staticBackdrop" aria-labelledby="staticBackdropLabel"&gt;
+&lt;div class="offcanvas-header border-bottom border-block-end-dashed"&gt;
+&lt;h5 class="offcanvas-title" id="staticBackdropLabel"&gt;Notifications&lt;/h5&gt;
+&lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+aria-label="Close"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="offcanvas-body p-0"&gt;
+--------
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                <!-- Prism Code -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End:: row-1 -->
+
+<!-- Start:: row-2 -->
+<div class="row">
+    <div class="col-xl-3">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title">
+                    Body scrolling and backdrop
+                </div>
+                <div class="prism-toggle">
+                    <button class="btn btn-sm btn-primary-light" appShowCode>Show Code<i
+                            class="ri-code-line ms-2 d-inline-block align-middle"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <button class="btn btn-primary mb-1"type="button" (click)="openStaticBackdrop(content9)" >Enable both
+                    scrolling &amp;
+                    backdrop</button>
+                    <ng-template #content9 let-offcanvas>
+                        <div class="offcanvas-header border-bottom border-block-end-dashed">
+                            <h5 class="offcanvas-title" id="staticBackdropLabel">Notifications</h5>
+                            <button type="button" class="btn-close" (click)="offcanvas.close('Close click')"></button>
+                        </div>
+    
+                        <div class="offcanvas-body p-0">
+                            <div>
+                                <ul class="list-group list-group-flush mb-0">
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-primary avatar-rounded">
+                                                    NW
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">New Website Created<span
+                                                        class="badge bg-light text-muted float-end">20 Nov 2022</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>30 mins
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-danger avatar-rounded">
+                                                    CH
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Prepare for the new project<span
+                                                        class="badge bg-light text-muted float-end">3 Jan 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>2 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-info avatar-rounded">
+                                                    S
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Decide the live discussion<span
+                                                        class="badge bg-light text-muted float-end">17 Feb 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>3 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md avatar-rounded">
+                                                    <img src="./assets/images/faces/12.jpg" alt="">
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Meeting at 3:00 pm<span
+                                                        class="badge bg-light text-muted float-end">29 Dec 2022</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>4 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-success avatar-rounded">
+                                                    RC
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Prepare for presentation<span
+                                                        class="badge bg-light text-muted float-end">31 Dec 2022</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>4 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md avatar-rounded">
+                                                    <img src="./assets/images/faces/1.jpg" alt="">
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Brenda New product launching<span
+                                                        class="badge bg-light text-muted float-end">1 Jan 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>7 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-secondary avatar-rounded">
+                                                    M
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Medeleine Hey! there i'm available<span
+                                                        class="badge bg-light text-muted float-end">5 Jan 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>3 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-info avatar-rounded">
+                                                    OL
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Olivia New schedule release<span
+                                                        class="badge bg-light text-muted float-end">6 Jan 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>45 mins
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-warning avatar-rounded">
+                                                    A
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Kamala Preparing for new admin launch<span
+                                                        class="badge bg-light text-muted float-end">7 Jan 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>28 mins
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md avatar-rounded">
+                                                    <img src="./assets/images/faces/6.jpg" alt="">
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Oisha Meeting with clinet for dinner<span
+                                                        class="badge bg-light text-muted float-end">10 Jan 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>14 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-danger avatar-rounded">
+                                                    CH
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Prepare for the new project<span
+                                                        class="badge bg-light text-muted float-end">3 Jan 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>2 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-info avatar-rounded">
+                                                    S
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Decide the live discussion<span
+                                                        class="badge bg-light text-muted float-end">17 Feb 2023</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>3 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md avatar-rounded">
+                                                    <img src="./assets/images/faces/14.jpg" alt="">
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Meeting at 3:00 pm<span
+                                                        class="badge bg-light text-muted float-end">29 Dec 2022</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>4 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-2">
+                                                <span class="avatar avatar-md bg-success avatar-rounded">
+                                                    RC
+                                                </span>
+                                            </div>
+                                            <div class="flex-fill">
+                                                <p class="fw-semibold mb-0">Prepare for presentation<span
+                                                        class="badge bg-light text-muted float-end">31 Dec 2022</span></p>
+                                                <span class="fs-12 text-muted"><i
+                                                        class="ri-time-line align-middle me-1 d-inline-block"></i>4 hrs
+                                                    ago</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+    
+                            <div class="text-end">
+    
+                            </div>
+                        </div>
+                    </ng-template>
+            </div>
+            <div class="card-footer d-none border-top-0">
+                <!-- Prism Code -->
+                <pre class="language-html"><code class="language-html">&lt;button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+data-bs-target="#offcanvasWithBothOptions"
+aria-controls="offcanvasWithBothOptions">Enable both scrolling &amp;
+backdrop&lt;/button&gt;
+&lt;div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1"
+id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel"&gt;
+&lt;div class="offcanvas-header border-bottom border-block-end-dashed"&gt;
+&lt;h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"&gt;Notifications&lt;/h5&gt;
+&lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+aria-label="Close"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="offcanvas-body p-0"&gt;
+-------
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                <!-- Prism Code -->
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-5">
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+                <div class="card-title">
+                    Placement
+                </div>
+                <div class="prism-toggle">
+                    <button class="btn btn-sm btn-primary-light" appShowCode>Show Code<i
+                            class="ri-code-line ms-2 d-inline-block align-middle"></i></button>
+                </div>
+            </div>
+            <div class="card-body">
+                <ng-template #content1 let-offcanvas>
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasTopLabel">Offcanvas top</h5>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="offcanvas.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        ...
+                    </div>
+                </ng-template>
+                &nbsp;<button class="btn btn-primary mb-1" type="button" (click)="openTop(content1)">Toggle top
+                    offcanvas</button> &nbsp;
+                <ng-template #content3 let-offcanvas>
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasTopLabel">Offcanvas top</h5>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="offcanvas.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        ...
+                    </div>
+                </ng-template>
+                <button class="btn btn-primary mb-1"   (click)="openRight(content)">Toggle Right
+                    position</button>&nbsp;
+                <ng-template #content2 let-offcanvas>
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasTopLabel">Offcanvas Bottom</h5>
+                        <button type="button" class="btn-close" aria-label="Close"
+                            (click)="offcanvas.dismiss('Cross click')"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        ...
+                    </div>
+                </ng-template>
+
+                <button class="btn btn-primary mb-1" type="button" (click)="openBottom(content2)">Toggle
+                    bottom
+                    offcanvas</button>
+
+            </div>
+            <div class="card-footer d-none border-top-0">
+                <!-- Prism Code -->
+                <pre class="language-html"><code class="language-html">&lt;button class="btn btn-primary mb-1" type="button" data-bs-toggle="offcanvas"
+data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"&gt;Toggle top
+offcanvas&lt;/button&gt;
+&lt;div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop"
+aria-labelledby="offcanvasTopLabel"&gt;
+&lt;div class="offcanvas-header"&gt;
+&lt;h5 class="offcanvas-title" id="offcanvasTopLabel"&gt;Offcanvas top&lt;/h5&gt;
+&lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+aria-label="Close"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="offcanvas-body"&gt;
+...
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;button class="btn btn-primary mb-1" type="button" data-bs-toggle="offcanvas"
+data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"&gt;Toggle right
+offcanvas&lt;/button&gt;
+&lt;div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+aria-labelledby="offcanvasRightLabel1"&gt;
+&lt;div class="offcanvas-header border-bottom border-block-end-dashed"&gt;
+&lt;h5 class="offcanvas-title" id="offcanvasRightLabel1"&gt;Notifications
+&lt;/h5&gt;
+&lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+aria-label="Close"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="offcanvas-body p-0"&gt;
+----------
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;button class="btn btn-primary mb-1" type="button" data-bs-toggle="offcanvas"
+data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"&gt;Toggle
+bottom
+offcanvas&lt;/button&gt;
+&lt;div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom"
+aria-labelledby="offcanvasBottomLabel"&gt;
+&lt;div class="offcanvas-header"&gt;
+&lt;h5 class="offcanvas-title" id="offcanvasBottomLabel"&gt;Offcanvas bottom
+&lt;/h5&gt;
+&lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+aria-label="Close"&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;div class="offcanvas-body small"&gt;
+...
+&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                <!-- Prism Code -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End:: row-2 -->

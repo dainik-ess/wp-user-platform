@@ -1,0 +1,154 @@
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Basic Select2
+                </div>
+            </div>
+            <div class="card-body">
+                <ng-select [items]="simpleItems" [(ngModel)]="selectedSimpleItem">
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Multiple Select
+                </div>
+            </div>
+            <div class="card-body">
+                <ng-select [multiple]="true" [(ngModel)]="selectedCars">
+                    @for(car of cars;track $index){
+                        <ng-option [value]="car.id"   
+                            [disabled]="car.disabled">{{car.name}}</ng-option>
+                        <ng-option [value]="'custom'">Custom</ng-option>
+                    }
+                </ng-select>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Single Select With Placeholder
+                </div>
+            </div>
+            <div class="card-body">
+                <ng-select [items]="simpleItems1" [(ngModel)]="selectedSimpleItem1">
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Multiple Select With Placeholder
+                </div>
+            </div>
+            <div class="card-body">
+                <ng-select [multiple]="true" placeholder="Select cars" [(ngModel)]="selectedSimpleItem2">
+                    @for(car of cars;track $index){
+                    <ng-option [value]="car.id">{{car.name}}</ng-option>
+                    <ng-option [value]="'custom'">Custom</ng-option>
+                    }
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Templating
+                </div>
+            </div>
+            <div class="card-body">
+                <ng-select [items]="cities1" [(ngModel)]="selectedCity" bindLabel="name" bindValue="name">
+                    <ng-template ng-header-tmp>
+                        <input style="width: 100%; line-height: 24px" type="text"
+                        />
+                    </ng-template>
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" width="15" [src]="item.avatar" />
+                        {{ item.name }}
+                    </ng-template>
+                </ng-select>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Templating Selection
+                </div>
+            </div>
+            <div class="card-body">
+                <ng-select [items]="cities2" [(ngModel)]="selectedCity1" [maxSelectedItems]="2" bindLabel="name"
+                    bindValue="name">
+                    <ng-template ng-label-tmp let-item="item">
+                        <img height="15" width="15" [src]="item.avatar" />
+                        {{ item.name }}
+                    </ng-template>
+                    <input style="width: 100%; line-height: 24px" type="text" />
+                </ng-select>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--End::row-1 -->
+
+<!-- Start:: row-2 -->
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Max Selections Limiting
+                </div>
+            </div>
+            <div class="card-body">
+                <ng-select [multiple]="true" [maxSelectedItems]="2" [(ngModel)]="selectedCars2">
+                    @for(car of cars2;track $index){
+                    <ng-option  [value]="car.id"
+                        [disabled]="car.disabled">{{car.name}}</ng-option>
+                    }
+                    <ng-option [value]="'custom'">Custom</ng-option>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">
+                    Disabling a Select2 control
+                </div>
+            </div>
+            <div class="card-body vstack gap-3">
+                <ng-select [items]="simpleItems3" [(ngModel)]="selectedSimpleItem3" [disabled]="isCarsDisabled">
+                </ng-select>
+                <ng-select [multiple]="true" [(ngModel)]="selectedCars3" [disabled]="isCarsDisabled">
+                    @for(car of cars3;track $index){
+                    <ng-option  [value]="car.id">{{car.name}}</ng-option>
+                    }
+                    <ng-option [value]="'custom'">Custom</ng-option>
+                </ng-select>
+                <div>
+                    <button class="btn btn-primary" (click)="enable()">Enable</button> &nbsp;
+                    <button class="btn btn-primary" (click)="disable()">Disabled</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End:: row-2 -->

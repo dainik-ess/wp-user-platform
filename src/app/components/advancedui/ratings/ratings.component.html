@@ -1,0 +1,251 @@
+<!-- Start::row-1 -->
+<div class="row">
+  <div class="col-xxl-4 col-xl-6">
+    <div class="card custom-card">
+      <div class="card-header">
+        <div class="card-title">Basic Rater</div>
+      </div>
+      <div class="card-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between"
+        >
+          <p class="fs-14 mb-0">
+            Show Some <span class="text-danger">&#10084;</span> with rating :
+          </p>
+          <div id="rater-basic">
+            <ng-template #basicstar let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+            </ng-template>
+
+            <ngb-rating
+              [starTemplate]="basicstar"
+              [max]="5"
+              class="ng-rating"
+            ></ngb-rating>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xxl-4 col-xl-6">
+    <div class="card custom-card">
+      <div class="card-header">
+        <div class="card-title">Custom Star Template</div>
+      </div>
+      <div class="card-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between"
+        >
+          <p class="fs-14 mb-0">Dont forget to rate the product :</p>
+          <div id="rater-steps">
+            <ngb-rating class="ng-rating">
+              <ng-template let-fill="fill" let-index="index">
+                <span
+                  class="star"
+                  [class.filled]="fill === 100"
+                  [class.bad]="index < 3"
+                  >&#9733;</span
+                >
+              </ng-template>
+            </ngb-rating>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xxl-4 col-xl-12">
+    <div class="card custom-card">
+      <div class="card-header">
+        <div class="card-title">Custom messages</div>
+      </div>
+      <div class="card-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between"
+        >
+          <p class="fs-14 mb-0">Your rating is much appreciated👏 :</p>
+          <div id="custom-messages">
+            <ng-template #formstar let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+            </ng-template>
+            <ngb-rating
+              [starTemplate]="formstar"
+              [formControl]="ctrl"
+              class="rating-size"
+            ></ngb-rating>
+            <div class="form-text small">
+              @if (ctrl.valid) {
+                <div class="text-success">Thanks!</div>
+              } @else {
+                <div class="text-danger">Please rate us</div>
+              }
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="col-xxl-6 col-xl-6">
+    <div class="card custom-card">
+      <div class="card-header">
+        <div class="card-title">Events and readonly ratings</div>
+      </div>
+      <div class="card-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between"
+        >
+          <p class="fs-14 mb-0">Thanks for rating :</p>
+          <div id="stars-unlimited" class="d-flex gap-2 flex-wrap">
+            <ng-template #eventstar1 let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+              </span>
+            </ng-template>
+
+            <ngb-rating
+              [(rate)]="selected1"
+              (hover)="hovered1 = $event"
+              (leave)="hovered1 = 0"
+              [readonly]="readonly"
+              [starTemplate]="eventstar1"
+              [max]="5"
+              class="ng-rating"
+            ></ngb-rating>
+
+            <p class="mb-0">
+              Selected: <b>{{ selected1 }}</b>
+            </p>
+            <button
+              class="btn btn-sm btn-outline-{{
+                readonly ? 'danger' : 'success'
+              }}"
+              (click)="readonly = !readonly"
+            >
+              {{ readonly ? "readonly" : "editable" }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xxl-6 col-xl-6">
+    <div class="card custom-card">
+      <div class="card-header">
+        <div class="card-title">Custom decimal rating</div>
+      </div>
+      <div class="card-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between"
+        >
+          <p class="fs-14 mb-0">Thanks for rating :</p>
+          <div id="stars-busytext" class="d-flex gap-2 flex-wrap">
+            <ng-template #t let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="heartHalf" [style.width.%]="fill">&hearts;</span
+                >&hearts;
+              </span>
+            </ng-template>
+
+            <ngb-rating
+              [(rate)]="heartRate"
+              [starTemplate]="t"
+              [max]="5"
+              class="ng-rating"
+            ></ngb-rating>
+
+            <p class="mb-0">
+              Rate: <b>{{ heartRate }}</b>
+            </p>
+            <button
+              class="btn btn-sm btn-outline-primary me-2"
+              (click)="heartRate = 1.35"
+            >
+              1.35
+            </button>
+            <button
+              class="btn btn-sm btn-outline-primary me-2"
+              (click)="heartRate = 4.72"
+            >
+              4.72
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xxl-4 col-xl-6">
+    <div class="card custom-card">
+      <div class="card-header">
+        <div class="card-title">On hover event</div>
+      </div>
+      <div class="card-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between"
+        >
+          <p class="fs-14 mb-0">Please give your valuable rating :</p>
+          <div class="d-flex flex-wrap align-items-center">
+            <div id="stars-hover">
+              <ng-template #eventstar let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span
+                  >&#9733;
+                </span>
+              </ng-template>
+              <ngb-rating
+                [(rate)]="selected"
+                (hover)="hovered = $event"
+                (leave)="hovered = 0"
+                [readonly]="readonly"
+                [starTemplate]="eventstar"
+                [max]="5"
+                class="ng-rating"
+              ></ngb-rating>
+            </div>
+            <span class="live-rating badge bg-success-transparent ms-3">
+              Hovered: <b>{{ hovered }}</b>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xxl-4 col-xl-6">
+    <div class="card custom-card">
+      <div class="card-header">
+        <div class="card-title">Clear/reset rater</div>
+      </div>
+      <div class="card-body">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-between"
+        >
+          <p class="fs-14 mb-0">Thank You so much for your support :</p>
+          <div class="d-flex flex-wrap align-items-center">
+            <div id="rater-reset">
+              <ng-template #formstar1 let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span
+                  >&#9733;
+                </span>
+              </ng-template>
+              <ngb-rating
+                [starTemplate]="formstar1"
+                [formControl]="ctrl1"
+                class="rating-size"
+              ></ngb-rating>
+            </div>
+            <button
+              class="btn btn-icon btn-sm btn-danger-light ms-3"
+              (click)="ctrl1.setValue(null)"
+            >
+              <i class="ri-restart-line"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End::row-1 -->

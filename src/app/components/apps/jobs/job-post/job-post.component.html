@@ -1,0 +1,157 @@
+<!-- Start::row-1 -->
+<div class="row">
+  <div class="col-xxl-9 col-xl-8">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">
+          Post New Job
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row gy-4 mb-4">
+          <div class="col-xl-6">
+            <label for="job-title" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="job-title" placeholder="Job Title"
+              value="Web Developer">
+            </div>
+            <div class="col-xl-6">
+              <label class="form-label">Job Category</label>
+              <ng-select [items]="simpleItems" [(ngModel)]="selectedSimpleItem">
+              </ng-select>
+
+            </div>
+            <div class="col-xl-6">
+              <label class="form-label">Working Experience</label>
+              <ng-select [items]="simpleItems1" [(ngModel)]="selectedSimpleItem1">
+              </ng-select>
+            </div>
+            <div class="col-xl-6">
+              <label class="form-label">Job Type</label>
+              <ng-select [items]="simpleItems2" [(ngModel)]="selectedSimpleItem2">
+              </ng-select>
+            </div>
+            <div class="col-xl-6">
+              <label class="form-label">Priority</label>
+              <ng-select [items]="simpleItems3" [(ngModel)]="selectedSimpleItem3">
+              </ng-select>
+            </div>
+            <div class="col-xl-6">
+              <label class="form-label">Vacancies</label>
+              <ng-select [items]="simpleItems4" [(ngModel)]="selectedSimpleItem4">
+              </ng-select>
+            </div>
+            <div class="col-xl-6">
+              <label class="form-label">Salary</label>
+              <ng-select [items]="simpleItems5" [(ngModel)]="selectedSimpleItem5">
+              </ng-select>
+            </div>
+            <div class="col-xl-6">
+              <label for="skills" class="form-label">Skills :</label>
+              <ng-select [multiple]="true" [(ngModel)]="selectedCars">
+                @for (car of cars; track car) {
+                  <ng-option [value]="car.id" >{{car.name}}</ng-option>
+                }
+                <ng-option [value]="'custom'">Custom</ng-option>
+              </ng-select>
+            </div>
+            <div class="col-xl-6">
+              <label for="job-deadline" class="form-label">Job Deadline</label>
+              <input type="text" class="form-control"  id="job-deadline" placeholder="Job Deadline" name="dp" mwlFlatpickr
+                [(ngModel)]="basicDemoValue">
+              </div>
+              <div class="col-xl-6">
+                <label class="form-label">Gender Requirement</label>
+                <ng-select [items]="simpleItems6" [(ngModel)]="selectedSimpleItem6">
+                </ng-select>
+              </div>
+              <div class="col-xl-6">
+                <label for="language" class="form-label">Languages :</label>
+                <ng-select [multiple]="true" [(ngModel)]="selectedCars1">
+                  @for (car of cars1; track car) {
+                    <ng-option [value]="car.id" >{{car.name}}</ng-option>
+                  }
+                  <ng-option [value]="'custom'">Custom</ng-option>
+                </ng-select>
+              </div>
+              <div class="col-xl-6">
+                <label for="qualification" class="form-label">Qualification :</label>
+                <ng-select [multiple]="true" [(ngModel)]="selectedCars2">
+                  @for (car of cars2; track car) {
+                    <ng-option [value]="car.id" >{{car.name}}</ng-option>
+                  }
+                  <ng-option [value]="'custom'">Custom</ng-option>
+                </ng-select>
+              </div>
+              <div class="col-xl-12">
+                <label for="job-description" class="form-label">Job Description :</label>
+                <textarea class="form-control" id="job-description"
+                rows="4">Lorem ipsum dolor sit amet consectetur adipisicing elit. At sit impedit, officiis non minima saepe voluptates a magnam enim sequi porro veniam ea suscipit dolorum vel mollitia voluptate iste nemo!</textarea>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer text-end">
+            <a href="javascript:void(0);" class="btn btn-primary btn-wave waves-effect waves-light">
+              <i class="bi bi-plus-circle"></i> Post Job
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-3 col-xl-4">
+        <div class="card custom-card">
+          <div class="card-header">
+            <div class="card-title">Assign To Employer</div>
+          </div>
+          <div class="card-body">
+            <div class="col-xl-12">
+              <label class="form-label">Employer Name</label>
+              <!-- <select class="form-control" data-trigger name="Category-select">
+              <option value="Choice 1">Obligation Pvt.Ltd</option>
+              <option value="Choice 2">Voluptatem Pvt.Ltd</option>
+              <option value="Choice 3">BloomTech.Inc</option>
+              <option value="Choice 4">Spotech Technical Solutions</option>
+            </select> -->
+            <ng-select [items]="simpleItems7" [(ngModel)]="selectedSimpleItem7">
+            </ng-select>
+
+          </div>
+        </div>
+      </div>
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="card-title">Company Details</div>
+        </div>
+        <div class="card-body">
+          <div class="row gy-3">
+            <div class="col-xl-12">
+              <label for="Company-Name" class="form-label">Company Name</label>
+              <input type="text" class="form-control" id="Company-Name" placeholder="Company Name"
+                value="Obligation Pvt.Ltd">
+              </div>
+              <div class="col-xl-12">
+                <label for="Company-Website" class="form-label">Company Website</label>
+                <input type="text" class="form-control" id="Company-Website" placeholder="Company Website"
+                  value="http//www.obligationpvtltd.com">
+                </div>
+                <div class="col-xl-12">
+                  <label class="form-label">Country</label>
+                  <!-- <select class="form-control" data-trigger name="Country">
+                  <option value="Choice 2">India</option>
+                  <option value="Choice 3">USA</option>
+                  <option value="Choice 4">Germany</option>
+                  <option value="Choice 5">Spain</option>
+                  <option value="Choice 6">Urgentina</option>
+                </select> -->
+                <ng-select [items]="simpleItems8" [(ngModel)]="selectedSimpleItem8">
+                </ng-select>
+              </div>
+              <div class="col-xl-12">
+                <label for="Company-Address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="Company-Address" placeholder="Company Address"
+                  value="USA">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--End::row-1 -->

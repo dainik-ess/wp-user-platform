@@ -1,0 +1,499 @@
+
+<!-- Start:: row-4 -->
+<h6 class="fw-semibold mb-2">Choices:</h6>
+<div class="row">
+  <div class="col-xl-6">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card custom-card">
+          <div
+            class="card-header d-flex align-items-center justify-content-between"
+          >
+            <h6 class="card-title">Multiple Select</h6>
+          </div>
+          <div class="card-body">
+            <p class="fw-semibold mb-2">Default</p>
+            <ng-select
+              [multiple]="true"
+              [closeOnSelect]="false"
+              [searchable]="false"
+              bindLabel="month"
+              placeholder="Select month"
+              class=""
+            >
+              <ng-option value="Choice 1" selected>Choice 1</ng-option>
+              <ng-option value="Choice 2">Choice 4</ng-option>
+              <ng-option value="Choice 3">Choice 5</ng-option>
+              <ng-option value="Choice 4" disabled>Choice 6</ng-option>
+            </ng-select>
+
+            <p class="fw-semibold mb-2">With Remove Button</p>
+            <ng-select
+              class=""
+              [items]="accounts"
+              bindLabel="name"
+              groupBy="country"
+              [multiple]="true"
+              [hideSelected]="true"
+              [closeOnSelect]="false"
+              [selectableGroup]="true"
+              [compareWith]="hidecompareAccounts"
+              [(ngModel)]="hideselectedAccounts"
+            >
+              <ng-template ng-optgroup-tmp let-item="item">
+                {{ item.country || "Unnamed group" }}
+              </ng-template>
+            </ng-select>
+            <p class="fw-semibold mb-2">Option groups</p>
+            <ng-select
+              class=""
+              [items]="accounts"
+              bindLabel="name"
+              groupBy="country"
+              [multiple]="true"
+              [closeOnSelect]="false"
+              [selectableGroup]="true"
+              [selectableGroupAsModel]="false"
+              [compareWith]="compareAccounts"
+              [(ngModel)]="selectedAccounts"
+            >
+              <ng-template ng-optgroup-tmp let-item="item">
+                {{ item.country || "Unnamed group" }}
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <div class="card custom-card">
+          <div class="card-header">
+            <div class="card-title">Passing Through Options</div>
+          </div>
+          <div class="card-body">
+            <ng-select
+              class=""
+              placeholder="Type to Add"
+              [items]="companies"
+              [addTag]="addTagFn"
+              [hideSelected]="true"
+              [multiple]="true"
+              bindLabel="name"
+              [(ngModel)]="selectedCompanies"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <div class="card custom-card">
+          <div class="card-header">
+            <div class="card-title">
+              Options added via config with no search
+            </div>
+          </div>
+          <div class="card-body">
+            <ng-select
+              class=""
+              [items]="options"
+              [bindLabel]="'name'"
+              [bindValue]="'value'"
+              placeholder="Select an option"
+            ></ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="card custom-card">
+          <div
+            class="card-header d-flex align-items-center justify-content-between"
+          >
+            <h6 class="card-title">Single Select</h6>
+          </div>
+          <div class="card-body">
+            <p class="fw-semibold mb-2">Default</p>
+            <ng-select
+              placeholder="Select"
+              class=""
+              data-trigger
+              name="choices-single-default"
+              id="choices-single-default"
+            >
+              <ng-option value="">This is a placeholder</ng-option>
+              <ng-option value="Choice 1">Choice 1</ng-option>
+              <ng-option value="Choice 2">Choice 2</ng-option>
+              <ng-option value="Choice 3">Choice 3</ng-option>
+            </ng-select>
+            <p class="fw-semibold mb-2">Option groups</p>
+            <ng-select
+              placeholder="Choose a city"
+              class=""
+              data-trigger
+              name="choices-single-groups"
+              id="choices-single-groups"
+            >
+              <ng-option value="">Choose a city</ng-option>
+              <ng-option label="UK">
+                <ng-option value="London">London</ng-option>
+                <ng-option value="Manchester">Manchester</ng-option>
+                <ng-option value="Liverpool">Liverpool</ng-option>
+              </ng-option>
+              <ng-option label="FR">
+                <ng-option value="Paris">Paris</ng-option>
+                <ng-option value="Lyon">Lyon</ng-option>
+                <ng-option value="Marseille">Marseille</ng-option>
+              </ng-option>
+              <ng-option label="DE" disabled>
+                <ng-option value="Hamburg">Hamburg</ng-option>
+                <ng-option value="Munich">Munich</ng-option>
+                <ng-option value="Berlin">Berlin</ng-option>
+              </ng-option>
+              <ng-option label="US">
+                <ng-option value="New York">New York</ng-option>
+                <ng-option value="Washington" disabled>Washington</ng-option>
+                <ng-option value="Michigan">Michigan</ng-option>
+              </ng-option>
+              <ng-option label="SP">
+                <ng-option value="Madrid">Madrid</ng-option>
+                <ng-option value="Barcelona">Barcelona</ng-option>
+                <ng-option value="Malaga">Malaga</ng-option>
+              </ng-option>
+              <ng-option label="CA">
+                <ng-option value="Montreal">Montreal</ng-option>
+                <ng-option value="Toronto">Toronto</ng-option>
+                <ng-option value="Vancouver">Vancouver</ng-option>
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <div class="card custom-card">
+          <div class="card-header">
+            <div class="card-title">Email Address Only</div>
+          </div>
+          <div class="card-body">
+            <div>
+              <label for="emailInput" class="mb-2">Email Address:</label>
+              <input
+                class="form-control"
+                id="emailInput"
+                type="text"
+                placeholder="Email Address Only"
+                [(ngModel)]="email"
+                [formControl]="emailFormControl"
+              />  
+              @if(emailFormControl.hasError('email') && emailFormControl.touched){
+                  <div
+                    class="text-danger"
+                  >
+                    Only values matching specific conditions can be added
+                  </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12">
+        <div class="card custom-card">
+          <div class="card-header">
+            <div class="card-title">Passing Unique Values</div>
+          </div>
+          <div class="card-body">
+            <ng-select
+              [items]="[]"
+              class=""
+              placeholder="Type and Enter To Add"
+              [addTag]="true"
+              [multiple]="true"
+              [selectOnTab]="true"
+              [isOpen]="false"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End:: row-4 -->
+
+<!-- Start::row-1 -->
+<div class="row">
+  <div class="col-xl-4">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">Default Select</div>
+        <div class="prism-toggle">
+          <button class="btn btn-sm btn-primary-light" appShowCode>
+            Show Code<i
+              class="ri-code-line ms-2 d-inline-block align-middle"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ng-select
+          class=""
+          aria-label="Default select example"
+          placeholder="Default Select"
+        >
+          <ng-option selected>Open this select menu</ng-option>
+          <ng-option value="1">One</ng-option>
+          <ng-option value="2">Two</ng-option>
+          <ng-option value="3">Three</ng-option>
+        </ng-select>
+      </div>
+      <div class="card-footer d-none border-top-0">
+        <!-- Prism Code -->
+        <pre
+          class="language-html"
+        ><code class="language-html">&lt;select class="form-select" aria-label="Default select example"&gt;
+    &lt;option selected&gt;Open this select menu
+    &lt;/option&gt;
+    &lt;option value="1"&gt;One&lt;/option&gt;
+    &lt;option value="2"&gt;Two&lt;/option&gt;
+    &lt;option value="3"&gt;Three&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <!-- Prism Code -->
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">Disabled Select</div>
+        <div class="prism-toggle">
+          <button class="btn btn-sm btn-primary-light" appShowCode>
+            Show Code<i
+              class="ri-code-line ms-2 d-inline-block align-middle"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <select
+          class="form-select "
+          aria-label="Disabled select example"
+          disabled
+          placeholder="Disabled Select"
+        >
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="card-footer d-none border-top-0">
+        <!-- Prism Code -->
+        <pre
+          class="language-html"
+        ><code class="language-html">&lt;select class="form-select" aria-label="Disabled select example" disabled=""&gt;
+    &lt;option selected=""&gt;Open this select menu&lt;/option&gt;
+    &lt;option value="1"&gt;One&lt;/option&gt;
+    &lt;option value="2"&gt;Two&lt;/option&gt;
+    &lt;option value="3"&gt;Three&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <!-- Prism Code -->
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4">
+    <div class="card custom-card rounded-select">
+      <div class="card-header justify-content-between">
+        <div class="card-title">Rounded Select</div>
+        <div class="prism-toggle">
+          <button class="btn btn-sm btn-primary-light" appShowCode>
+            Show Code<i
+              class="ri-code-line ms-2 d-inline-block align-middle"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ng-select
+          class=" rounded-pill "
+          aria-label="Default select example"
+          placeholder="Rounded Select"
+        >
+          <ng-option selected>Open this select menu</ng-option>
+          <ng-option value="1">One</ng-option>
+          <ng-option value="2">Two</ng-option>
+          <ng-option value="3">Three</ng-option>
+        </ng-select>
+      </div>
+      <div class="card-footer d-none border-top-0">
+        <!-- Prism Code -->
+        <pre
+          class="language-html"
+        ><code class="language-html">&lt;select class="form-select rounded-pill" aria-label="Default select example"&gt;
+    &lt;option selected&gt;Open this select menu
+    &lt;/option&gt;
+    &lt;option value="1"&gt;One&lt;/option&gt;
+    &lt;option value="2"&gt;Two&lt;/option&gt;
+    &lt;option value="3"&gt;Three&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <!-- Prism Code -->
+      </div>
+    </div>
+  </div>
+</div>
+<!--End::row-1 -->
+
+<!-- Start:: row-2 -->
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">Multiple Attribute Select</div>
+        <div class="prism-toggle">
+          <button class="btn btn-sm btn-primary-light" appShowCode>
+            Show Code<i
+              class="ri-code-line ms-2 d-inline-block align-middle"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <select
+          class="form-select"
+          multiple=""
+          aria-label="multiple select example"
+        >
+          <option selected="">Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="card-footer d-none border-top-0">
+        <!-- Prism Code -->
+        <pre
+          class="language-html"
+        ><code class="language-html">&lt;select class="form-select" multiple="" aria-label="multiple select example"&gt;
+    &lt;option selected=""&gt;Open this select menu&lt;/option&gt;
+    &lt;option value="1"&gt;One&lt;/option&gt;
+    &lt;option value="2"&gt;Two&lt;/option&gt;
+    &lt;option value="3"&gt;Three&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <!-- Prism Code -->
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">Using Size Attribute</div>
+        <div class="prism-toggle">
+          <button class="btn btn-sm btn-primary-light" appShowCode>
+            Show Code<i
+              class="ri-code-line ms-2 d-inline-block align-middle"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <select class="form-select" size="4" aria-label="size 3 select example">
+          <option selected="">Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+          <option value="4">Four</option>
+          <option value="5">Five</option>
+        </select>
+      </div>
+      <div class="card-footer d-none border-top-0">
+        <!-- Prism Code -->
+        <pre
+          class="language-html"
+        ><code class="language-html">&lt;select class="form-select" size="4" aria-label="size 3 select example"&gt;
+    &lt;option selected=""&gt;Open this select menu&lt;/option&gt;
+    &lt;option value="1"&gt;One&lt;/option&gt;
+    &lt;option value="2"&gt;Two&lt;/option&gt;
+    &lt;option value="3"&gt;Three&lt;/option&gt;
+    &lt;option value="4"&gt;Four&lt;/option&gt;
+    &lt;option value="5"&gt;Five&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <!-- Prism Code -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End:: row-2 -->
+
+<!-- Start:: row-3 -->
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card custom-card">
+      <div class="card-header justify-content-between">
+        <div class="card-title">Select Sizes</div>
+        <div class="prism-toggle">
+          <button class="btn btn-sm btn-primary-light" appShowCode>
+            Show Code<i
+              class="ri-code-line ms-2 d-inline-block align-middle"
+            ></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <ng-select
+          placeholder="Open this select menu"
+          class="mb-3"
+          aria-label=".form-select-sm example"
+        >
+          <ng-option selected="">Open this select menu</ng-option>
+          <ng-option value="1">One</ng-option>
+          <ng-option value="2">Two</ng-option>
+          <ng-option value="3">Three</ng-option></ng-select
+        ><ng-select
+          placeholder="Open this select menu"
+          class="mb-3"
+          aria-label="Default select"
+        >
+          <ng-option selected>Open this select menu</ng-option>
+          <ng-option value="1">One</ng-option>
+          <ng-option value="2">Two</ng-option>
+          <ng-option value="3">Three</ng-option>
+        </ng-select>
+        <ng-select
+          placeholder="Open this select menu"
+          class=""
+          aria-label=".form-select-lg example"
+        >
+          <ng-option selected="">Open this select menu</ng-option>
+          <ng-option value="1">One</ng-option>
+          <ng-option value="2">Two</ng-option>
+          <ng-option value="3">Three</ng-option>
+        </ng-select>
+      </div>
+      <div class="card-footer d-none border-top-0">
+        <!-- Prism Code -->
+        <pre
+          class="language-html"
+        ><code class="language-html">&lt;select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example"&gt;
+    &lt;option selected=""&gt;Open this select menu&lt;/option&gt;
+    &lt;option value="1"&gt;One&lt;/option&gt;
+    &lt;option value="2"&gt;Two&lt;/option&gt;
+    &lt;option value="3"&gt;Three&lt;/option&gt;
+&lt;/select&gt;&lt;select class="form-select mb-3" aria-label="Default select"&gt;
+    &lt;option selected&gt;Open this select menu
+    &lt;/option&gt;
+    &lt;option value="1"&gt;One&lt;/option&gt;
+    &lt;option value="2"&gt;Two&lt;/option&gt;
+    &lt;option value="3"&gt;Three&lt;/option&gt;
+&lt;/select&gt;
+&lt;select class="form-select form-select-lg"
+    aria-label=".form-select-lg example"&gt;
+    &lt;option selected=""&gt;Open this select menu&lt;/option&gt;
+    &lt;option value="1"&gt;One&lt;/option&gt;
+    &lt;option value="2"&gt;Two&lt;/option&gt;
+    &lt;option value="3"&gt;Three&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+        <!-- Prism Code -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End:: row-3 -->

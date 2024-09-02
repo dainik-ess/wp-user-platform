@@ -1,0 +1,196 @@
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Basic Line Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="line-chart">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions.series || []" [chart]="chartOptions.chart"
+                            [xaxis]="chartOptions.xaxis" [dataLabels]="chartOptions.dataLabels"
+                            [grid]="chartOptions.grid" [stroke]="chartOptions.stroke"   [colors]="chartOptions.colors"
+                            [title]="chartOptions.title"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Line Chart With Data Labels</div>
+            </div>
+            <div class="card-body">
+                <!--The content below is only a placeholder and can be replaced.-->
+                <div id="chart">
+                    <apx-chart [series]="chartOptions1.series" [chart]="chartOptions1.chart"
+                        [xaxis]="chartOptions1.xaxis" [stroke]="chartOptions1.stroke" [colors]="chartOptions1.colors"
+                        [dataLabels]="chartOptions1.dataLabels" [legend]="chartOptions1.legend"
+                        [markers]="chartOptions1.markers" [grid]="chartOptions1.grid" [yaxis]="chartOptions1.yaxis"
+                        [title]="chartOptions1.title"></apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Zoomable Time Series</div>
+            </div>
+            <div class="card-body">
+                <div id="zoom-chart">
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions11.series" [chart]="chartOptions11.chart"
+                            [xaxis]="chartOptions11.xaxis" [dataLabels]="chartOptions11.dataLabels"  [colors]="chartOptions11.colors"
+                            [grid]="chartOptions11.grid" [stroke]="chartOptions11.stroke" [title]="chartOptions11.title"
+                            [labels]="chartOptions11.labels" [annotations]="chartOptions11.annotations"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Line With Annotations</div>
+            </div>
+            <div class="card-body">
+                <div id="annotation-chart">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                     <div id="chart">
+                        <apx-chart [series]="chartOptions2.series" [chart]="chartOptions2.chart"
+                            [xaxis]="chartOptions2.xaxis" [dataLabels]="chartOptions2.dataLabels"  [colors]="chartOptions2.colors"
+                            [grid]="chartOptions2.grid" [stroke]="chartOptions2.stroke" [title]="chartOptions2.title"
+                            [labels]="chartOptions2.labels" [annotations]="chartOptions2.annotations"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Brush Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="wrapper">
+                    <div id="chart-line">
+                        <apx-chart [series]="chartOptions3.series" [chart]="chartOptions3.chart"
+                            [xaxis]="chartOptions3.xaxis" [dataLabels]="chartOptions3.dataLabels"
+                            [colors]="chartOptions3.colors" [fill]="chartOptions3.fill" 
+                            [markers]="chartOptions3.markers" [stroke]="chartOptions3.stroke"></apx-chart>
+                    </div>
+                    <div id="chart-line2">
+                        <apx-chart [series]="chartOptions4.series" [chart]="chartOptions4.chart"
+                            [xaxis]="chartOptions4.xaxis" [colors]="chartOptions4.colors" [fill]="chartOptions4.fill"
+                            [yaxis]="chartOptions4.yaxis"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">StepLine Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="stepline-chart">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions5.series" [chart]="chartOptions5.chart"
+                            [markers]="chartOptions5.markers" [stroke]="chartOptions5.stroke"  [colors]="chartOptions5.colors"
+                            [dataLabels]="chartOptions5.dataLabels" [title]="chartOptions5.title"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Gradient Line Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="gradient-chart">
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions6.series" [chart]="chartOptions6.chart"
+                            [xaxis]="chartOptions6.xaxis" [dataLabels]="chartOptions6.dataLabels" [colors]="chartOptions6.colors"
+                            [grid]="chartOptions6.grid" [stroke]="chartOptions6.stroke" [title]="chartOptions6.title"
+                            [markers]="chartOptions6.markers" [yaxis]="chartOptions6.yaxis"
+                            [fill]="chartOptions6.fill"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Missing/Null Values Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="null-chart">
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions7.series" [chart]="chartOptions7.chart"
+                            [xaxis]="chartOptions7.xaxis" [stroke]="chartOptions7.stroke"  [colors]="chartOptions7.colors"
+                            [labels]="chartOptions7.labels" [title]="chartOptions7.title"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Dashed Line Chart</div>
+            </div>
+            <div class="card-body">
+                <div id="dashed-chart">
+                    <!--The content below is only a placeholder and can be replaced.-->
+                    <div id="chart">
+                        <apx-chart [series]="chartOptions9.series" [chart]="chartOptions9.chart"
+                            [xaxis]="chartOptions9.xaxis" [stroke]="chartOptions9.stroke"  [colors]="chartOptions9.colors"
+                            [tooltip]="chartOptions9.tooltip" [dataLabels]="chartOptions9.dataLabels"
+                            [legend]="chartOptions9.legend" [markers]="chartOptions9.markers"
+                            [grid]="chartOptions9.grid" [yaxis]="chartOptions9.yaxis"
+                            [title]="chartOptions9.title"></apx-chart>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card custom-card">
+            <div class="card-header">
+                <div class="card-title">Syncing Charts</div>
+            </div>
+            <div class="card-body">
+                <apx-chart [series]="chart1options.series" [chart]="chart1options.chart" [colors]="chart1options.colors"
+                    [yaxis]="chart1options.yaxis" [dataLabels]="commonOptions1.dataLabels" 
+                    [markers]="commonOptions1.markers" [stroke]="commonOptions1.stroke" [grid]="commonOptions1.grid"
+                    [xaxis]="commonOptions1.xaxis" [tooltip]="commonOptions1.tooltip"></apx-chart>
+                <apx-chart [series]="chart2options.series" [chart]="chart2options.chart" [colors]="chart2options.colors"
+                    [yaxis]="chart2options.yaxis" [dataLabels]="commonOptions1.dataLabels"
+                    [markers]="commonOptions1.markers" [stroke]="commonOptions1.stroke" [grid]="commonOptions1.grid"
+                    [xaxis]="commonOptions1.xaxis" [tooltip]="commonOptions1.tooltip"></apx-chart>
+                <apx-chart [series]="chart3options.series" [chart]="chart3options.chart" [colors]="chart3options.colors"
+                    [yaxis]="chart3options.yaxis" [dataLabels]="commonOptions1.dataLabels"
+                    [markers]="commonOptions1.markers" [stroke]="commonOptions1.stroke" [grid]="commonOptions1.grid"
+                    [xaxis]="commonOptions1.xaxis" [tooltip]="commonOptions1.tooltip"></apx-chart>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!--End::row-1 -->

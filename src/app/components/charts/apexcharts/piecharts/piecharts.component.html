@@ -1,0 +1,157 @@
+<!-- Start::row-1 -->
+<div class="row">
+    <div class="col-xl-6">
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="card-title">Basic Pie Chart</div>
+        </div>
+        <div class="card-body">
+          <div id="pie-basic">
+            <apx-chart
+              [series]="chartOptions.series"
+              [dataLabels]="chartOptions.dataLabels"
+              [legend]="chartOptions.legend"
+              [colors]="chartOptions.colors"
+              [chart]="chartOptions.chart"
+              [labels]="chartOptions.labels"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="card-title">Simple Donut Chart</div>
+        </div>
+        <div class="card-body">
+          <div id="donut-simple">
+            <apx-chart
+              [series]="chartOptions1.series"
+              [chart]="chartOptions1.chart"
+              [colors]="chartOptions1.colors"
+              [legend]="chartOptions1.legend"
+              [dataLabels]="chartOptions1.dataLabels"
+              [labels]="chartOptions1.labels"
+              [responsive]="chartOptions1.responsive"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="card-title">Updating Donut Chart</div>
+        </div>
+        <div class="card-body">
+          <div id="donut-update">
+            <apx-chart
+              [series]="chartOptions2.series"
+              [chart]="chartOptions2.chart"
+              [labels]="chartOptions2.labels"
+              [legend]="chartOptions2.legend"
+              [colors]="chartOptions2.colors"
+              [dataLabels]="chartOptions2.dataLabels"
+            ></apx-chart>
+          </div>
+          <div class="text-center mt-4">
+            <button class="btn btn-primary btn-sm me-1" id="randomize">
+              Randomize
+            </button>
+            <button class="btn btn-primary btn-sm me-1" id="add">Add</button>
+            <button class="btn btn-primary btn-sm me-1" id="remove">Remove</button>
+            <button class="btn btn-primary btn-sm me-1 my-1" id="reset">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="card-title">Monochrome Pie Chart</div>
+        </div>
+        <div class="card-body">
+          <div id="pie-monochrome">
+            <apx-chart
+              [series]="chartOptions3.series"
+              [chart]="chartOptions3.chart"
+              [labels]="chartOptions3.labels"
+              [colors]="chartOptions3.colors"
+              [title]="chartOptions3.title"
+              [theme]="chartOptions3.theme"
+              [legend]="chartOptions3.legend"
+              [responsive]="chartOptions3.responsive"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="card-title">Gradient Donut Chart</div>
+        </div>
+        <div class="card-body">
+          <div id="donut-gradient">
+            <apx-chart
+              [series]="chartOptions4.series"
+              [chart]="chartOptions4.chart"
+              [labels]="chartOptions4.labels"
+               [legend]="chartOptions4.legend"
+              [colors]="chartOptions4.colors"
+              [fill]="chartOptions4.fill"
+              [dataLabels]="chartOptions4.dataLabels"
+              [responsive]="chartOptions4.responsive"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="card-title">Donut Chart With Patterns</div>
+        </div>
+        <div class="card-body">
+          <div id="donut-pattern">
+            <apx-chart
+              [series]="chartOptions5.series"
+              [chart]="chartOptions5.chart"
+              [labels]="chartOptions5.labels"
+              [dataLabels]="chartOptions5.dataLabels"
+              [title]="chartOptions5.title"
+              [colors]="chartOptions5.colors"
+              [fill]="chartOptions5.fill"
+              [states]="chartOptions5.states"
+              [plotOptions]="chartOptions5.plotOptions"
+              [stroke]="chartOptions5.stroke"
+              [theme]="chartOptions5.theme"
+              [responsive]="chartOptions5.responsive"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-6">
+      <div class="card custom-card">
+        <div class="card-header">
+          <div class="card-title">Image Filled Pie Chart</div>
+        </div>
+        <div class="card-body">
+          <div id="pie-image">
+            <apx-chart
+              [series]="chartOptions6.series"
+              [chart]="chartOptions6.chart"
+              [labels]="chartOptions6.labels"
+              [responsive]="chartOptions6.responsive"
+              [fill]="chartOptions6.fill"
+              [legend]="chartOptions6.legend"
+              [dataLabels]="chartOptions6.dataLabels"
+            ></apx-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End::row-1 -->
