@@ -6,14 +6,38 @@
     <div class="header-content-left">
       <!-- Start::header-element -->
       <div class="header-element">
-        <div class="horizontal-logo">  
+        <div class="horizontal-logo">
           <a [routerLink]="['/crm']" class="header-logo">
-            <img src="./assets/images/brand-logos/desktop-logo.png" alt="logo" class="desktop-logo">
-            <img src="./assets/images/brand-logos/toggle-logo.png" alt="logo" class="toggle-logo">
-            <img src="./assets/images/brand-logos/desktop-dark.png" alt="logo" class="desktop-dark">
-            <img src="./assets/images/brand-logos/toggle-dark.png" alt="logo" class="toggle-dark">
-            <img src="./assets/images/brand-logos/desktop-white.png" alt="logo" class="desktop-white">
-            <img src="./assets/images/brand-logos/toggle-white.png" alt="logo" class="toggle-white">
+            <img
+              src="./assets/images/brand-logos/desktop-logo.png"
+              alt="logo"
+              class="desktop-logo"
+            />
+            <img
+              src="./assets/images/brand-logos/toggle-logo.png"
+              alt="logo"
+              class="toggle-logo"
+            />
+            <img
+              src="./assets/images/brand-logos/desktop-dark.png"
+              alt="logo"
+              class="desktop-dark"
+            />
+            <img
+              src="./assets/images/brand-logos/toggle-dark.png"
+              alt="logo"
+              class="toggle-dark"
+            />
+            <img
+              src="./assets/images/brand-logos/desktop-white.png"
+              alt="logo"
+              class="desktop-white"
+            />
+            <img
+              src="./assets/images/brand-logos/toggle-white.png"
+              alt="logo"
+              class="toggle-white"
+            />
           </a>
         </div>
       </div>
@@ -39,8 +63,7 @@
     <!-- Start::header-content-right -->
     <div class="header-content-right">
       <!-- Start::header-element -->
-      <div class="header-element header-search">
-        <!-- Start::header-link -->
+      <!-- <div class="header-element header-search">
         <a
           href="javascript:void(0);"
           class="header-link"
@@ -50,13 +73,11 @@
         >
           <i class="bx bx-search-alt-2 header-link-icon"></i>
         </a>
-        <!-- End::header-link -->
-      </div>
+      </div> -->
       <!-- End::header-element -->
 
       <!-- Start::header-element -->
-      <div ngbDropdown  placement="left" class="header-element country-selector">
-        <!-- Start::header-link|dropdown-toggle -->
+      <!-- <div ngbDropdown placement="left" class="header-element country-selector">
         <a
           ngbDropdownToggle
           href="javascript:void(0);"
@@ -70,7 +91,6 @@
             class="rounded-circle header-link-icon"
           />
         </a>
-        <!-- End::header-link|dropdown-toggle -->
         <ul
           ngbDropdownMenu
           class="main-header-dropdown dropdown-menu dropdown-menu-end cart-dropdown-menu"
@@ -149,7 +169,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </div> -->
       <!-- End::header-element -->
 
       <!-- Start::header-element -->
@@ -175,14 +195,13 @@
       <!-- End::header-element -->
 
       <!-- Start::header-element -->
-      <div
+      <!-- <div
         ngbDropdown
         placement="left"
         [autoClose]="'outside'"
         display="dynamic"
         class="header-element cart-dropdown"
       >
-        <!-- Start::header-link|dropdown-toggle -->
         <a
           tabindex="0"
           ngbDropdownToggle
@@ -199,8 +218,6 @@
             >{{ cartItemCount }}</span
           >
         </a>
-        <!-- End::header-link|dropdown-toggle -->
-        <!-- Start::main-header-dropdown -->
         <div
           ngbDropdownMenu
           aria-labelledby="navbarDropdown2"
@@ -456,13 +473,11 @@
             </div>
           </div>
         </div>
-        <!-- End::main-header-dropdown -->
-      </div>
+      </div> -->
       <!-- End::header-element -->
 
       <!-- Start::header-element -->
-      <div ngbDropdown [autoClose]="'outside'" class="header-element notifications-dropdown">
-        <!-- Start::header-link|dropdown-toggle -->
+      <!-- <div ngbDropdown [autoClose]="'outside'" class="header-element notifications-dropdown">
         <a
           ngbDropdownToggle
           href="javascript:void(0);"
@@ -479,8 +494,6 @@
             >{{ notificationCount }}</span
           >
         </a>
-        <!-- End::header-link|dropdown-toggle -->
-        <!-- Start::main-header-dropdown -->
         <div
           ngbDropdownMenu
           id="notificationitemclose"
@@ -690,13 +703,11 @@
             </div>
           </div>
         </div>
-        <!-- End::main-header-dropdown -->
-      </div>
+      </div> -->
       <!-- End::header-element -->
 
       <!-- Start::header-element -->
-      <div ngbDropdown class="header-element header-shortcuts-dropdown">
-        <!-- Start::header-link|dropdown-toggle -->
+      <!-- <div ngbDropdown class="header-element header-shortcuts-dropdown">
         <a
           ngbDropdownToggle
           href="javascript:void(0);"
@@ -708,8 +719,6 @@
         >
           <i class="bx bx-grid-alt header-link-icon"></i>
         </a>
-        <!-- End::header-link|dropdown-toggle -->
-        <!-- Start::main-header-dropdown -->
         <div
           ngbDropdownMenu
           class="main-header-dropdown header-shortcuts-dropdown dropdown-menu pb-0 dropdown-menu-end"
@@ -830,8 +839,7 @@
             </div>
           </div>
         </div>
-        <!-- End::main-header-dropdown -->
-      </div>
+      </div> -->
       <!-- End::header-element -->
 
       <!-- Start::header-element -->
@@ -898,7 +906,7 @@
               ><i class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a
             >
           </li>
-          <li>
+          <!-- <li>
             <a
               href="javascript:void(0)"
               ngbDropdownItem
@@ -907,8 +915,8 @@
               ><i class="ti ti-inbox fs-18 me-2 op-7"></i>Inbox
               <span class="badge bg-success-transparent ms-auto">25</span></a
             >
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <a
               ngbDropdownItem
               class="dropdown-item d-flex border-block-end"
@@ -916,8 +924,8 @@
               ><i class="ti ti-clipboard-check fs-18 me-2 op-7"></i>Task
               Manager</a
             >
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <a
               ngbDropdownItem
               class="dropdown-item d-flex"
@@ -925,16 +933,16 @@
               ><i class="ti ti-adjustments-horizontal fs-18 me-2 op-7"></i
               >Settings</a
             >
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <a
               ngbDropdownItem
               class="dropdown-item d-flex border-block-end"
               href="javascript:void(0);"
               ><i class="ti ti-wallet fs-18 me-2 op-7"></i>Bal: $7,12,950</a
             >
-          </li>
-          <li>
+          </li> -->
+          <!-- <li>
             <a
               href="javascript:void(0)"
               ngbDropdownItem
@@ -942,7 +950,7 @@
               href="javascript:void(0);"
               ><i class="ti ti-headset fs-18 me-2 op-7"></i>Support</a
             >
-          </li>
+          </li> -->
           <li>
             <a
               ngbDropdownItem
@@ -956,8 +964,7 @@
       <!-- End::header-element -->
 
       <!-- Start::header-element -->
-      <div class="header-element">
-        <!-- Start::header-link|switcher-icon -->
+      <!-- <div class="header-element">
         <a
           href="javascript:void(0);"
           class="header-link switcher-icon"
@@ -967,8 +974,7 @@
         >
           <i class="bx bx-cog header-link-icon"></i>
         </a>
-        <!-- End::header-link|switcher-icon -->
-      </div>
+      </div> -->
       <!-- End::header-element -->
     </div>
     <!-- End::header-content-right -->
@@ -982,8 +988,10 @@
       <a href="javascript:void(0);" class="input-group-text" id="Search-Grid"
         ><i class="fe fe-search header-link-icon fs-18"></i
       ></a>
-      <input [(ngModel)]="text"
-      [ngModelOptions]="{standalone: true}" (keyup)="Search(text)"
+      <input
+        [(ngModel)]="text"
+        [ngModelOptions]="{ standalone: true }"
+        (keyup)="Search(text)"
         type="search"
         class="form-control border-0 px-2"
         placeholder="Search"
@@ -992,7 +1000,7 @@
       <a href="javascript:void(0);" class="input-group-text" id="voice-search"
         ><i class="fe fe-mic header-link-icon"></i
       ></a>
-        <a
+      <a
         ngbDropdownToggle
         href="javascript:void(0);"
         class="btn btn-light btn-icon no-caret"
@@ -1001,17 +1009,26 @@
       >
         <i class="fe fe-more-vertical"></i>
       </a>
-       <div class="search-result p-absolute w-100 card border mt-1" *ngIf="menuItems?.length;">
-          <div class="card-header">
-            <h4 class="card-title me-2">Search result of "{{text}}" </h4> <small> limit dropdown 5 only</small>
-          </div>
-          <ul class="list-group text-break">
-            <li *ngFor="let menuItem of menuItems | slice:0:5" [routerLink]="menuItem?.path"
-              class="list-group-item header-list-group border-start-end-top-0 br-0" (click)="clearSearch()">
-              <i class="fa fa-angle-double-right me-2" aria-hidden="true"></i>{{menuItem?.title}}
-            </li>
-          </ul>
+      <div
+        class="search-result p-absolute w-100 card border mt-1"
+        *ngIf="menuItems?.length"
+      >
+        <div class="card-header">
+          <h4 class="card-title me-2">Search result of "{{ text }}"</h4>
+          <small> limit dropdown 5 only</small>
         </div>
+        <ul class="list-group text-break">
+          <li
+            *ngFor="let menuItem of menuItems | slice : 0 : 5"
+            [routerLink]="menuItem?.path"
+            class="list-group-item header-list-group border-start-end-top-0 br-0"
+            (click)="clearSearch()"
+          >
+            <i class="fa fa-angle-double-right me-2" aria-hidden="true"></i
+            >{{ menuItem?.title }}
+          </li>
+        </ul>
+      </div>
       <ul ngbDropdownMenu class="dropdown-menu">
         <li>
           <a
@@ -1085,9 +1102,7 @@
         id="badge5"
         class="p-2 border br-5 d-flex align-items-center text-muted mb-2 alert"
       >
-        <a href="javascript:void(0);"
-          ><span>Notifications</span></a
-        >
+        <a href="javascript:void(0);"><span>Notifications</span></a>
         <a
           class="ms-auto lh-1"
           href="javascript:void(0);"

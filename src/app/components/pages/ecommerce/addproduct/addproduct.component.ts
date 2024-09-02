@@ -19,17 +19,17 @@ import { SharedModule } from '../../../../shared/shared.module';
 })
 export class AddproductComponent {
 
-  basicDemoValue = '2017-01-01';
-  timePicker: Date | null = null;
+  // basicDemoValue = '2017-01-01';
+  // timePicker: Date | null = null;
 
-  files2: File[] = [];
-  OnSelect2(event: any) {
-    this.files2.push(...event.addedFiles);
-  }
+  // files2: File[] = [];
+  // OnSelect2(event: any) {
+  //   this.files2.push(...event.addedFiles);
+  // }
 
-  OnRemove2(event: any) {
-    this.files2.splice(this.files2.indexOf(event), 1);
-  }
+  // OnRemove2(event: any) {
+  //   this.files2.splice(this.files2.indexOf(event), 1);
+  // }
 
    //select 1
    selectedSimpleItem = 'Category';
@@ -55,21 +55,21 @@ export class AddproductComponent {
     'Extra Small','Small','Medium','Extra Large','Large'
    ];
    //select 4
-   selectedSimpleItem3 = 'select';
-   simpleItems3: any = [
-    'Armani','Lacoste','Puma','Spykar','Mufti','Arrabi'
-   ];
+  //  selectedSimpleItem3 = 'select';
+  //  simpleItems3: any = [
+  //   'Armani','Lacoste','Puma','Spykar','Mufti','Arrabi'
+  //  ];
    //select 5
    selectedSimpleItem4 = 'select';
    simpleItems4: any = [
     'White','Orange','Purple','Pink','Blue','Yellow'
    ];
    //select 6
-   selectedSimpleItem5 = 'select';
-   simpleItems5: any = [
-    'Published',
-    'Scheduled'
-   ];
+  //  selectedSimpleItem5 = 'select';
+  //  simpleItems5: any = [
+  //   'Published',
+  //   'Scheduled'
+  //  ];
     //select 8
   selectedSimpleItem6 = 'select';
   simpleItems6: any = [
@@ -77,41 +77,41 @@ export class AddproductComponent {
   ];
 
     //select 7
-  selectedCars = ['select'];
-  cars = [
-    { id: 1, name: 'Plain', disabled: true },
-    { id: 2, name: 'Relaxed' },
-    { id: 3, name: 'Washed' },
-    { id: 4, name: 'Solid' },
-  ];
+  // selectedCars = ['select'];
+  // cars = [
+  //   { id: 1, name: 'Plain', disabled: true },
+  //   { id: 2, name: 'Relaxed' },
+  //   { id: 3, name: 'Washed' },
+  //   { id: 4, name: 'Solid' },
+  // ];
 
-   htmlContent: string = '';
-  config: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: '15rem',
-    minHeight: '5rem',
-    placeholder: 'Enter text here...',
-    translate: 'no',
-    defaultParagraphSeparator: 'p',
-    defaultFontName: 'Arial',
-    toolbarHiddenButtons: [['bold']],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText',
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-  };
+  //  htmlContent: string = '';
+  // config: AngularEditorConfig = {
+  //   editable: true,
+  //   spellcheck: true,
+  //   height: '15rem',
+  //   minHeight: '5rem',
+  //   placeholder: 'Enter text here...',
+  //   translate: 'no',
+  //   defaultParagraphSeparator: 'p',
+  //   defaultFontName: 'Arial',
+  //   toolbarHiddenButtons: [['bold']],
+  //   customClasses: [
+  //     {
+  //       name: 'quote',
+  //       class: 'quote',
+  //     },
+  //     {
+  //       name: 'redText',
+  //       class: 'redText',
+  //     },
+  //     {
+  //       name: 'titleText',
+  //       class: 'titleText',
+  //       tag: 'h1',
+  //     },
+  //   ],
+  // };
 
   @ViewChild("myPond") myPond!: FilePondComponent;
 
