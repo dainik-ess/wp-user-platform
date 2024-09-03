@@ -13,6 +13,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { environment } from '../environments/environment';
 import { CustomService } from './shared/services/custom.serviec';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAuth } from './shared/provider/auth.provider';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +22,8 @@ export const appConfig: ApplicationConfig = {
     RouterOutlet,
     ColorPickerModule,
     AngularFireAuthModule,
+    provideHttpClient(),
+    provideAuth(),
     AngularFirestoreModule,
     AngularFireDatabaseModule,  
     AngularFireModule,

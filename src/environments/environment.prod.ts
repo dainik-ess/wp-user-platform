@@ -9,4 +9,5 @@ export const environment = {
     appId: '********************************',
     measurementId: '********************************',
   },
+  apiURL:'http://13.233.101.162:11011/api',
 };

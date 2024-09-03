@@ -40,8 +40,8 @@ export class LoginComponent {
   }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['spruko@admin.com', [Validators.required, Validators.email]],
-      password: ['sprukoadmin', Validators.required],
+      username: ['testuser@gmail.com', [Validators.required, Validators.email]],
+      password: ['User@123', Validators.required],
     });
 
   }
@@ -49,8 +49,8 @@ export class LoginComponent {
    databaseModule = this.firebaseService.getDatabase();
    authModule = this.firebaseService.getAuth();
   // firebase
-  email = 'spruko@admin.com';
-  password = 'sprukoadmin';
+  email = 'testuser@gmail.com';
+  password = 'User@123';
   errorMessage = ''; // validation _error handle
   _error: { name: string; message: string } = { name: '', message: '' }; // for firbase _error handle
 
@@ -65,23 +65,26 @@ export class LoginComponent {
     // this.disabled = "btn-loading"
     this.clearErrorMessage();
     if (this.validateForm(this.email, this.password)) {
-      this.authservice
-        .loginWithEmail(this.email, this.password)
-        .then(() => {
+      this.authservice.loginWithEmail(this.email, this.password).subscribe({
+        next: (res) => {
+          console.log('res: ', res);
           this.router.navigate(['/crm']);
-          console.clear();
-        
-        })
-        .catch((_error: any) => {
-          this._error = _error;
+          this.toastr.success('log in successful', 'ynex', {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        },
+        error: (_error: any) => {
+          console.log('_error: ', _error?.error);
+          if (_error?.error?.message) {
+            this.errorMessage = _error?.error?.message;
+          } else {
+            this.errorMessage = _error;
+          }
           this.router.navigate(['/']);
-        });
-        this.toastr.success('log in successful','ynex', {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-        });
+        },
+      });
     }
-
   }
 
   validateForm(email: string, password: string) {
