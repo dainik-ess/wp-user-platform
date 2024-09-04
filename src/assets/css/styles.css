@@ -18384,12 +18384,13 @@ code[class*=language-] {
 }
 
 .product-sizes {
-  width: 2rem;
-  height: 2rem;
+  width: auto;
+  height: auto;
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 3.125rem;
+  border-radius: 0.5rem;
   border: 1px solid var(--default-border);
   margin-inline-end: 0.5rem;
   font-size: 0.75rem;

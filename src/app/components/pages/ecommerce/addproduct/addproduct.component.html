@@ -73,7 +73,7 @@
                         <p class="fw-semibold mb-2 fs-14">Product Images :</p>
                         <file-pond #myPond [options]="pondOptions" class="multiple-filepond box-container flex-col"
                           [files]="pondFiles" (oninit)="pondHandleInit()" (onaddfile)="pondHandleAddFile($event)"
-                          (onactivatefile)="pondHandleActivateFile($event)"></file-pond>
+                          (onactivatefile)="pondHandleActivateFile($event)" (onremovefile)="pondRemoveFile($event)"></file-pond>
                       </div>
                       <label class="form-label op-5 mt-3">
                         Minimum 0f 6 images are need to be uploaded,make sure the

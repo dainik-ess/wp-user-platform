@@ -11,7 +11,8 @@ export class PageHeaderComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
-        this.routerEvents = event.url.split('/').filter(e => e != '');
+        const pathArray = event.url.split('/').filter(e => e != '');
+        this.routerEvents = pathArray.map(segment => segment.split('?')[0]);
       }
     })
   } 

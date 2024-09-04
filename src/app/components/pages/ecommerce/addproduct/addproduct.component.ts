@@ -144,18 +144,16 @@ export class AddproductComponent {
 
     // Check if pondFiles is defined and handle type conversion
     if (this.pondFiles) {
-      this.pondFiles.forEach((file) => {
-        // Extract the actual file if it is a FilePondInitialFile or similar
-        if (file instanceof File) {
-          formData.append('images', file);
-        } else if (file instanceof Blob) {
-          formData.append('images', file);
-        } else if (typeof file === 'object' && 'file' in file) {
-          const pondFile = file as { file: File };
-          formData.append('images', pondFile.file);
+      this.pondFiles.forEach((file: any) => {
+        if (file.file instanceof File) {
+          formData.append('images', file.file);
+        } else if (file.source && file.options?.type === 'remote') {
+          // Handle remote files as URLs
+          formData.append('images', file.source);
         }
       });
     }
+  
     formData.append(
       'productCategoryId',
       this.productForm.get('category')?.value ?? ''
@@ -194,7 +192,7 @@ export class AddproductComponent {
 
     const requestMethod = this.isEditData ? 'put' : 'post';
 
-    this._baseService[requestMethod](urlData, formData).subscribe({
+    this._baseService[requestMethod](urlData , formData).subscribe({
       next: (res: any) => {
         this.productForm.reset();
         this.router.navigateByUrl('pages/ecommerce/products');
@@ -208,13 +206,33 @@ export class AddproductComponent {
   }
 
   public pondHandleAddFile(event: any): void {
+    // Ensure pondFiles is defined
     if (this.pondFiles) {
+      // Push the new file to the pondFiles array
       this.pondFiles.push(event.file);
     }
   }
+  
 
   public pondHandleActivateFile(event: any): void {
     //
+  }
+
+  public pondRemoveFile(event: any): void {
+    // Ensure pondFiles is defined
+    if (this.pondFiles) {
+      const removedFile = event.file; // Get the removed file object
+      // Find the index of the removed file in the pondFiles array
+      const index = this.pondFiles.findIndex((file: any) => {
+        // Compare using source or id, depending on FilePond's file structure
+        return file.source === removedFile.source || file.file?.name === removedFile.file?.name;
+      });
+  
+      // If the file is found, remove it from the array
+      if (index > -1) {
+        this.pondFiles.splice(index, 1);
+      }
+    }
   }
 
   /*---------------------------------
@@ -276,5 +294,7 @@ export class AddproductComponent {
         type: 'remote', // This is important for displaying the image
       },
     }));
+
+    console.log(this.pondFiles,'POnd Files');
   }
 }

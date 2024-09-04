@@ -11,13 +11,21 @@ import { BaseService } from '../../../../shared/services/base.service';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { url } from '../../../../app.router';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [SharedModule, NgbModule, RouterModule, NgxSliderModule,ReactiveFormsModule,CommonModule,FormsModule],
+  imports: [
+    SharedModule,
+    NgbModule,
+    RouterModule,
+    NgxSliderModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+  ],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
   providers: [CurrencyPipe],
@@ -29,10 +37,9 @@ export class ProductsComponent implements OnInit {
   public isCollapsed3 = true;
 
   searchText: FormControl;
-  pageIndex: number = 0;
+  pageIndex: number = 1;
   pageSize: number = 5;
-  totalItems = 0; 
-
+  totalItems = 0;
 
   minValue: number = 100;
   maxValue: number = 400;
@@ -51,18 +58,16 @@ export class ProductsComponent implements OnInit {
     },
   };
 
-  productItems:any[] =[]
+  productItems: any[] = [];
   searchUpdater = new Subject<string>();
-  @ViewChild("filter", { static: false }) filter: any;
+  @ViewChild('filter', { static: false }) filter: any;
+  public categoryItems:any[]=[]
 
-  constructor(
-    private _baseService: BaseService,
-    private router:Router
-  ) {
+  constructor(private _baseService: BaseService, private router: Router) {
     this.searchUpdater
       .pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(() => this.dataInitializer());
-    this.searchText = new FormControl("");
+    this.searchText = new FormControl('');
   }
 
   ngOnInit(): void {
@@ -73,30 +78,30 @@ export class ProductsComponent implements OnInit {
   Public methods
   -----------------------------------*/
 
-  public deleteProduct(index:string){
+  public deleteProduct(index: string) {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger ms-2",
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger ms-2',
       },
       buttonsStyling: false,
     });
 
     swalWithBootstrapButtons
       .fire({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: "You won't be able to revert this!",
-        icon: "warning",
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
+        icon: 'warning',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
         showCancelButton: true,
       })
       .then((result) => {
         if (result.value) {
           swalWithBootstrapButtons.fire(
-            "Deleted!",
-            "Your file has been deleted.",
-            "success"
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
           );
 
           // API CALLING DELETE THE PRODUCT DATA
@@ -113,9 +118,9 @@ export class ProductsComponent implements OnInit {
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "Your imaginary file is safe :)",
-            "error"
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
           );
         }
       });
@@ -126,18 +131,26 @@ export class ProductsComponent implements OnInit {
     this.getAllProductList();
   }
 
-  public editProduct(data:any):void{
-    this.router.navigate(['/pages/ecommerce/addproduct'], { queryParams: { id: data._id } });
+  public editProduct(data: any): void {
+    this.router.navigate(['/pages/ecommerce/addproduct'], {
+      queryParams: { id: data._id },
+    });
   }
 
-    /**
+  public viewProduct(data: any): void {
+    this.router.navigate(['/pages/ecommerce/product-details'], {
+      queryParams: { id: data._id },
+    });
+  }
+
+  /**
    * input method for search the data
    * @param event set the event
    */
-    onSerach(event:any) {
-      this.searchText.setValue(event.target.value);
-      this.searchUpdater.next(this.filter.nativeElement.value);
-    }
+  onSerach(event: any) {
+    this.searchText.setValue(event.target.value);
+    this.searchUpdater.next(this.filter.nativeElement.value);
+  }
 
   /*---------------------------------
   Private methods
@@ -148,6 +161,21 @@ export class ProductsComponent implements OnInit {
    */
   private dataInitializer(): void {
     this.getAllProductList();
+    this.getAllCategory();
+  }
+
+  /***
+   * method for get all category list
+   */
+  private getAllCategory() {
+    this.categoryItems = [];
+
+    this._baseService.get(url.getCategory, {}).subscribe({
+      next: (response: any) => {
+        this.categoryItems = response.data;
+      },
+      error: (error: any) => {},
+    });
   }
 
   /***
@@ -155,8 +183,8 @@ export class ProductsComponent implements OnInit {
    */
   private getAllProductList() {
     // this.loader.showLoader();
-    const params:any = {
-      page: this.pageIndex + 1,
+    const params: any = {
+      page: this.pageIndex,
       perPage: this.pageSize,
     };
     if (this.searchText?.value) {
@@ -166,7 +194,7 @@ export class ProductsComponent implements OnInit {
       next: (response) => {
         if (response) {
           this.productItems = response.data;
-          this.totalItems  = response.data.length
+          this.totalItems = response.data.length;
         }
       },
       error: (error) => {
