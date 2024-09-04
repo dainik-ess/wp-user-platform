@@ -2,6 +2,8 @@ import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { SwitcherService } from '../../../shared/services/switcher.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Menu, NavService } from '../../services/nav.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 interface Item {
   id: number;
   name: string;
@@ -23,7 +25,9 @@ export class HeaderComponent {
     public SwitcherService: SwitcherService,
     private modalService: NgbModal,
     public renderer: Renderer2,
-    public NavServices: NavService
+    public NavServices: NavService,
+    private router:Router,
+    private _authService:AuthService
   ) {
     let html = this.elementRef.nativeElement.ownerDocument.documentElement;
     // if(html?.getAttribute('data-toggled') == 'detached-close'){
@@ -278,6 +282,11 @@ export class HeaderComponent {
     this.menuItems = [];
     this.SearchResultEmpty = false;
     return this.text, this.menuItems
+  }
+
+  logout(){
+    this._authService.singout();
+    this.router.navigate(['/auth/login']);
   }
   
 }
