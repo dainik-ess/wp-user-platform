@@ -5,26 +5,15 @@
             <div class="card-body p-0">
                 <nav class="navbar navbar-expand-xxl bg-white">
                     <div class="container-fluid">
-                        <button (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed3" class="navbar-toggler"
-                            type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed3"
-                            class="collapse navbar-collapse navbar-justified flex-wrap gap-2"
-                            id="navbarSupportedContent">
-                            <div class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search" #filter
-                                    (input)="onSerach($event)" [formControl]="searchText" aria-label="Search" />
-                            </div>
+                        <div class="navbar-justified  gap-2 custome-navbar">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-xxl-center">
-                                <li class="nav-item mb-xxl-0 mb-2 ms-xxl-0 ms-3">
+                                <li class="nav-item mb-xxl-0 me-xxl-0 me-3">
                                     <div class="btn-group d-xxl-flex d-block" ngbDropdown>
                                         <button class="btn btn-sm btn-primary-light" ngbDropdownToggle type="button"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             Sort By
                                         </button>
-                                        <ul class="dropdown-menu" ngbDropdownMenu>
+                                        <ul class="dropdown-menu position-absolute" ngbDropdownMenu>
                                             <li>
                                                 <a href="javascript:void(0)" ngbDropdownItem>Featured</a>
                                             </li>
@@ -44,6 +33,11 @@
                                     </div>
                                 </li>
                             </ul>
+                            <div class="d-flex w-100" role="search">
+                                <input class="form-control me-2" type="search" placeholder="Search" #filter
+                                    (input)="onSerach($event)" [formControl]="searchText" aria-label="Search" />
+                            </div>
+
                         </div>
                     </div>
                 </nav>
@@ -58,19 +52,23 @@
                     <div class="px-2 py-3 pb-0">
                         @for (category of categoryItems; track category;let i = $index) {
                         @if(i < 3){ <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="" [id]="category?._id" />
+                            <input class="form-check-input" type="checkbox" [value]="category._id" [id]="category?._id"
+                                (change)="checkCategoryValue(category._id)"
+                                [checked]="selectedCategoryId === category._id" />
                             <label class="form-check-label" for="electronics">
                                 {{ category.name }}
                             </label>
                     </div>
                     } }
-                    @if(categoryItems.length > 3){ 
+                    @if(categoryItems.length > 3){
 
                     <div class="collapse" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
                         @for (category of categoryItems; track category;let i = $index) {
-                        @if(i >= 3){ 
-                            <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" value="" [id]="category?._id" />
+                        @if(i >= 3){
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox"
+                                [checked]="selectedCategoryId === category._id" [value]="category._id"
+                                [id]="category?._id" (change)="checkCategoryValue(category._id)" />
                             <label class="form-check-label" for="electronics">
                                 {{ category.name }}
                             </label>
@@ -83,7 +81,7 @@
                         [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" role="button"
                         aria-expanded="false" aria-controls="category-more">
                         MORE</a>
-                }
+                    }
                 </div>
             </div>
 
@@ -91,7 +89,8 @@
                 <div class="px-2 py-3 pb-0">
                     <p class="fw-semibold mb-0 text-muted">PRICE RANGE</p>
                     <div class="" id="product-price-range">
-                        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+                        <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                            (valueChange)="onPriceRangeChange()"></ngx-slider>
                     </div>
                 </div>
             </div>

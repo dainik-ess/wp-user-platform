@@ -43,6 +43,7 @@ export class ProductsComponent implements OnInit {
 
   minValue: number = 100;
   maxValue: number = 400;
+  categoryCheckId: any;
   options: Options = {
     floor: 0,
     ceil: 500,
@@ -60,13 +61,22 @@ export class ProductsComponent implements OnInit {
 
   productItems: any[] = [];
   searchUpdater = new Subject<string>();
+  priceRangeUpdater = new Subject<{ min: number; max: number }>();
+  selectedCategories: string[] = []; // Array to keep track of selected category IDs
+
   @ViewChild('filter', { static: false }) filter: any;
-  public categoryItems:any[]=[]
+  public categoryItems: any[] = [];
+  selectedCategoryId: string | null = null; // This will hold the selected category's ID
 
   constructor(private _baseService: BaseService, private router: Router) {
     this.searchUpdater
       .pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(() => this.dataInitializer());
+
+    // Slider change handling with debounce
+    this.priceRangeUpdater
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((range) => this.getAllProductList(range.min, range.max));
     this.searchText = new FormControl('');
   }
 
@@ -143,6 +153,10 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  public onPriceRangeChange() {
+    this.priceRangeUpdater.next({ min: this.minValue, max: this.maxValue });
+  }
+
   /**
    * input method for search the data
    * @param event set the event
@@ -150,6 +164,11 @@ export class ProductsComponent implements OnInit {
   onSerach(event: any) {
     this.searchText.setValue(event.target.value);
     this.searchUpdater.next(this.filter.nativeElement.value);
+  }
+
+  public checkCategoryValue(categoryId: string) {
+    this.selectedCategoryId = this.selectedCategoryId === categoryId ? null : categoryId;
+    this.getAllProductList();
   }
 
   /*---------------------------------
@@ -181,14 +200,24 @@ export class ProductsComponent implements OnInit {
   /***
    * method for get all listing data
    */
-  private getAllProductList() {
+  private getAllProductList(minValue?: number, maxValue?: number) {
     // this.loader.showLoader();
     const params: any = {
       page: this.pageIndex,
       perPage: this.pageSize,
     };
+
     if (this.searchText?.value) {
       params['searchParam'] = this.searchText.value;
+    }
+    if (minValue) {
+      params['priceLow'] = minValue;
+    }
+    if (maxValue) {
+      params['priceHigh'] = maxValue;
+    }
+    if(this.selectedCategoryId){
+      params['categoryId'] = this.selectedCategoryId;
     }
     this._baseService.get(url.getProduct, params).subscribe({
       next: (response) => {

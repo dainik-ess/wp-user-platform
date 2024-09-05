@@ -143,16 +143,23 @@ export class AddproductComponent {
     const formData = new FormData();
 
     // Check if pondFiles is defined and handle type conversion
+    let tempArray:any = [];
     if (this.pondFiles) {
       this.pondFiles.forEach((file: any) => {
+        console.log('file: ', file);
+        
         if (file.file instanceof File) {
           formData.append('images', file.file);
         } else if (file.source && file.options?.type === 'remote') {
-          // Handle remote files as URLs
-          formData.append('images', file.source);
+          tempArray.push(file.source)
         }
       });
     }
+
+    if(tempArray.length > 0){
+      formData.append('mediaLinks', tempArray);
+    }
+
   
     formData.append(
       'productCategoryId',

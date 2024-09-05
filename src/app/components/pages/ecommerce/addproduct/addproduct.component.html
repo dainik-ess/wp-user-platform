@@ -23,17 +23,17 @@
                           [(ngModel)]="selectedSimpleItem" formControlName="category"></ng-select>
                       </div>
                       <div class="col-xl-6">
-                        <label class="form-label">Gender</label>
+                        <label class="form-label">GST</label>
                         <ng-select [items]="simpleItems1" [(ngModel)]="selectedSimpleItem1"
                           formControlName="gender"></ng-select>
                       </div>
                       <div class="col-xl-6">
-                        <label class="form-label">Size</label>
+                        <label class="form-label">Pack of Quantity</label>
                         <ng-select [items]="simpleItems2" [(ngModel)]="selectedSimpleItem2"
                           formControlName="size"></ng-select>
                       </div>
                       <div class="col-xl-6 color-selection">
-                        <label class="form-label">Colors</label>
+                        <label class="form-label">Selling Price</label>
                         <ng-select [items]="simpleItems4" [multiple]="true" [(ngModel)]="selectedSimpleItem4"
                           formControlName="colors"></ng-select>
                       </div>
@@ -53,21 +53,32 @@
                   <div class="card-body p-0">
                     <div class="row gy-4">
                       <div class="col-xl-4">
-                        <label class="form-label">Enter Cost</label>
-                        <input type="text" class="form-control" placeholder="Cost" formControlName="cost" />
+                        <label class="form-label">Our Cost</label>
+                        <input type="text" class="form-control" placeholder="Our Cost" formControlName="cost" />
                         <label class="form-label mt-1 fs-12 op-5 text-muted mb-0">
                           *Mention final price of the product
                         </label>
                       </div>
                       <div class="col-xl-4">
-                        <label class="form-label">Actual Price</label>
-                        <input type="text" class="form-control" placeholder="Actual Price"
+                        <label class="form-label">Bill Amount Up to</label>
+                        <input type="text" class="form-control" placeholder="Dealer Price"
                           formControlName="actualPrice" />
                       </div>
                       <div class="col-xl-4">
-                        <label class="form-label">Display Price</label>
-                        <input type="text" class="form-control" placeholder="Display Price"
+                        <label class="form-label">Discount</label>
+                        <input type="text" class="form-control" placeholder="Discount in %"
                           formControlName="displayPrice" />
+                      </div>
+                      <div class="col-xl-6">
+                        <label for="product-discount" class="form-label"
+                          >Item Weight</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="product-discount1"
+                          placeholder="Weight in gms"
+                        />
                       </div>
                       <div class="col-xl-12 product-documents-container">
                         <p class="fw-semibold mb-2 fs-14">Product Images :</p>
