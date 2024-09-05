@@ -113,12 +113,13 @@ export class AddproductComponent {
     this.productForm = this.fb.group({
       productName: ['', [Validators.required, Validators.maxLength(30)]],
       category: ['', Validators.required],
-      gender: ['', Validators.required],
-      size: ['', Validators.required],
-      colors: [[], Validators.required],
+      gst: ['', Validators.required],
+      packOfQuantity: ['', Validators.required],
+      cost: [[], Validators.required],
       description: ['', [Validators.required, Validators.maxLength(500)]],
-      cost: ['', Validators.required],
       actualPrice: ['', Validators.required],
+      weight: ['', Validators.required],
+      discount: ['', Validators.required],
       displayPrice: ['', Validators.required],
       availability: ['', Validators.required],
     });
@@ -157,7 +158,7 @@ export class AddproductComponent {
     }
 
     if(tempArray.length > 0){
-      formData.append('mediaLinks', tempArray);
+      formData.append('mediaLinks', JSON.stringify(tempArray));
     }
 
   
@@ -165,7 +166,7 @@ export class AddproductComponent {
       'productCategoryId',
       this.productForm.get('category')?.value ?? ''
     );
-    formData.append('gender', this.productForm.get('gender')?.value ?? '');
+    formData.append('gst', this.productForm.get('gst')?.value ?? '');
     formData.append(
       'productName',
       this.productForm.get('productName')?.value ?? ''
@@ -174,12 +175,16 @@ export class AddproductComponent {
       'description',
       this.productForm.get('description')?.value ?? ''
     );
-    formData.append('size', this.productForm.get('size')?.value ?? '');
-    formData.append('color', this.productForm.get('colors')?.value ?? '');
+    formData.append('packOfQuantity', this.productForm.get('packOfQuantity')?.value ?? '');
     formData.append('cost', this.productForm.get('cost')?.value ?? '');
+    formData.append('actualPrice', this.productForm.get('actualPrice')?.value ?? '');
     formData.append(
-      'actualPrice',
-      this.productForm.get('actualPrice')?.value ?? ''
+      'discount',
+      this.productForm.get('discount')?.value ?? ''
+    );
+    formData.append(
+      'weight',
+      this.productForm.get('weight')?.value ?? ''
     );
     formData.append(
       'displayPrice',
@@ -285,12 +290,13 @@ export class AddproductComponent {
     this.productForm.patchValue({
       productName: data.productName,
       category: data.productCategoryId._id,
-      gender: data.gender,
-      size: data.size,
-      colors: colorsArray,
-      description: data.description,
+      gst: data.gst,
+      packOfQuantity: data.packOfQuantity,
       cost: data.cost,
+      description: data.description,
       actualPrice: data.actualPrice,
+      weight: data.weight,
+      discount: data.discount,
       displayPrice: data.displayPrice,
       availability: data.availability,
     });

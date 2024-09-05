@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const isToken = this._authService.getToken();
 
-    if (isToken) this.router.navigate(['/crm']);
+    if (isToken) this.router.navigate(['/pages/ecommerce/products']);
     else this.router.navigate(['/']);
   }
 }

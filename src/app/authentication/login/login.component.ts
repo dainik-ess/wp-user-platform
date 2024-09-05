@@ -68,7 +68,7 @@ export class LoginComponent {
       this.authservice.loginWithEmail(this.email, this.password).subscribe({
         next: (res) => {
           console.log('res: ', res);
-          this.router.navigate(['/crm']);
+          this.router.navigate(['/pages/ecommerce/products']);
           this.toastr.success('log in successful', 'ynex', {
             timeOut: 3000,
             positionClass: 'toast-top-right',

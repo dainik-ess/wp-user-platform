@@ -10,37 +10,66 @@
                   <div class="card-body p-0">
                     <div class="row gy-3">
                       <div class="col-xl-12">
-                        <label for="product-name-add" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="product-name-add" placeholder="Name"
-                          formControlName="productName" />
-                        <label class="form-label mt-1 fs-12 op-5 text-muted mb-0">
+                        <label for="product-name-add" class="form-label"
+                          >Product Name</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="product-name-add"
+                          placeholder="Name"
+                          formControlName="productName"
+                        />
+                        <label
+                          class="form-label mt-1 fs-12 op-5 text-muted mb-0"
+                        >
                           *Product Name should not exceed 30 characters
                         </label>
                       </div>
                       <div class="col-xl-6">
                         <label class="form-label">Category</label>
-                        <ng-select [items]="categoryItems" bindLabel="name" bindValue="_id"
-                          [(ngModel)]="selectedSimpleItem" formControlName="category"></ng-select>
+                        <ng-select
+                          [items]="categoryItems"
+                          bindLabel="name"
+                          bindValue="_id"
+                          [(ngModel)]="selectedSimpleItem"
+                          formControlName="category"
+                        ></ng-select>
                       </div>
                       <div class="col-xl-6">
                         <label class="form-label">GST</label>
-                        <ng-select [items]="simpleItems1" [(ngModel)]="selectedSimpleItem1"
-                          formControlName="gender"></ng-select>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="gst"
+                        />
                       </div>
                       <div class="col-xl-6">
                         <label class="form-label">Pack of Quantity</label>
-                        <ng-select [items]="simpleItems2" [(ngModel)]="selectedSimpleItem2"
-                          formControlName="size"></ng-select>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="packOfQuantity"
+                        />
                       </div>
                       <div class="col-xl-6 color-selection">
                         <label class="form-label">Selling Price</label>
-                        <ng-select [items]="simpleItems4" [multiple]="true" [(ngModel)]="selectedSimpleItem4"
-                          formControlName="colors"></ng-select>
+                        <input
+                          type="text"
+                          class="form-control"
+                          formControlName="cost"
+                        />
                       </div>
                       <div class="col-xl-12">
                         <label class="form-label">Product Description</label>
-                        <textarea class="form-control" rows="2" formControlName="description"></textarea>
-                        <label class="form-label mt-1 fs-12 op-5 text-muted mb-0">
+                        <textarea
+                          class="form-control"
+                          rows="2"
+                          formControlName="description"
+                        ></textarea>
+                        <label
+                          class="form-label mt-1 fs-12 op-5 text-muted mb-0"
+                        >
                           *Description should not exceed 500 letters
                         </label>
                       </div>
@@ -54,20 +83,33 @@
                     <div class="row gy-4">
                       <div class="col-xl-4">
                         <label class="form-label">Our Cost</label>
-                        <input type="text" class="form-control" placeholder="Our Cost" formControlName="cost" />
-                        <label class="form-label mt-1 fs-12 op-5 text-muted mb-0">
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Actual Price"
+                          formControlName="actualPrice"
+                        />
+                        <!-- <label class="form-label mt-1 fs-12 op-5 text-muted mb-0">
                           *Mention final price of the product
-                        </label>
+                        </label> -->
                       </div>
                       <div class="col-xl-4">
                         <label class="form-label">Bill Amount Up to</label>
-                        <input type="text" class="form-control" placeholder="Dealer Price"
-                          formControlName="actualPrice" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder=" Dealer Price"
+                          formControlName="displayPrice"
+                        />
                       </div>
                       <div class="col-xl-4">
                         <label class="form-label">Discount</label>
-                        <input type="text" class="form-control" placeholder="Discount in %"
-                          formControlName="displayPrice" />
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="Discount in %"
+                          formControlName="discount"
+                        />
                       </div>
                       <div class="col-xl-6">
                         <label for="product-discount" class="form-label"
@@ -78,26 +120,37 @@
                           class="form-control"
                           id="product-discount1"
                           placeholder="Weight in gms"
+                          formControlName="weight"
                         />
                       </div>
                       <div class="col-xl-12 product-documents-container">
                         <p class="fw-semibold mb-2 fs-14">Product Images :</p>
-                        <file-pond #myPond [options]="pondOptions" class="multiple-filepond box-container flex-col"
-                          [files]="pondFiles" (oninit)="pondHandleInit()" (onaddfile)="pondHandleAddFile($event)"
-                          (onactivatefile)="pondHandleActivateFile($event)" (onremovefile)="pondRemoveFile($event)"></file-pond>
+                        <file-pond
+                          #myPond
+                          [options]="pondOptions"
+                          class="multiple-filepond box-container flex-col"
+                          [files]="pondFiles"
+                          (oninit)="pondHandleInit()"
+                          (onaddfile)="pondHandleAddFile($event)"
+                          (onactivatefile)="pondHandleActivateFile($event)"
+                          (onremovefile)="pondRemoveFile($event)"
+                        ></file-pond>
                       </div>
                       <label class="form-label op-5 mt-3">
-                        Minimum 0f 6 images are need to be uploaded,make sure the
-                        image size match the proper background size and all images
-                        should be uniformly maintained with width and height to
-                        the image container,image size should not exceed 2MB,once
-                        uploaded to change the image you need to wait minimum of
-                        24hrs.
+                        Minimum 0f 6 images are need to be uploaded,make sure
+                        the image size match the proper background size and all
+                        images should be uniformly maintained with width and
+                        height to the image container,image size should not
+                        exceed 2MB,once uploaded to change the image you need to
+                        wait minimum of 24hrs.
                       </label>
                       <div class="col-xl-12">
                         <label class="form-label">Availability</label>
-                        <ng-select [items]="simpleItems6" [(ngModel)]="selectedSimpleItem6"
-                          formControlName="availability"></ng-select>
+                        <ng-select
+                          [items]="simpleItems6"
+                          [(ngModel)]="selectedSimpleItem6"
+                          formControlName="availability"
+                        ></ng-select>
                       </div>
                     </div>
                   </div>
@@ -105,7 +158,9 @@
               </div>
             </div>
           </div>
-          <div class="px-4 py-3 border-top border-block-start-dashed d-sm-flex justify-content-end">
+          <div
+            class="px-4 py-3 border-top border-block-start-dashed d-sm-flex justify-content-end"
+          >
             @if(isEditData){
             <button class="btn btn-success-light m-1" type="submit">
               Save Product<i class="bi bi-download ms-2"></i>
@@ -115,7 +170,6 @@
               Add Product<i class="bi bi-plus-lg ms-2"></i>
             </button>
             }
-
           </div>
         </div>
       </div>
