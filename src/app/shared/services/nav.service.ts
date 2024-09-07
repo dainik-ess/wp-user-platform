@@ -162,6 +162,12 @@ export class NavService implements OnDestroy {
         }
       ],
     },
+    {
+      title: 'Connect Whatsapp',
+      icon: 'bx bx-whatsapp',
+      type: 'link',
+      path:'/pages/whatsapp-connect'
+    },
   ];
   items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
 }

@@ -1,0 +1,168 @@
+<div class="container-fluid">
+    <div class="row " *ngIf="!formComplete">
+        <div class="col-lg-12 ">
+            <div class="card shadow">
+                <div class="card-body form-card">
+                    <mat-horizontal-stepper [linear]="true" #stepper  [(selectedIndex)]="currentStepIndex">
+                        <!-- Step 1: Verify Token -->
+                        <mat-step label="Verify Token">
+                            <div class="container mx-auto mt-4">
+                                @if(businessDetailsForm.get('webhookVerifyToken')?.value){
+                                <h3 class="text-center mb-3" style="color: #007bff; font-weight: 700;"> Token Verified
+                                    Successfully!
+                                </h3>
+                                <p class="text-center mb-4" style="color: #6c757d;">
+                                    Your token has been verified. You may proceed to the next step.
+
+                                </p>
+                                } @else {
+
+                                <h3 class="text-center mb-3" style="color: #007bff; font-weight: 700;">Verify Your Token
+                                </h3>
+                                <p class="text-center mb-4" style="color: #6c757d;">
+                                    To proceed, please verify your token. Make sure you have the correct token before
+                                    clicking "Verify Token."
+                                </p>
+                                <div class="text-center">
+                                    <button class="btn btn-success btn-lg px-4 py-2" (click)="tokenVerify()">
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAATNJREFUSEu9Ve2xgjAQ3I2NaCdaydNK9FWiVvLoRBoh51weiUkE5BiVGX8F9+NusxAffvhhfCwiEJE1vP8BuQWwBtBCpOFq9VsLNhOIyBYifyPOW5A7km08NxEE5SK3DDwoz5zoUUvnNssIuu4Mct//OQFlIzuFM5FTHJfNgfeqXmcelELkEoF6d2cAupeGzu30JSuBVLMvSbzX3ShBcmclyB1ErkQi0eG/s4PJwcCCczOaGv2pet2BjeAFeJ1YW4qM4OjvQTMrpjPGUiQKzl3zSza5g5fg5IFkUjrWaYMpmgQnN7XKqcJ8IpgEz9Ixt4ULgncqH1yylF3zELlA+TDB46rHc23Ka+iWrILnjucpRemqJ/qQlIsFsH633EHXHfs6Hv1CWclMZWcFN5XdEvCvENwB5fO1GQWDYO0AAAAASUVORK5CYII=" />
+                                        Verify Token
+                                    </button>
+                                </div>
+                                }
+                            </div>
+                            <div class="text-end mt-3">
+                                <button class="btn btn-primary-light m-1" matStepperNext
+                                    [disabled]="!businessDetailsForm.get('webhookVerifyToken')?.value">Next</button>
+                            </div>
+                        </mat-step>
+
+                        <!-- Step 2: Business Detail -->
+                        <mat-step [stepControl]="businessDetailsForm" label="Business Detail">
+                            <form [formGroup]="businessDetailsForm" class="mt-4">
+                                <!-- Business Phone ID -->
+                                <div class="row mb-3">
+                                    <label class="col-md-3 form-label bold-normal">Business Phone ID <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-md-9">
+                                        <input matInput class="form-control" type="text"
+                                            formControlName="businessPhoneNumberId" />
+                                    </div>
+                                </div>
+
+                                <!-- Business Phone No. -->
+                                <div class="row mb-3">
+                                    <label class="col-md-3 form-label bold-normal">Business Phone No. <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-md-9">
+                                        <input matInput class="form-control" type="text"
+                                            formControlName="businessPhoneNumber" />
+                                    </div>
+                                </div>
+
+                                <!-- Whatsapp business account ID -->
+                                <div class="row mb-3">
+                                    <label class="col-md-3 form-label bold-normal">Whatsapp Business Account ID <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-md-9">
+                                        <input matInput class="form-control" type="text"
+                                            formControlName="whatsappBusinessAccountId" />
+                                    </div>
+                                </div>
+
+                                <!-- Verify Token -->
+                                <div class="row mb-3">
+                                    <label class="col-md-3 form-label bold-normal">Verify Token <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-md-9 position-relative">
+                                        <input matInput class="form-control pe-5" type="password"
+                                            formControlName="webhookVerifyToken" readonly #tokenInput />
+                                        <i class="fa fa-eye position-absolute end-0 top-50 translate-middle-y me-4 cursor-pointer"
+                                            (click)="toggleTokenVisibility(tokenInput)"
+                                            [ngClass]="{'fa-eye-slash': tokenVisible, 'fa-eye': !tokenVisible}"
+                                            style="cursor: pointer;"></i>
+                                    </div>
+                                </div>
+
+                                <!-- API access token -->
+                                <div class="row mb-3">
+                                    <label class="col-md-3 form-label bold-normal">API Access Token <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-md-9">
+                                        <input matInput class="form-control" type="text"
+                                            formControlName="whatsappApiAccessToken" />
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="btn btn-light m-1" matStepperPrevious>Previous</button>
+                                <button class="btn btn-primary-light m-1" (click)="verifyFinished()"
+                                    [disabled]="businessDetailsForm?.invalid">Finish</button>
+                            </div>
+                        </mat-step>
+
+                    </mat-horizontal-stepper>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" *ngIf="formComplete">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="card-title mb-4 text-center main-title">Business Details Form</h4>
+                    <div class="mb-3 row mt-5">
+                        <label for="example-text-input" class="col-md-2 col-form-label">Business Number</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text"
+                                [value]="businessDetailsForm.get('businessPhoneNumberId')?.value" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="example-search-input" class="col-md-2 col-form-label">Business Phone Number</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="search"
+                                [value]="businessDetailsForm.get('businessPhoneNumber')?.value"
+                                id="example-search-input" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="example-email-input" class="col-md-2 col-form-label">Business Account ID</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="email"
+                                [value]="businessDetailsForm.get('whatsappBusinessAccountId')?.value"
+                                id="example-email-input" disabled>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="example-url-input" class="col-md-2 col-form-label">Verify Token</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" type="text"
+                                [value]="businessDetailsForm.get('webhookVerifyToken')?.value" id="example-url-input"
+                                disabled></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="example-tel-input" class="col-md-2 col-form-label">Whatsapp Access Token</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text"
+                                [value]="businessDetailsForm.get('whatsappApiAccessToken')?.value"
+                                id="example-tel-input" disabled>
+                            <!-- <i class="mdi mdi-eye-off"></i> -->
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary float-end" (click)="editBusinessDetailForm()">Edit</button>
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div>
+</div>

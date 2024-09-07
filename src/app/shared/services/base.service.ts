@@ -48,6 +48,16 @@ put(url: string, data: any): Observable<any> {
                 // this.spinner.hide();
             }));
 }
+patch(url: string, data: any): Observable<any> {
+    // this.spinner.show();
+    return this.http
+        .patch(`${url}`, data)
+        .pipe(catchError(this.handleError),
+            finalize(() => {
+                // Hide the spinner when the request is complete (success or error)
+                // this.spinner.hide();
+            }));
+}
 delete(url: string): Observable<any> {
     // this.spinner.show();
     return this.http
