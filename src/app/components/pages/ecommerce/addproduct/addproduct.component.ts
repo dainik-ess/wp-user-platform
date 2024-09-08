@@ -144,24 +144,23 @@ export class AddproductComponent {
     const formData = new FormData();
 
     // Check if pondFiles is defined and handle type conversion
-    let tempArray:any = [];
+    let tempArray: any = [];
     if (this.pondFiles) {
       this.pondFiles.forEach((file: any) => {
         console.log('file: ', file);
-        
+
         if (file.file instanceof File) {
           formData.append('images', file.file);
         } else if (file.source && file.options?.type === 'remote') {
-          tempArray.push(file.source)
+          tempArray.push(file.source);
         }
       });
     }
 
-    if(tempArray.length > 0){
+    if (tempArray.length > 0) {
       formData.append('mediaLinks', JSON.stringify(tempArray));
     }
 
-  
     formData.append(
       'productCategoryId',
       this.productForm.get('category')?.value ?? ''
@@ -175,17 +174,17 @@ export class AddproductComponent {
       'description',
       this.productForm.get('description')?.value ?? ''
     );
-    formData.append('packOfQuantity', this.productForm.get('packOfQuantity')?.value ?? '');
+    formData.append(
+      'packOfQuantity',
+      this.productForm.get('packOfQuantity')?.value ?? ''
+    );
     formData.append('cost', this.productForm.get('cost')?.value ?? '');
-    formData.append('actualPrice', this.productForm.get('actualPrice')?.value ?? '');
     formData.append(
-      'discount',
-      this.productForm.get('discount')?.value ?? ''
+      'actualPrice',
+      this.productForm.get('actualPrice')?.value ?? ''
     );
-    formData.append(
-      'weight',
-      this.productForm.get('weight')?.value ?? ''
-    );
+    formData.append('discount', this.productForm.get('discount')?.value ?? '');
+    formData.append('weight', this.productForm.get('weight')?.value ?? '');
     formData.append(
       'displayPrice',
       this.productForm.get('displayPrice')?.value ?? ''
@@ -204,7 +203,7 @@ export class AddproductComponent {
 
     const requestMethod = this.isEditData ? 'put' : 'post';
 
-    this._baseService[requestMethod](urlData , formData).subscribe({
+    this._baseService[requestMethod](urlData, formData).subscribe({
       next: (res: any) => {
         this.productForm.reset();
         this.router.navigateByUrl('pages/ecommerce/products');
@@ -224,7 +223,6 @@ export class AddproductComponent {
       this.pondFiles.push(event.file);
     }
   }
-  
 
   public pondHandleActivateFile(event: any): void {
     //
@@ -237,15 +235,33 @@ export class AddproductComponent {
       // Find the index of the removed file in the pondFiles array
       const index = this.pondFiles.findIndex((file: any) => {
         // Compare using source or id, depending on FilePond's file structure
-        return file.source === removedFile.source || file.file?.name === removedFile.file?.name;
+        return (
+          file.source === removedFile.source ||
+          file.file?.name === removedFile.file?.name
+        );
       });
-  
+
       // If the file is found, remove it from the array
       if (index > -1) {
         this.pondFiles.splice(index, 1);
       }
     }
   }
+
+  addCustomUser = (category: any) => {
+    if (!category) return;
+    let params = {
+      name: category,
+    };
+    this._baseService.post(url.addCategory, params).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.getAllCategory();
+        }
+      },
+      error: (err: any) => {},
+    });
+  };
 
   /*---------------------------------
   Private  methods
@@ -308,6 +324,6 @@ export class AddproductComponent {
       },
     }));
 
-    console.log(this.pondFiles,'POnd Files');
+    console.log(this.pondFiles, 'POnd Files');
   }
 }
