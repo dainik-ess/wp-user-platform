@@ -168,6 +168,12 @@ export class NavService implements OnDestroy {
       type: 'link',
       path:'/pages/whatsapp-connect'
     },
+    {
+      title: 'Message & Replies',
+      icon: 'chat',
+      type: 'link',
+      path:'/pages/message-replies'
+    },
   ];
   items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
 }

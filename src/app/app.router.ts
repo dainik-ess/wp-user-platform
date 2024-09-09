@@ -17,5 +17,9 @@ export const url = {
 
   addProduct:environment.apiURL + '/meta/chatbot/whatsapp-product/add-whatsapp-product-images',
   editProduct:environment.apiURL + '/meta/chatbot/whatsapp-product/update-whatsapp-product/',
-  getSingleProduct: environment.apiURL + '/meta/chatbot/whatsapp-product/get-single-whatsapp-product-image/'
+  getSingleProduct: environment.apiURL + '/meta/chatbot/whatsapp-product/get-single-whatsapp-product-image/',
+
+  getMessageReplies : environment.apiURL + '/meta/chatbot/message-and-reply/get-all-message-and-reply',
+  saveMessageReplies : environment.apiURL + '/meta/chatbot/message-and-reply/create-message-and-reply'
+
 };

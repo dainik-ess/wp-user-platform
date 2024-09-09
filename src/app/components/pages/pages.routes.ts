@@ -108,6 +108,12 @@ export const admin: Routes = [
         loadComponent:() =>
           import('./whats-app-connect/whats-app-connect.component').then((m) => m.WhatsAppConnectComponent),
         title: 'YNEX - WhatsApp Connect',
+      },
+      {
+        path:'message-replies',
+        loadComponent:() =>
+          import('./message-replies/message-replies.component').then((m) => m.MessageRepliesComponent),
+        title: 'YNEX - Message & Replies',
       }
     ],
   },
