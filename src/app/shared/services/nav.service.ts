@@ -174,6 +174,12 @@ export class NavService implements OnDestroy {
       type: 'link',
       path:'/pages/message-replies'
     },
+    {
+      title: 'Chatflow',
+      icon: 'chat',
+      type: 'link',
+      path:'/pages/chat'
+    },
   ];
   items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
 }
