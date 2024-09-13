@@ -35,7 +35,13 @@
                           bindValue="_id"
                           [(ngModel)]="selectedSimpleItem"
                           formControlName="category"
-                        ></ng-select>
+                          id="ng-select-dropdown"
+                        >
+                        <ng-template ng-option-tmp let-item="item">
+                          {{ item.name }}
+                          <i class="bi bi-x-lg remove-icon" (click)="onRemove(item._id, $event)" ngbTooltip="Remove category"></i>
+                        </ng-template>
+                      </ng-select>
                       </div>
                       <div class="col-xl-6">
                         <label class="form-label">GST</label>

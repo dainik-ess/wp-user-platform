@@ -1,6 +1,6 @@
 import { Time } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -111,6 +111,7 @@ export class AddproductComponent {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastService,
+    private cd:ChangeDetectorRef
   ) {
     this.productForm = this.fb.group({
       productName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -283,8 +284,13 @@ export class AddproductComponent {
     });
   };
 
-  onRemove(item: any) {
-    console.log('item: ', item);  
+  onRemove(categoryId: string,e:Event) {
+    e.stopPropagation();
+    let id = this.categoryItems.findIndex((res:any)=>{
+      return res._id === categoryId
+    })
+    this.categoryItems.splice(id,1);
+    this.categoryItems = [...this.categoryItems]; // Reassign to trigger change detection
   }
 
   /*---------------------------------
