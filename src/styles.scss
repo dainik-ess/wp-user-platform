@@ -79,3 +79,40 @@
   // .slide.has-sub.open>.side-menu__item .side-menu__angle {
   //    transform: rotate(90deg);
   //  }
+
+
+  
+// for error toast message
+.error-style.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: rgb(254 202 202) !important;
+}
+.error-style.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  color: rgb(185 28 28) !important;
+}
+.error-style.mat-mdc-snack-bar-container .mdc-button__label {
+  color: rgb(185 28 28) !important;
+}
+
+// for success toast message
+.success-style.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: rgb(187 247 208) !important;
+  border-color: rgb(21 128 61);
+}
+.success-style.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  color: rgb(21 128 61) !important;
+}
+.success-style.mat-mdc-snack-bar-container .mdc-button__label {
+  color: rgb(21 128 61) !important;
+}
+
+// for warning toast message
+.warning-style.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: rgb(254 243 199) !important;
+  border-color: rgb(245 158 11);
+}
+.warning-style.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  color: rgb(245 158 11) !important;
+}
+.warning-style.mat-mdc-snack-bar-container .mdc-button__label {
+  color: rgb(245 158 11) !important;
+}

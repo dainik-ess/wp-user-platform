@@ -21,6 +21,7 @@ import { Validators } from 'ngx-editor';
 import { BaseService } from '../../../../shared/services/base.service';
 import { url } from '../../../../app.router';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-addproduct',
@@ -108,7 +109,8 @@ export class AddproductComponent {
     private fb: FormBuilder,
     private _baseService: BaseService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastService,
   ) {
     this.productForm = this.fb.group({
       productName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -207,8 +209,17 @@ export class AddproductComponent {
       next: (res: any) => {
         this.productForm.reset();
         this.router.navigateByUrl('pages/ecommerce/products');
+        this.toastr.showToastMessage(
+          res.message,
+          'success-style'
+        );
       },
-      error: (err: any) => {},
+      error: (err: any) => {
+        this.toastr.showToastMessage(
+          err,
+          'error-style'
+        )
+      },
     });
   }
 
@@ -257,11 +268,24 @@ export class AddproductComponent {
       next: (res: any) => {
         if (res) {
           this.getAllCategory();
+          this.toastr.showToastMessage(
+            res.message,
+            'success-style'
+          );
         }
       },
-      error: (err: any) => {},
+      error: (err: any) => {
+        this.toastr.showToastMessage(
+          err,
+          'error-style'
+        )
+      },
     });
   };
+
+  onRemove(item: any) {
+    console.log('item: ', item);  
+  }
 
   /*---------------------------------
   Private  methods
@@ -283,8 +307,17 @@ export class AddproductComponent {
     this._baseService.get(url.getCategory, {}).subscribe({
       next: (response: any) => {
         this.categoryItems = response.data;
+        this.toastr.showToastMessage(
+          response.message,
+          'success-style'
+        );
       },
-      error: (error: any) => {},
+      error: (error: any) => {
+        this.toastr.showToastMessage(
+          error,
+          'error-style'
+        )
+      },
     });
   }
 
@@ -294,9 +327,18 @@ export class AddproductComponent {
         if (response?.status) {
           this.isEditData = response?.data?._id;
           this.setValue(response?.data);
+          this.toastr.showToastMessage(
+            response.message,
+            'success-style'
+          );
         }
       },
-      error: (error: any) => {},
+      error: (error: any) => {
+        this.toastr.showToastMessage(
+          error,
+          'error-style'
+        )
+      },
     });
   }
 
@@ -323,7 +365,5 @@ export class AddproductComponent {
         type: 'remote', // This is important for displaying the image
       },
     }));
-
-    console.log(this.pondFiles, 'POnd Files');
   }
 }
