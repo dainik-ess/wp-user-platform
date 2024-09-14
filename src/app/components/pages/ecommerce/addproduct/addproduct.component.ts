@@ -313,10 +313,6 @@ export class AddproductComponent {
     this._baseService.get(url.getCategory, {}).subscribe({
       next: (response: any) => {
         this.categoryItems = response.data;
-        this.toastr.showToastMessage(
-          response.message,
-          'success-style'
-        );
       },
       error: (error: any) => {
         this.toastr.showToastMessage(
