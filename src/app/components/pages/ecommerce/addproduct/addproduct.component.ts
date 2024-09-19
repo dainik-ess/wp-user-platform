@@ -22,6 +22,7 @@ import { BaseService } from '../../../../shared/services/base.service';
 import { url } from '../../../../app.router';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { LoaderService } from '../../../../shared/services/loader.service';
 
 @Component({
   selector: 'app-addproduct',
@@ -111,7 +112,8 @@ export class AddproductComponent {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastService,
-    private cd:ChangeDetectorRef
+    private cd:ChangeDetectorRef,
+    private loader: LoaderService,
   ) {
     this.productForm = this.fb.group({
       productName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -206,6 +208,8 @@ export class AddproductComponent {
 
     const requestMethod = this.isEditData ? 'put' : 'post';
 
+    this.loader.hideLoader();
+
     this._baseService[requestMethod](urlData, formData).subscribe({
       next: (res: any) => {
         this.productForm.reset();
@@ -221,6 +225,9 @@ export class AddproductComponent {
           'error-style'
         )
       },
+      complete:() => {
+        this.loader.hideLoader();
+      }
     });
   }
 
@@ -262,6 +269,8 @@ export class AddproductComponent {
 
   addCustomUser = (category: any) => {
     if (!category) return;
+    this.loader.showLoader();
+
     let params = {
       name: category,
     };
@@ -281,6 +290,9 @@ export class AddproductComponent {
           'error-style'
         )
       },
+      complete:() => {
+        this.loader.hideLoader();
+      }
     });
   };
 
@@ -309,6 +321,7 @@ export class AddproductComponent {
    */
   private getAllCategory() {
     this.categoryItems = [];
+    this.loader.showLoader();
 
     this._baseService.get(url.getCategory, {}).subscribe({
       next: (response: any) => {
@@ -320,10 +333,15 @@ export class AddproductComponent {
           'error-style'
         )
       },
+      complete:() => {
+        this.loader.hideLoader();
+      }
     });
   }
 
   private getSingleProduct(id: string) {
+    this.loader.showLoader();
+
     this._baseService.get(url.getSingleProduct + id, {}).subscribe({
       next: (response: any) => {
         if (response?.status) {
@@ -341,6 +359,9 @@ export class AddproductComponent {
           'error-style'
         )
       },
+      complete:() => {
+        this.loader.hideLoader();
+      }
     });
   }
 

@@ -11,6 +11,7 @@ import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import Swal from 'sweetalert2';
 import { BaseService } from '../../../shared/services/base.service';
 import { url } from '../../../app.router';
+import { ToastService } from '../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-whats-app-connect',
@@ -25,10 +26,14 @@ export class WhatsAppConnectComponent {
   public currentStepIndex: number = 0;
   public businessDetailsValue: any;
   public tokenVisible: boolean = false;
-  public isFormEdit:boolean = false;
+  public isFormEdit: boolean = false;
   @ViewChild('stepper') stepper!: MatStepper;
 
-  constructor(private fb: FormBuilder, private _baseService: BaseService) {
+  constructor(
+    private fb: FormBuilder,
+    private _baseService: BaseService,
+    private toastr: ToastService
+  ) {
     this.businessDetailsForm = this.fb.group({
       businessPhoneNumberId: [
         '',
@@ -84,17 +89,30 @@ export class WhatsAppConnectComponent {
     this._baseService.get(url.getToken, {}).subscribe({
       next: (response) => {
         console.log('response: ', response?.data);
-        if(response){
-          this.businessDetailsForm.get('businessPhoneNumberId')?.setValue(response?.data?.businessPhoneNumberId);
-          this.businessDetailsForm.get('businessPhoneNumber')?.setValue(response?.data?.businessPhoneNumber);
-          this.businessDetailsForm.get('whatsappBusinessAccountId')?.setValue(response?.data?.whatsappBusinessAccountId);
-          this.businessDetailsForm.get('webhookVerifyToken')?.setValue(response?.data?.webhookVerifyToken);
-          this.businessDetailsForm.get('whatsappApiAccessToken')?.setValue(response?.data?.whatsappApiAccessToken);
+        if (response) {
+          this.businessDetailsForm
+            .get('businessPhoneNumberId')
+            ?.setValue(response?.data?.businessPhoneNumberId);
+          this.businessDetailsForm
+            .get('businessPhoneNumber')
+            ?.setValue(response?.data?.businessPhoneNumber);
+          this.businessDetailsForm
+            .get('whatsappBusinessAccountId')
+            ?.setValue(response?.data?.whatsappBusinessAccountId);
+          this.businessDetailsForm
+            .get('webhookVerifyToken')
+            ?.setValue(response?.data?.webhookVerifyToken);
+          this.businessDetailsForm
+            .get('whatsappApiAccessToken')
+            ?.setValue(response?.data?.whatsappApiAccessToken);
           this.formComplete = true;
         }
       },
-      error: (error) => {
-        console.error(error);
+      error: (err) => {
+        this.toastr.showToastMessage(
+          err,
+          'error-style'
+        )
       },
     });
   }
@@ -106,7 +124,7 @@ export class WhatsAppConnectComponent {
     this.businessDetailsForm.reset();
     this.businessDetailsValue = this.businessDetailsForm?.value;
     this.formComplete = true;
-    this.isFormEdit = false
+    this.isFormEdit = false;
   }
 
   /*---------------------------------
@@ -116,37 +134,49 @@ export class WhatsAppConnectComponent {
   verifyFinished() {
     if (this.businessDetailsForm?.invalid) return;
 
-    const urlData = this.isFormEdit ? url.updateBusinessDetails : url.addBusinessDetails;
-    
+    const urlData = this.isFormEdit
+      ? url.updateBusinessDetails
+      : url.addBusinessDetails;
+
     if (this.isFormEdit) {
-      this._baseService.patch(urlData, this.businessDetailsForm?.value).subscribe({
-        next: (response) => {
-          if (response) {
-            this.resetForms();
-            this.getToken();
-          }
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+      this._baseService
+        .patch(urlData, this.businessDetailsForm?.value)
+        .subscribe({
+          next: (response) => {
+            if (response) {
+              this.resetForms();
+              this.getToken();
+            }
+          },
+          error: (err) => {
+            this.toastr.showToastMessage(
+              err,
+              'error-style'
+            )
+          },
+        });
     } else {
-      this._baseService.post(urlData, this.businessDetailsForm?.value).subscribe({
-        next: (response) => {
-          if (response) {
-            this.resetForms();
-            this.getToken();
-          }
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+      this._baseService
+        .post(urlData, this.businessDetailsForm?.value)
+        .subscribe({
+          next: (response) => {
+            if (response) {
+              this.resetForms();
+              this.getToken();
+            }
+          },
+          error: (err) => {
+            this.toastr.showToastMessage(
+              err,
+              'error-style'
+            )
+          },
+        });
     }
   }
 
   editBusinessDetailForm() {
-    this.isFormEdit = true
+    this.isFormEdit = true;
     this.formComplete = false;
     this.currentStepIndex = 1;
   }

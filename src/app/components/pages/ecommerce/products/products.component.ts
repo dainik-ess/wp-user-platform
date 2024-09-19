@@ -13,6 +13,9 @@ import { url } from '../../../../app.router';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { LoaderService } from '../../../../shared/services/loader.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-products',
@@ -68,7 +71,13 @@ export class ProductsComponent implements OnInit {
   public categoryItems: any[] = [];
   selectedCategoryId: string | null = null; // This will hold the selected category's ID
 
-  constructor(private _baseService: BaseService, private router: Router) {
+  constructor(
+    private _baseService: BaseService,
+    private router: Router,
+    private loader: LoaderService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastService
+  ) {
     this.searchUpdater
       .pipe(debounceTime(1000), distinctUntilChanged())
       .subscribe(() => this.dataInitializer());
@@ -167,7 +176,8 @@ export class ProductsComponent implements OnInit {
   }
 
   public checkCategoryValue(categoryId: string) {
-    this.selectedCategoryId = this.selectedCategoryId === categoryId ? null : categoryId;
+    this.selectedCategoryId =
+      this.selectedCategoryId === categoryId ? null : categoryId;
     this.getAllProductList();
   }
 
@@ -188,12 +198,16 @@ export class ProductsComponent implements OnInit {
    */
   private getAllCategory() {
     this.categoryItems = [];
+    this.loader.showLoader();
 
     this._baseService.get(url.getCategory, {}).subscribe({
       next: (response: any) => {
         this.categoryItems = response.data;
       },
       error: (error: any) => {},
+      complete: () => {
+        this.loader.hideLoader();
+      },
     });
   }
 
@@ -216,9 +230,11 @@ export class ProductsComponent implements OnInit {
     if (maxValue) {
       params['priceHigh'] = maxValue;
     }
-    if(this.selectedCategoryId){
+    if (this.selectedCategoryId) {
       params['categoryId'] = this.selectedCategoryId;
     }
+    this.loader.showLoader();
+
     this._baseService.get(url.getProduct, params).subscribe({
       next: (response) => {
         if (response) {
@@ -226,8 +242,11 @@ export class ProductsComponent implements OnInit {
           this.totalItems = response.data.length;
         }
       },
-      error: (error) => {
-        console.log('error: ', error);
+      error: (err) => {
+        this.toastr.showToastMessage(err, 'error-style');
+      },
+      complete: () => {
+        this.loader.hideLoader();
       },
     });
   }
