@@ -40,7 +40,7 @@ export class LoginComponent {
   }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      username: ['testuser@gmail.com', [Validators.required, Validators.email]],
+      username: ['user@gmail.com', [Validators.required, Validators.email]],
       password: ['User@123', Validators.required],
     });
 
@@ -49,7 +49,7 @@ export class LoginComponent {
    databaseModule = this.firebaseService.getDatabase();
    authModule = this.firebaseService.getAuth();
   // firebase
-  email = 'testuser@gmail.com';
+  email = 'user@gmail.com';
   password = 'User@123';
   errorMessage = ''; // validation _error handle
   _error: { name: string; message: string } = { name: '', message: '' }; // for firbase _error handle

@@ -32,14 +32,14 @@
                           [items]="categoryItems"
                           bindLabel="name"
                           [addTag]="addCustomUser"
-                          bindValue="_id"
+                          bindValue="id"
                           [(ngModel)]="selectedSimpleItem"
                           formControlName="category"
                           id="ng-select-dropdown"
                         >
                         <ng-template ng-option-tmp let-item="item">
                           {{ item.name }}
-                          <i class="bi bi-x-lg remove-icon" (click)="onRemove(item._id, $event)" ngbTooltip="Remove category"></i>
+                          <i class="bi bi-x-lg remove-icon" (click)="onRemove(item.id, $event)" ngbTooltip="Remove category"></i>
                         </ng-template>
                       </ng-select>
                       </div>

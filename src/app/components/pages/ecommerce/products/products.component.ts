@@ -152,7 +152,7 @@ export class ProductsComponent implements OnInit {
 
   public editProduct(data: any): void {
     this.router.navigate(['/pages/ecommerce/addproduct'], {
-      queryParams: { id: data._id },
+      queryParams: { id: data.id },
     });
   }
 
@@ -202,7 +202,7 @@ export class ProductsComponent implements OnInit {
 
     this._baseService.get(url.getCategory, {}).subscribe({
       next: (response: any) => {
-        this.categoryItems = response.data;
+        this.categoryItems = response.data.data;
       },
       error: (error: any) => {},
       complete: () => {
@@ -238,8 +238,9 @@ export class ProductsComponent implements OnInit {
     this._baseService.get(url.getProduct, params).subscribe({
       next: (response) => {
         if (response) {
-          this.productItems = response.data;
-          this.totalItems = response.data.length;
+          this.productItems = response.data.data;
+          this.totalItems = response.data.totalCount
+          ;
         }
       },
       error: (err) => {

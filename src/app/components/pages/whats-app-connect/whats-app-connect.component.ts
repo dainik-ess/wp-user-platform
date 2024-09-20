@@ -89,7 +89,7 @@ export class WhatsAppConnectComponent {
     this._baseService.get(url.getToken, {}).subscribe({
       next: (response) => {
         console.log('response: ', response?.data);
-        if (response) {
+        if (response.data) {
           this.businessDetailsForm
             .get('businessPhoneNumberId')
             ?.setValue(response?.data?.businessPhoneNumberId);

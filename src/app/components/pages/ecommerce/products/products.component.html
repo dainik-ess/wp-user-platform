@@ -52,9 +52,9 @@
                     <div class="px-2 py-3 pb-0">
                         @for (category of categoryItems; track category;let i = $index) {
                         @if(i < 3){ <div class="form-check mb-2">
-                            <input class="form-check-input" type="checkbox" [value]="category._id" [id]="category?._id"
-                                (change)="checkCategoryValue(category._id)"
-                                [checked]="selectedCategoryId === category._id" />
+                            <input class="form-check-input" type="checkbox" [value]="category.id" [id]="category?.id"
+                                (change)="checkCategoryValue(category.id)"
+                                [checked]="selectedCategoryId === category.id" />
                             <label class="form-check-label" for="electronics">
                                 {{ category.name }}
                             </label>
@@ -67,8 +67,8 @@
                         @if(i >= 3){
                         <div class="form-check mb-2">
                             <input class="form-check-input" type="checkbox"
-                                [checked]="selectedCategoryId === category._id" [value]="category._id"
-                                [id]="category?._id" (change)="checkCategoryValue(category._id)" />
+                                [checked]="selectedCategoryId === category.id" [value]="category.id"
+                                [id]="category?.id" (change)="checkCategoryValue(category.id)" />
                             <label class="form-check-label" for="electronics">
                                 {{ category.name }}
                             </label>
@@ -108,7 +108,7 @@
                             style="height: 150px; object-fit: cover" />
                     </a>
                     <div class="product-icons">
-                        <a (click)="deleteProduct(item?._id)" class="wishlist" style="cursor: pointer"
+                        <a (click)="deleteProduct(item?.id)" class="wishlist" style="cursor: pointer"
                             ngbTooltip="Delete"><i class="fe fe-trash-2"></i></a>
                         <a (click)="editProduct(item)" class="cart" style="cursor: pointer" ngbTooltip="Edit"><i
                                 class="fe fe-edit"></i></a>
@@ -126,7 +126,7 @@
                         <span>{{ item.displayPrice | currency : "INR" : "symbol" : "1.2-2"
                             }}<span class="text-muted text-decoration-line-through ms-1 d-inline-block op-6">{{
                                 item.actualPrice | currency : "INR" : "symbol" : "1.2-2"
-                                }}</span></span><span class="badge bg-secondary-transparent float-end fs-10">72%
+                                }}</span></span><span class="badge bg-secondary-transparent float-end fs-10">{{item.discount | number: '1.0-0'}}%
                             off</span>
                     </p>
                     <p class="fs-11 text-success fw-semibold mb-0 d-flex align-items-center">

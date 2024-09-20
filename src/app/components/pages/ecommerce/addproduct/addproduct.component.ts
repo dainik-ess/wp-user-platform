@@ -112,8 +112,8 @@ export class AddproductComponent {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastService,
-    private cd:ChangeDetectorRef,
-    private loader: LoaderService,
+    private cd: ChangeDetectorRef,
+    private loader: LoaderService
   ) {
     this.productForm = this.fb.group({
       productName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -214,20 +214,14 @@ export class AddproductComponent {
       next: (res: any) => {
         this.productForm.reset();
         this.router.navigateByUrl('pages/ecommerce/products');
-        this.toastr.showToastMessage(
-          res.message,
-          'success-style'
-        );
+        this.toastr.showToastMessage(res.message, 'success-style');
       },
       error: (err: any) => {
-        this.toastr.showToastMessage(
-          err,
-          'error-style'
-        )
+        this.toastr.showToastMessage(err, 'error-style');
       },
-      complete:() => {
+      complete: () => {
         this.loader.hideLoader();
-      }
+      },
     });
   }
 
@@ -278,31 +272,42 @@ export class AddproductComponent {
       next: (res: any) => {
         if (res) {
           this.getAllCategory();
-          this.toastr.showToastMessage(
-            res.message,
-            'success-style'
-          );
+          this.toastr.showToastMessage(res.message, 'success-style');
         }
       },
       error: (err: any) => {
-        this.toastr.showToastMessage(
-          err,
-          'error-style'
-        )
+        this.toastr.showToastMessage(err, 'error-style');
       },
-      complete:() => {
+      complete: () => {
         this.loader.hideLoader();
-      }
+      },
     });
   };
 
-  onRemove(categoryId: string,e:Event) {
+  onRemove(categoryId: string, e: Event) {
+    console.log('categoryId: ', categoryId);
     e.stopPropagation();
-    let id = this.categoryItems.findIndex((res:any)=>{
-      return res._id === categoryId
-    })
-    this.categoryItems.splice(id,1);
-    this.categoryItems = [...this.categoryItems]; // Reassign to trigger change detection
+
+    this.loader.showLoader();
+    this._baseService.delete(url.deleteCategory + categoryId).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.getAllCategory();
+          this.categoryItems = [...this.categoryItems]
+        }
+      },
+      error: (err: any) => {
+        this.toastr.showToastMessage(err, 'error-style');
+      },
+      complete: () => {
+        this.loader.hideLoader();
+      },
+    });
+    // let id = this.categoryItems.findIndex((res: any) => {
+    //   return res.id === categoryId;
+    // });
+    // this.categoryItems.splice(id, 1);
+    // this.categoryItems = [...this.categoryItems]; // Reassign to trigger change detection
   }
 
   /*---------------------------------
@@ -325,17 +330,14 @@ export class AddproductComponent {
 
     this._baseService.get(url.getCategory, {}).subscribe({
       next: (response: any) => {
-        this.categoryItems = response.data;
+        this.categoryItems = response.data.data;
       },
       error: (error: any) => {
-        this.toastr.showToastMessage(
-          error,
-          'error-style'
-        )
+        this.toastr.showToastMessage(error, 'error-style');
       },
-      complete:() => {
+      complete: () => {
         this.loader.hideLoader();
-      }
+      },
     });
   }
 
@@ -344,33 +346,28 @@ export class AddproductComponent {
 
     this._baseService.get(url.getSingleProduct + id, {}).subscribe({
       next: (response: any) => {
-        if (response?.status) {
-          this.isEditData = response?.data?._id;
+        if (response?.success) {
+          this.isEditData = response?.data?.id;
           this.setValue(response?.data);
-          this.toastr.showToastMessage(
-            response.message,
-            'success-style'
-          );
+          this.toastr.showToastMessage(response.message, 'success-style');
         }
       },
       error: (error: any) => {
-        this.toastr.showToastMessage(
-          error,
-          'error-style'
-        )
+        this.toastr.showToastMessage(error, 'error-style');
       },
-      complete:() => {
+      complete: () => {
         this.loader.hideLoader();
-      }
+      },
     });
   }
 
   private setValue(data: any) {
+    console.log('data: ', data);
     const colorsArray = data.color ? data.color.split(',') : [];
 
     this.productForm.patchValue({
       productName: data.productName,
-      category: data.productCategoryId._id,
+      category: data.productCategoryId,
       gst: data.gst,
       packOfQuantity: data.packOfQuantity,
       cost: data.cost,
