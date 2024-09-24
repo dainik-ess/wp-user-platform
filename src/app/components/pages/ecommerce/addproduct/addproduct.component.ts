@@ -303,11 +303,6 @@ export class AddproductComponent {
         this.loader.hideLoader();
       },
     });
-    // let id = this.categoryItems.findIndex((res: any) => {
-    //   return res.id === categoryId;
-    // });
-    // this.categoryItems.splice(id, 1);
-    // this.categoryItems = [...this.categoryItems]; // Reassign to trigger change detection
   }
 
   /*---------------------------------

@@ -21,6 +21,7 @@ export const url = {
   getCategory:environment.apiURL + '/meta/whatsapp-product-categories/get-all-whatsapp-product-categories',
   deleteCategory:environment.apiURL + '/meta/whatsapp-product-categories/delete-whatsapp-product-category/',
 
+  // 
   getMessageReplies : environment.apiURL + '/meta/messages-and-replies/get-all-message-and-reply',
   saveMessageReplies : environment.apiURL + '/meta/messages-and-replies/create-message-and-reply'
 

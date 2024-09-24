@@ -114,6 +114,12 @@ export const admin: Routes = [
         loadComponent:() =>
           import('./message-replies/message-replies.component').then((m) => m.MessageRepliesComponent),
         title: 'YNEX - Message & Replies',
+      },
+      {
+        path:'template',
+        loadComponent:() =>
+          import('./template/template.component').then((m) => m.TemplateComponent),
+        title: 'YNEX - Template',
       }
     ],
   },

@@ -180,6 +180,12 @@ export class NavService implements OnDestroy {
       type: 'link',
       path:'/pages/chat'
     },
+    {
+      title: 'Template',
+      icon: 'chat',
+      type: 'link',
+      path:'/pages/template'
+    },
   ];
   items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
 }
