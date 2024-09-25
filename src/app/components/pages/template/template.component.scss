@@ -48,3 +48,27 @@
 .bg-white{
     background-color: #fff;
 }
+
+.custom-btn{
+    background-color: rgb(255, 255, 255);
+    box-shadow: 5px 4px 12px 0px #1717171f;
+    padding: .5vh 2vh;
+}
+
+
+:host ::ng-deep .mat-stepper-vertical, .mat-stepper-horizontal{
+    background: transparent !important;
+}
+
+:host ::ng-deep .mat-horizontal-content-container{
+    background: white !important;
+    margin-top: 10px !important;
+}
+
+:host ::ng-deep .mat-stepper-horizontal-line{
+    border-top-color: #e6e6e6 !important;
+}
+
+.float-right{
+    float: right;
+}
