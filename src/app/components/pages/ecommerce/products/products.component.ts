@@ -158,7 +158,7 @@ export class ProductsComponent implements OnInit {
 
   public viewProduct(data: any): void {
     this.router.navigate(['/pages/ecommerce/product-details'], {
-      queryParams: { id: data._id },
+      queryParams: { id: data.id },
     });
   }
 

@@ -93,9 +93,9 @@ export class ProductDetailsComponent {
   private getSingleProduct(id: string) {
     this._baseService.get(url.getSingleProduct + id, {}).subscribe({
       next: (response: any) => {
-        if (response?.status) {
+        if (response?.success) {
           this.viewProduct = response?.data;
-          this.viewProduct['color'] = response?.data?.color?.split(',');
+          // this.viewProduct['color'] = response?.data?.color?.split(',');
           this.mainImage = response?.data?.images[0]
           // this.galleryImages = response?.data?.image;
         }
