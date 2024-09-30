@@ -6,10 +6,11 @@
                 <mat-step label="Set up template">
                     <div class="mt-4">
                         <h6 class="font-weight-bold">Set up your template</h6>
-                        <p class="mt-3">Choose the category that best describes your message template. Then select the type
+                        <p class="mt-3">Choose the category that best describes your message template. Then select the
+                            type
                             of message you
                             want to send. <a href="#" class="text-primary">Learn more about categories.</a></p>
-    
+
                         <div class="form-check custom-check mt-3">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
                                 value="option1" checked>
@@ -18,7 +19,7 @@
                                 <p>Send promotions or announcements to increase awareness and engagement.</p>
                             </div>
                         </div>
-    
+
                         <div class="form-check custom-check">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
                                 value="option3">
@@ -28,32 +29,99 @@
                             </div>
                         </div>
 
-                        <div class="form-check custom-check">
+                        <!-- <div class="form-check custom-check">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
                                 value="option2">
                             <div class="text-container">
                                 <label class="form-check-label" for="exampleRadios2">Order Details</label>
                                 <p>Send messages through which customers can pay you.</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="d-flex justify-content-between mt-3 custom-btn">
+
                         <button class="btn btn-primary-light m-1 float-right" matStepperNext>Next</button>
                     </div>
                 </mat-step>
 
                 <mat-step label="Edit template">
+                    <div class="mt-4">
+                        <h6>Template name</h6>
+                        <input type="text" class="form-control" placeholder="Enter template name"
+                            aria-label="Template Name" />
+                    </div>
+
+                    <!-- Content Section Start-->
+                    <div class="content mt-4">
+                        <div>
+                            <h6>Content</h6>
+                            <span class="info_text">Fill out the header, body and footer section of your
+                                template.</span>
+                        </div>
+
+                        <!-- Header -->
+                        <div class="mt-4">
+                            <div class="d-inline-flex">
+                                <div class="form-label">Header</div>
+                                <span class="ms-3 info_text">Optional</span>
+                            </div>
+                            <ng-select [items]="headerContent" bindLabel="name" id="ng-select-dropdown"
+                                bindValue="value" [(ngModel)]="selectedHeaderType">
+                            </ng-select>
+
+                            <!-- Header Widget -->
+
+                            <!-- Text -->
+                            @if ( selectedHeaderType === 'text') {
+                            <div class="mt-3">
+                                <input type="text" class="form-control" placeholder="Enter text"
+                                    aria-label="Header Text Name" [(ngModel)]="headerText" />
+                            </div>
+                            }
+
+                            <!-- Image -->
+                            @if ( selectedHeaderType === 'image') {
+                            <div class="mt-3 ">
+                                <div>Sample for header content</div>
+                                <input type="file" class="form-control" id="fileInput"
+                                    (change)="onFileSelected($event)" />
+                            </div>
+                            }
+
+                        </div>
+
+                        <!-- Body -->
+                        <div class="mt-7">
+                            <div class="form-label">Body</div>
+                            <div>
+                                <angular-editor [config]="config" [(ngModel)]="bodyContent">
+                                    <div></div>
+                                </angular-editor>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="mt-7">
+                            <div class="form-label">Footer</div> <span>Optional</span>
+                            <input type="text" class="form-control" placeholder="Enter text" aria-label="Footer Name"
+                                [(ngModel)]="footerText" />
+                        </div>
+                    </div>
+                    <!-- Content Section End-->
+
                     <div class="d-flex justify-content-between mt-3 custom-btn">
+
                         <button class="btn btn-light m-1" matStepperPrevious>Previous</button>
                         <button class="btn btn-primary-light m-1" matStepperNext>Next</button>
                     </div>
                 </mat-step>
+
                 <mat-step label="Submit for review">
 
                     <div class="d-flex justify-content-between mt-3 custom-btn">
                         <button class="btn btn-light m-1" matStepperPrevious>Previous</button>
-                        <button class="btn btn-primary-light m-1" >Finish</button>
+                        <button class="btn btn-primary-light m-1">Finish</button>
                     </div>
                 </mat-step>
             </mat-horizontal-stepper>
@@ -91,7 +159,39 @@
         </div>
         <div class="col-md-4 bg-white p-4 preview-box shadow-sm">
             <h6 class="font-weight-bold">Preview</h6>
-            <div class="whatsapp-bft-color"></div>
+            <div class="whatsapp-bft-color">
+                <div class="chat_type">
+                    <!-- Header -->
+                    @if(selectedHeaderType === 'text' && headerText!==null){
+                    <p>{{headerText}}</p>
+                    }
+                    <!-- Header Image -->
+                    @if(selectedHeaderType === 'image'){
+                    @if(imagePreview){
+                    <img [src]="imagePreview" alt="Image Preview" style="max-width: 200px; margin-top: 10px;">
+                    } @else {
+                    <img src="../../../../assets/images/bydefault-image.png" alt="">
+                    }
+                    }
+
+                    <!-- Body -->
+                     @if (bodyContent!==null) {
+                         <p [innerHTML]="bodyContent"></p>
+                     } @else {
+                        <p>No content available.</p>
+                     }
+
+                    <!-- Footer -->
+                    @if(footerText!==null){
+                    <p>{{footerText}}</p>
+                    }
+
+                    <!-- Date -->
+                    <p class="float-right">{{ currentTime | date: 'HH:mm' }}</p>
+
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
