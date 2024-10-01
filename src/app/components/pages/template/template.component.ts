@@ -6,7 +6,7 @@ import {
   AngularEditorModule,
 } from '@kolkov/angular-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-template',
@@ -17,7 +17,8 @@ import { DatePipe } from '@angular/common';
     AngularEditorModule,
     FormsModule,
     ReactiveFormsModule,
-    DatePipe
+    DatePipe,
+    CommonModule
   ],
   templateUrl: './template.component.html',
   styleUrl: './template.component.scss',
