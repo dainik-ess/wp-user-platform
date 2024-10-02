@@ -23,6 +23,8 @@ export const url = {
 
   // 
   getMessageReplies : environment.apiURL + '/meta/messages-and-replies/get-all-message-and-reply',
-  saveMessageReplies : environment.apiURL + '/meta/messages-and-replies/create-message-and-reply'
+  saveMessageReplies : environment.apiURL + '/meta/messages-and-replies/create-message-and-reply',
 
+  // Template
+  saveTemplate : environment.apiURL + '/meta/message-template/create-message-template'
 };
