@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {
@@ -11,6 +11,8 @@ import { BaseService } from '../../../shared/services/base.service';
 import { url } from '../../../app.router';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { ToastService } from '../../../shared/services/toast.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FlowModalComponent } from './flow-modal/flow-modal.component';
 
 @Component({
   selector: 'app-template',
@@ -88,6 +90,9 @@ export class TemplateComponent implements OnInit {
     ],
   };
 
+  readonly dialog = inject(MatDialog);
+
+
   constructor(
     private _baseService: BaseService,
     private loader: LoaderService,
@@ -162,5 +167,11 @@ export class TemplateComponent implements OnInit {
         },
       });
     }
+  }
+
+  public openFlowModal(flowType:string){
+    const dialogRef = this.dialog.open(FlowModalComponent,{
+      width: '70%',
+    });
   }
 }

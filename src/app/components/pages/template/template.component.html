@@ -46,12 +46,23 @@
                 </mat-step>
 
                 <mat-step label="Edit template">
-                    <div class="h-55" *ngIf="templateType == 'custom'">
+                    <div class="h-55">
                         <div class="mt-4">
                             <h6>Template name</h6>
                             <input type="text" class="form-control" placeholder="Enter template name"
                                 aria-label="Template Name" [(ngModel)]="customTemp.tempName"/>
                         </div>
+
+                        <!-- Flow Setup Button -->
+                         <div class="content mt-4" *ngIf="templateType === 'flows'">
+                            <h6>Flow Setup</h6>
+                            <span class="info_text">Choose an exiting Flow or create a new one.</span>
+
+                             <div class="f-flex mt-2">
+                                <button class="btn btn-light m-1" (click)="openFlowModal('new')">Create New</button>
+                                <button class="btn btn-light m-1" (click)="openFlowModal('userExiting')">User Exiting</button>
+                             </div>
+                         </div>
 
                         <!-- Content Section Start-->
                         <div class="content mt-4">
@@ -135,29 +146,31 @@
                 <div class="chat_window">
                     <!-- User's message -->
                     <div class="message-container">
-                        <div class="message sent">
-                            <!-- Header -->
-                            @if(customTemp.selectedHeaderType === 'text' && customTemp.headerText!==null){
-                            <p class="header-text">{{ customTemp.headerText }}</p>
-                            }
-                            <!-- Image preview (optional) -->
-                            <img *ngIf="customTemp.selectedHeaderType === 'image'"
-                                [src]="customTemp.imagePreview ? customTemp.imagePreview : '../../../../assets/images/bydefault-image.png'"
-                                alt="Image Preview" class="chat-img">
+                        @if (templateType == 'custom') {
+                            <div class="message sent">
+                                <!-- Header -->
+                                @if(customTemp.selectedHeaderType === 'text' && customTemp.headerText!==null){
+                                <p class="header-text">{{ customTemp.headerText }}</p>
+                                }
+                                <!-- Image preview (optional) -->
+                                <img *ngIf="customTemp.selectedHeaderType === 'image'"
+                                    [src]="customTemp.imagePreview ? customTemp.imagePreview : '../../../../assets/images/bydefault-image.png'"
+                                    alt="Image Preview" class="chat-img">
 
-                            <!-- Body content -->
-                            @if(customTemp.bodyContent!=null){
-                            <p class="body-content" [innerHTML]="customTemp.bodyContent"></p>
-                            } @else {
-                            <p class="body-content">No content available</p>
-                            }
+                                <!-- Body content -->
+                                @if(customTemp.bodyContent!=null){
+                                <p class="body-content" [innerHTML]="customTemp.bodyContent"></p>
+                                } @else {
+                                <p class="body-content">No content available</p>
+                                }
 
-                            <!-- Footer (optional) -->
-                            <p *ngIf="customTemp.footerText" class="footer-text">{{ customTemp.footerText }}</p>
+                                <!-- Footer (optional) -->
+                                <p *ngIf="customTemp.footerText" class="footer-text">{{ customTemp.footerText }}</p>
 
-                            <!-- Timestamp -->
-                            <p class="time float-right">{{ currentTime | date: 'HH:mm' }}</p>
-                        </div>
+                                <!-- Timestamp -->
+                                <p class="time float-right">{{ currentTime | date: 'HH:mm' }}</p>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
@@ -165,3 +178,7 @@
 
     </div>
 </div>
+
+
+
+<!-- Create Flow Modal -->
