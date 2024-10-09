@@ -1,21 +1,22 @@
-<div class="p-4">
+<div class="p-4 d-flex flex-column justify-content-between">
     <div class="d-flex-b">
         <h6>Create Flow</h6>
-        <button type="button" class="btn btn-outline-primary btn-wave">X</button>
+        <button type="button" class="btn btn-outline-primary btn-wave" matDialogClose>X</button>
     </div>
 
     <!-- Body Content Start-->
     <div class="body mt-3">
         <div class="row">
             <!-- Edit Content -->
-            <div class="col-8">
+            <div class="col-8 border-right-b">
 
                 <h6>Edit Content</h6>
 
-                <!-- <div ngbAccordion id="screenTitle">
+
+                <div ngbAccordion id="screenTitle" class="mt-3">
                     <div ngbAccordionItem [collapsed]="false">
                         <h2 ngbAccordionHeader id="headingOne">
-                            <button ngbAccordionButton type="button" data-bs-toggle="collapse"
+                            <button ngbAccordionButton type="button" data-bs-target="#collapseOne"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 Screen title
                             </button>
@@ -24,39 +25,253 @@
                             aria-labelledby="headingOne" data-bs-parent="#screenTitle">
                             <div ngbAccordionBody>
                                 <input type="text" class="form-control" placeholder="Enter screen title"
-                                aria-label="Footer Name" />
+                                    aria-label="Footer Name" />
                             </div>
                         </div>
                     </div>
-                
-                </div> -->
+                </div>
 
-                <h6>Button <Span>Continue</Span></h6>
+                <!-- Large Heading -->
+                <div ngbAccordion id="largeHeading" class="mt-3">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader id="headingOne">
+                            <button ngbAccordionButton type="button" data-bs-target="#collapseOne"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Large Heading
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" ngbAccordionCollapse
+                            aria-labelledby="headingOne" data-bs-parent="#largeHeading">
+                            <div ngbAccordionBody>
+                                <input type="text" class="form-control" placeholder="Large Heading..."
+                                    aria-label="Footer Name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="btn-group" ngbDropdown>
-                    <button type="button" class="btn btn-primary dropdown-toggle" ngbDropdownToggle
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Add Content
-                    </button>
-                    <ul class="dropdown-menu" ngbDropdownMenu>
-                        <li><a ngbDropdownItem class="dropdown-item" href="javascript:void(0);">Text</a></li>
-                        <li><a ngbDropdownItem class="dropdown-item" href="javascript:void(0);">Media</a>
-                        </li>
-                        <li><a ngbDropdownItem class="dropdown-item" href="javascript:void(0);">Text Answer</a></li>
-                        <li><a ngbDropdownItem class="dropdown-item" href="javascript:void(0);">Selection</a>
-                        </li>
-                    </ul>
+                <!-- Body -->
+                <div ngbAccordion id="bodyTitle" class="mt-3">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader id="headingOne">
+                            <button ngbAccordionButton type="button" data-bs-target="#collapseOne"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Body
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" ngbAccordionCollapse
+                            aria-labelledby="headingOne" data-bs-parent="#bodyTitle">
+                            <div ngbAccordionBody>
+                                <input type="text" class="form-control" placeholder="Body..."
+                                    aria-label="Footer Name" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Short Answer  -->
+                @if (shortAnswers.length > 0) {
+                @for (shortAnswerItem of shortAnswers; track shortAnswerItem;let i = $index) {
+
+                <div ngbAccordion [id]="'shortAnswer'+i" class="mt-3">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader id="headingOne">
+                            <button ngbAccordionButton type="button" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                Short Answer
+                            </button>
+                        </h2>
+                        <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
+                            aria-labelledby="headingOne" [attr.data-bs-parent]="'#screenTitle'+i">
+                            <div ngbAccordionBody>
+
+                                <div>
+                                    <input type="text" class="form-control" placeholder="Enter screen title"
+                                        aria-label="Footer Name" />
+                                </div>
+
+                                <div class="mt-2">
+                                    <label for="ins">Instructions</label>
+                                    <input type="text" class="form-control" placeholder="Instructions"
+                                        aria-label="Instructions" id="ins" />
+                                </div>
+
+                                <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
+                                    <mat-slide-toggle class="example-margin">
+                                        Required
+                                    </mat-slide-toggle>
+
+                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                        ngbTooltip="Delete" (click)="shortAnswerRemoveMethod(i)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                }
+
+                <!-- Text Content -->
+                @if (textContents.length > 0) {
+                @for (textContentItem of textContents; track textContentItem;let i = $index) {
+                <div ngbAccordion [id]="'textContent'+i" class="mt-3">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader id="headingOne">
+                            <button ngbAccordionButton type="button" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                Short Answer
+                            </button>
+                        </h2>
+                        <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
+                            aria-labelledby="headingOne" [attr.data-bs-parent]="'#screenTitle'+i">
+                            <div ngbAccordionBody>
+
+                                <div>
+                                    <input type="text" class="form-control" placeholder="Enter screen title"
+                                        aria-label="Footer Name" />
+                                </div>
+
+                                <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
+                                    <mat-slide-toggle class="example-margin">
+                                        Required
+                                    </mat-slide-toggle>
+
+                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                        ngbTooltip="Delete" (click)="textContentRemoveMethod(i)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                }
+
+                <!-- Dropdown Conte -->
+                @if (dropdownContent.length > 0) {
+                @for (dropdownContent of dropdownContent; track dropdownContent;let i = $index) {
+                <div ngbAccordion [id]="'dropdownTitle'+i" class="mt-3">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader id="headingOne">
+                            <button ngbAccordionButton type="button" data-bs-target="#collapseOne"
+                                [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                Dropdown
+                            </button>
+                        </h2>
+                        <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
+                            aria-labelledby="headingOne" [attr.data-bs-parent]="'#dropdownTitle'+i">
+                            <div ngbAccordionBody>
+                                <input type="text" class="form-control" placeholder="Label" aria-label="Label" />
+
+                                @if (dropdownOptions.length > 0) {
+                                @for (dropdownOptions of dropdownOptions; track dropdownOptions;let j = $index) {
+                                <div class="d-flex align-items-center justify-content-between">
+
+                                    <div class="mt-2">
+                                        <label for="options">Options</label>
+                                        <input type="text" class="form-control" [placeholder]="'Options ' + (j+1)"
+                                            aria-label="Label" />
+                                    </div>
+                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                        ngbTooltip="Delete" (click)="dropdownOptionsRemoveMethod(j)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </div>
+
+                                }
+                                }
+
+                                <button type="button" class="btn btn-outline-light btn-wave mt-1"
+                                    (click)="dropdownOptionsMethod()">Add options</button>
+
+                                <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
+                                    <mat-slide-toggle class="example-margin">
+                                        Required
+                                    </mat-slide-toggle>
+
+                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                        ngbTooltip="Delete" (click)="dropdownContentRemoveMethod(i)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                }
+
+
+                <div class="mt-3">
+                    <h6>Button
+                        <Span>Continue</Span>
+                    </h6>
                 </div>
 
 
-                
-            
+                <div ngbDropdown class="dropdown mt-1">
+                    <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
+                        Add Content
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+                        <button class="dropdown-item" type="button" (click)="textContentMethod()">Text</button>
+                        <button class="dropdown-item" type="button">Media</button>
+
+                        <div ngbDropdown class="dropdown-submenu" placement="right-top">
+                            <button class="dropdown-item dropdown-toggle" ngbDropdownToggle>
+                                Text Answer
+                            </button>
+                            <div ngbDropdownMenu>
+                                <button class="dropdown-item" type="button" (click)="shortAnswerMethod()">Short
+                                    Answer</button>
+                                <button class="dropdown-item" type="button">Paragraph</button>
+                                <button class="dropdown-item" type="button">Date Picker</button>
+                            </div>
+                        </div>
+
+                        <div ngbDropdown class="dropdown-submenu" placement="right-top">
+                            <button class="dropdown-item dropdown-toggle" ngbDropdownToggle>
+                                Selection
+                            </button>
+                            <div ngbDropdownMenu>
+                                <button class="dropdown-item" type="button">Single Choice</button>
+                                <button class="dropdown-item" type="button">Multiple Choice</button>
+                                <button class="dropdown-item" type="button"
+                                    (click)="dropdownContentMethod()">Dropdown</button>
+                                <button class="dropdown-item" type="button">Opt-in</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
             </div>
 
-                <!-- Preview Content -->
-                <div class="col-4">col-4</div>
+            <!-- Preview Content -->
+            <div class="col-4">
+                <h6>Preview</h6>
+            </div>
 
+        </div>
+    </div>
+    <!-- Body Content End-->
+
+    <div class="mt-2 border-right-t pt-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="info-color">Once your Message Template is created, this flow cannot be edited.</span>
+
+            <div class="d-flex gap-2  align-items-center">
+                <button type="button" class="btn btn-outline-light btn-wave" matDialogClose>Cancel</button>
+                <button type="button" class="btn btn-primary-light btn-wave">Save</button>
             </div>
         </div>
-        <!-- Body Content End-->
     </div>
+</div>

@@ -172,6 +172,7 @@ export class TemplateComponent implements OnInit {
   public openFlowModal(flowType:string){
     const dialogRef = this.dialog.open(FlowModalComponent,{
       width: '70%',
+      height:'80%'
     });
   }
 }

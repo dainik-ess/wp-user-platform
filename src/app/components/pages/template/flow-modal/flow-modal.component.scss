@@ -6,3 +6,43 @@
     border-bottom: 1px solid #dcdcdc;
     padding: 12px 0;
 }
+
+.border-right-b{
+    border-right: 1px solid rgba(235, 235, 235, 0.428);
+}
+
+.border-right-t{
+    border-top: 1px solid rgba(235, 235, 235, 0.428);
+}
+
+.info-color{
+    color: #838383;
+}
+
+
+
+/* Ensure nested dropdowns are positioned correctly */
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -5px;
+  margin-left: 0;
+  display: none;
+}
+
+/* Show nested dropdown when hovered */
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
+
+/* Adjusting styles for inner dropdown-toggle buttons */
+.dropdown-submenu > .dropdown-toggle::after {
+  display: inline-block;
+  margin-left: .255em;
+  vertical-align: .255em;
+}
+
