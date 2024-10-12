@@ -61,7 +61,7 @@
                     }
                  }
 
-                <!-- Large Heading -->
+                <!-- Body Contenet -->
                  @if(body.length > 0){
                     @for (body of body; track body;let i = $index) {
                         <div ngbAccordion [id]="'body'+i" class="mt-3">
@@ -135,16 +135,16 @@
                 }
                 }
 
-                <!-- Dropdown Conte -->
-                <!-- @if (dropdownContent.length > 0) {
-                @for (dropdownContent of dropdownContent; track dropdownContent;let i = $index) {
+                <!-- Single Choice Content -->
+                @if (singleChoiceContent.length > 0) {
+                @for (singleChoiceContent of singleChoiceContent; track singleChoiceContent;let i = $index) {
                 <div ngbAccordion [id]="'dropdownTitle'+i" class="mt-3">
                     <div ngbAccordionItem [collapsed]="false">
                         <h2 ngbAccordionHeader id="headingOne">
                             <button ngbAccordionButton type="button" data-bs-target="#collapseOne"
                                 [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
                                 aria-controls="collapseOne">
-                                Dropdown
+                                Single Choice Dropdown
                             </button>
                         </h2>
                         <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
@@ -179,7 +179,7 @@
                                     </mat-slide-toggle>
 
                                     <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
-                                        ngbTooltip="Delete" (click)="dropdownContentRemoveMethod(i)">
+                                        ngbTooltip="Delete" (click)="singleChoiceContentRemoveMethod(i)">
                                         <i class="bi bi-trash3-fill"></i>
                                     </button>
                                 </div>
@@ -188,7 +188,63 @@
                     </div>
                 </div>
                 }
-                } -->
+                }
+
+                <!-- Muti Choice Content -->
+                @if (multiChoiceContent.length > 0) {
+                    @for (multiChoiceContent of multiChoiceContent; track multiChoiceContent;let i = $index) {
+                    <div ngbAccordion [id]="'multipleChoiceDropdownTitle'+i" class="mt-3">
+                        <div ngbAccordionItem [collapsed]="false">
+                            <h2 ngbAccordionHeader id="headingOne">
+                                <button ngbAccordionButton type="button" data-bs-target="#collapseOne"
+                                    [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                    Multiple Choice Dropdown
+                                </button>
+                            </h2>
+                            <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
+                                aria-labelledby="headingOne" [attr.data-bs-parent]="'#multipleChoiceDropdownTitle'+i">
+                                <div ngbAccordionBody>
+                                    <input type="text" class="form-control" placeholder="Label" aria-label="Label" />
+    
+                                    @if (multipleChoiceOptions.length > 0) {
+                                    @for (multipleChoiceOptions of multipleChoiceOptions; track multipleChoiceOptions;let j = $index) {
+                                    <div class="d-flex align-items-center justify-content-between">
+    
+                                        <div class="mt-2">
+                                            <label for="options">Options</label>
+                                            <input type="text" class="form-control" [placeholder]="'Options ' + (j+1)"
+                                                aria-label="Label" />
+                                        </div>
+                                        <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                            ngbTooltip="Delete" (click)="multipleChoiceOptionsRemoveMethod(j)">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
+                                    </div>
+    
+                                    }
+                                    }
+    
+                                    <button type="button" class="btn btn-outline-light btn-wave mt-1"
+                                        (click)="multipleChoiceDropdownOptionsMethod()">Add options</button>
+    
+                                    <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
+                                        <mat-slide-toggle class="example-margin">
+                                            Required
+                                        </mat-slide-toggle>
+    
+                                        <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                            ngbTooltip="Delete" (click)="singleChoiceContentRemoveMethod(i)">
+                                            <i class="bi bi-trash3-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                }
+
 
 
                 <div class="mt-3">
@@ -232,10 +288,8 @@
                                 Selection
                             </button>
                             <div ngbDropdownMenu>
-                                <button class="dropdown-item" type="button">Single Choice</button>
-                                <button class="dropdown-item" type="button">Multiple Choice</button>
-                                <!-- <button class="dropdown-item" type="button"
-                                    (click)="dropdownContentMethod()">Dropdown</button> -->
+                                <button class="dropdown-item" type="button" (click)="singleChoiceContentMethod()">Single Choice</button>
+                                <button class="dropdown-item" type="button" (click)="multiChoiceContentMethod()">Multiple Choice</button>
                                 <button class="dropdown-item" type="button">Opt-in</button>
                             </div>
                         </div>

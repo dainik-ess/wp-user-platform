@@ -50,8 +50,10 @@ export class FlowModalComponent {
   textContents: any[] = [];
   heading: any[] = [];
   body: any[] = [];
-  dropdownContent: any[] = [];
+  singleChoiceContent: any[] = [];
+  multiChoiceContent: any[] = [];
   dropdownOptions: any[] = [{ id: 1, title: '' }];
+  multipleChoiceOptions: any[] = [{ id: 1, title: '' }];
   
 
   /**
@@ -109,19 +111,19 @@ export class FlowModalComponent {
   }
 
   /**
-   * Dropdown Content add
+   * Single Choice Content add
    */
-  dropdownContentMethod() {
-    this.dropdownContent.push({
+  singleChoiceContentMethod() {
+    this.singleChoiceContent.push({
       id: this.shortAnswers.length + 1,
     });
   }
 
   /**
-   * Dropdown content remove
+   * Single Choice content remove
    */
-  dropdownContentRemoveMethod(index: number) {
-    this.dropdownContent.splice(index, 1);
+  singleChoiceContentRemoveMethod(index: number) {
+    this.singleChoiceContent.splice(index, 1);
   }
 
   /**
@@ -139,5 +141,38 @@ export class FlowModalComponent {
    */
   dropdownOptionsRemoveMethod(index: number) {
     this.dropdownOptions.splice(index, 1);
+  }
+
+  /**
+   * multi choice dropdown method
+   */
+  multiChoiceContentMethod(){
+    this.multiChoiceContent.push({
+      id: this.shortAnswers.length + 1,
+    });
+  }
+
+  /**
+   * Multi Choice content remove
+   */
+  multiChoiceContentRemoveMethod(index: number) {
+    this.multiChoiceContent.splice(index, 1);
+  }
+
+   /**
+   * Multiple Choide dropdownOptions
+   */
+   multipleChoiceDropdownOptionsMethod() {
+    this.multipleChoiceOptions.push({
+      id: this.multipleChoiceOptions.length + 1,
+      title: '',
+    });
+  }
+
+  /**
+   * Multiple choice options remove
+   */
+  multipleChoiceOptionsRemoveMethod(index: number) {
+    this.multipleChoiceOptions.splice(index, 1);
   }
 }
