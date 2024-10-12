@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {
   MatDialogActions,
   MatDialogClose,
@@ -27,6 +29,8 @@ import {
     NgbPopoverModule,
     NgbTooltipModule,
     MatSlideToggleModule,
+    FormsModule,
+    CommonModule
   ],
   templateUrl: './flow-modal.component.html',
   styleUrl: './flow-modal.component.scss',
@@ -39,11 +43,16 @@ export class FlowModalComponent {
   closePopover(popover: any) {
     popover.close();
   }
-
+  screenTitle:any='Screen Title';
+  headingTitle:any[] = [];
+  bodyTitle:any[] = [];
   shortAnswers: any[] = [];
   textContents: any[] = [];
+  heading: any[] = [];
+  body: any[] = [];
   dropdownContent: any[] = [];
   dropdownOptions: any[] = [{ id: 1, title: '' }];
+  
 
   /**
    * short Answer Content add
@@ -64,20 +73,39 @@ export class FlowModalComponent {
   }
 
   /**
-   * short Answer Content add
+   * heading Content add
    */
-  textContentMethod() {
-    this.textContents.push({
+  headingContentMethod() {
+    this.heading.push({
       id: this.shortAnswers.length + 1,
       text: '',
     });
   }
 
   /**
-   * short answer content remove
+   * heading content remove
    */
-  textContentRemoveMethod(index: number) {
-    this.textContents.splice(index, 1);
+  headingContentRemoveMethod(index: number) {
+    this.heading.splice(index, 1);
+    this.headingTitle.splice(index, 1);
+  }
+
+  /**
+   * body Content add
+   */
+ bodyContentMethod() {
+    this.body.push({
+      id: this.shortAnswers.length + 1,
+      text: '',
+    });
+  }
+
+  /**
+   * heading content remove
+   */
+  bodyContentRemoveMethod(index: number) {
+    this.body.splice(index, 1);
+    this.bodyTitle.splice(index, 1);
   }
 
   /**

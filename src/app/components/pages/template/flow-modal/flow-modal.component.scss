@@ -1,48 +1,94 @@
 .d-flex-b{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #dcdcdc;
-    padding: 12px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dcdcdc;
+  padding: 12px 0;
 }
 
 .border-right-b{
-    border-right: 1px solid rgba(235, 235, 235, 0.428);
+  border-right: 1px solid rgba(235, 235, 235, 0.428);
 }
 
 .border-right-t{
-    border-top: 1px solid rgba(235, 235, 235, 0.428);
+  border-top: 1px solid rgba(235, 235, 235, 0.428);
 }
 
 .info-color{
-    color: #838383;
+  color: #838383;
+}
+.mobile-preview {
+width: 100% !important; /* Typical mobile screen width */
+height: 350px; /* Typical mobile screen height */
+border: 1px solid #ccc; /* Optional: to simulate the device's border */
+border-radius: 20px;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+overflow: hidden;
+background-color: white; /* Background color for the mobile view */
+padding: 20px; /* Optional: Add padding for aesthetics */
+}
+
+.mobile-header {
+text-align: center;
+font-size: 20px;
+font-weight: bold;
+margin-bottom: 20px;
+}
+
+.mobile-body {
+font-size: 16px;
+margin-bottom: 10px;
 }
 
 
 
 /* Ensure nested dropdowns are positioned correctly */
 .dropdown-submenu {
-  position: relative;
+position: relative;
 }
 
 .dropdown-submenu > .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -5px;
-  margin-left: 0;
-  display: none;
+top: 0;
+left: 100%;
+margin-top: -5px;
+margin-left: 0;
+display: none;
 }
 
 /* Show nested dropdown when hovered */
 .dropdown-submenu:hover > .dropdown-menu {
-  display: block;
+display: block;
 }
 
 /* Adjusting styles for inner dropdown-toggle buttons */
 .dropdown-submenu > .dropdown-toggle::after {
-  display: inline-block;
-  margin-left: .255em;
-  vertical-align: .255em;
+display: inline-block;
+margin-left: .255em;
+vertical-align: .255em;
 }
 
+.custom-scrollbar {
+  height: 380px;
+  overflow-y: scroll;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* For Firefox */
+}
+
+/* For WebKit browsers (Chrome, Safari, iOS Safari) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
