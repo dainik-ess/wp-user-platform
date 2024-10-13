@@ -54,6 +54,8 @@ export class FlowModalComponent {
   multiChoiceContent: any[] = [];
   dropdownOptions: any[] = [{ id: 1, title: '' }];
   multipleChoiceOptions: any[] = [{ id: 1, title: '' }];
+
+  multipleChoiceLabel:any;
   
 
   /**
@@ -174,5 +176,9 @@ export class FlowModalComponent {
    */
   multipleChoiceOptionsRemoveMethod(index: number) {
     this.multipleChoiceOptions.splice(index, 1);
+  }
+
+  singleChoiceChange(){
+
   }
 }

@@ -205,7 +205,7 @@
                             <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
                                 aria-labelledby="headingOne" [attr.data-bs-parent]="'#multipleChoiceDropdownTitle'+i">
                                 <div ngbAccordionBody>
-                                    <input type="text" class="form-control" placeholder="Label" aria-label="Label" />
+                                    <input type="text" class="form-control" placeholder="Label" aria-label="Label" [(ngModel)]="multipleChoiceLabel"/>
     
                                     @if (multipleChoiceOptions.length > 0) {
                                     @for (multipleChoiceOptions of multipleChoiceOptions; track multipleChoiceOptions;let j = $index) {
@@ -315,6 +315,32 @@
                         <p *ngFor="let title of bodyTitle; let i = index;">
                             {{bodyTitle[i]}} <!-- Body text displayed here -->
                         </p>
+                        <!-- Single Choice Button -->
+                        @if(singleChoiceContent.length > 0){
+                            <h6>Multiple Choice Options</h6>
+                            <div class="form-group" *ngFor="let option of dropdownOptions; let j = index;">
+                                <label >
+                                    <input type="radio" 
+                                           name="radioGroup" 
+                                           >
+                                    {{ option.title ? option.title : ('Option ' + (j+1)) }} 
+                                </label>
+                            </div>
+                        }
+
+                        <!-- Multiple Choice Checkbox -->
+                        <div *ngIf="multiChoiceContent.length > 0">
+                            <h6>{{multipleChoiceLabel}}</h6>
+                            <div class="form-group" *ngFor="let option of multipleChoiceOptions; let j = index;">
+                                <label>
+                                    <input type="checkbox" 
+                                        [(ngModel)]="option.selected"> <!-- Two-way data binding for checkbox -->
+                                    {{ option.title ? option.title : ('Option ' + (j+1)) }} 
+                                </label>
+                            </div>
+                        </div>
+
+
                     </div>
                     <!-- Additional mobile content can be placed here -->
                 </div>
