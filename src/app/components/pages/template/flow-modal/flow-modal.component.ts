@@ -43,9 +43,9 @@ export class FlowModalComponent {
   closePopover(popover: any) {
     popover.close();
   }
-  screenTitle:any='Screen Title';
-  headingTitle:any[] = [];
-  bodyTitle:any[] = [];
+  screenTitle: any = 'Screen Title';
+  headingTitle: any[] = [];
+  bodyTitle: any[] = [];
   shortAnswers: any[] = [];
   textContents: any[] = [];
   heading: any[] = [];
@@ -55,8 +55,10 @@ export class FlowModalComponent {
   dropdownOptions: any[] = [{ id: 1, title: '' }];
   multipleChoiceOptions: any[] = [{ id: 1, title: '' }];
 
-  multipleChoiceLabel:any;
-  
+  multipleChoiceLabel: any = "Multiple  Choice Dropdown";
+  // singleChoiceLabel: any = "Single Choice Options";
+  singleChoiceLabel: any[] = [];
+  multiChoiceLabel: any[] = [];
 
   /**
    * short Answer Content add
@@ -97,7 +99,7 @@ export class FlowModalComponent {
   /**
    * body Content add
    */
- bodyContentMethod() {
+  bodyContentMethod() {
     this.body.push({
       id: this.shortAnswers.length + 1,
       text: '',
@@ -112,12 +114,17 @@ export class FlowModalComponent {
     this.bodyTitle.splice(index, 1);
   }
 
+  singleChoiceChange() {}
+
+
   /**
-   * Single Choice Content add
-   */
+     * Single Choice Content add
+     */
   singleChoiceContentMethod() {
     this.singleChoiceContent.push({
-      id: this.shortAnswers.length + 1,
+      id: this.singleChoiceContent.length + 1,
+      label: '',  // Store the label here
+      options: [{ id: 1, title: '' }]  // Store options for this label
     });
   }
 
@@ -129,56 +136,61 @@ export class FlowModalComponent {
   }
 
   /**
-   * dropdownOptions
+   * Add a new option to a specific single choice label
    */
-  dropdownOptionsMethod() {
-    this.dropdownOptions.push({
-      id: this.dropdownOptions.length + 1,
-      title: '',
+  dropdownOptionsMethod(index: number) {
+    this.singleChoiceContent[index].options.push({
+      id: this.singleChoiceContent[index].options.length + 1,
+      title: ''
     });
   }
 
   /**
-   * dropdown options remove
+   * Remove a specific option from a single choice label
    */
-  dropdownOptionsRemoveMethod(index: number) {
-    this.dropdownOptions.splice(index, 1);
+  dropdownOptionsRemoveMethod(labelIndex: number, optionIndex: number) {
+    this.singleChoiceContent[labelIndex].options.splice(optionIndex, 1);
   }
 
+
+
+  /*************************************
+   * Multi Choice Method
+   ************************************/
+
   /**
-   * multi choice dropdown method
-   */
-  multiChoiceContentMethod(){
+     * Single Choice Content add
+     */
+  multiChoiceContentMethod() {
     this.multiChoiceContent.push({
-      id: this.shortAnswers.length + 1,
+      id: this.multiChoiceContent.length + 1,
+      label: '',  // Store the label here
+      options: [{ id: 1, title: '' }]  // Store options for this label
     });
   }
 
   /**
-   * Multi Choice content remove
+   * Single Choice content remove
    */
   multiChoiceContentRemoveMethod(index: number) {
     this.multiChoiceContent.splice(index, 1);
   }
 
-   /**
-   * Multiple Choide dropdownOptions
+  /**
+   * Add a new option to a specific single choice label
    */
-   multipleChoiceDropdownOptionsMethod() {
-    this.multipleChoiceOptions.push({
-      id: this.multipleChoiceOptions.length + 1,
-      title: '',
+  multiDropdownOptionsMethod(index: number) {
+    this.multiChoiceContent[index].options.push({
+      id: this.multiChoiceContent[index].options.length + 1,
+      title: ''
     });
   }
 
   /**
-   * Multiple choice options remove
+   * Remove a specific option from a single choice label
    */
-  multipleChoiceOptionsRemoveMethod(index: number) {
-    this.multipleChoiceOptions.splice(index, 1);
+  multiDropdownOptionsRemoveMethod(labelIndex: number, optionIndex: number) {
+    this.multiChoiceContent[labelIndex].options.splice(optionIndex, 1);
   }
 
-  singleChoiceChange(){
-
-  }
 }

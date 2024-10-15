@@ -32,64 +32,66 @@
                 </div>
 
                 <!-- Large Heading -->
-                 @if(heading.length > 0){
-                    @for (heading of heading; track heading;let i = $index) {
-                        <div ngbAccordion [id]="'largeHeading'+i" class="mt-3">
-                            <div ngbAccordionItem [collapsed]="false">
-                                <h2 ngbAccordionHeader id="headingOne">
-                                    <button ngbAccordionButton type="button" data-bs-toggle="collapse"
-                                    [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true" aria-controls="collapseOne">
-                                        Large Heading
-                                    </button>
-                                </h2>
-                                <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
-                                    aria-labelledby="headingOne" [attr.data-bs-parent]="'#headingOne'+i">
-                                    <div ngbAccordionBody>
-                                        <input type="text" class="form-control" placeholder="Large Heading..."
-                                            aria-label="Large Heading" [(ngModel)]="headingTitle[i]" />
+                @if(heading.length > 0){
+                @for (heading of heading; track heading;let i = $index) {
+                <div ngbAccordion [id]="'largeHeading'+i" class="mt-3">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader id="headingOne">
+                            <button ngbAccordionButton type="button" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                Large Heading
+                            </button>
+                        </h2>
+                        <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
+                            aria-labelledby="headingOne" [attr.data-bs-parent]="'#headingOne'+i">
+                            <div ngbAccordionBody>
+                                <input type="text" class="form-control" placeholder="Large Heading..."
+                                    aria-label="Large Heading" [(ngModel)]="headingTitle[i]" />
 
-                                        <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
-                                            <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
-                                                ngbTooltip="Delete" (click)="headingContentRemoveMethod(i)">
-                                                <i class="bi bi-trash3-fill"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
+                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                        ngbTooltip="Delete" (click)="headingContentRemoveMethod(i)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    }
-                 }
+                    </div>
+                </div>
+                }
+                }
 
                 <!-- Body Contenet -->
-                 @if(body.length > 0){
-                    @for (body of body; track body;let i = $index) {
-                        <div ngbAccordion [id]="'body'+i" class="mt-3">
-                            <div ngbAccordionItem [collapsed]="false">
-                                <h2 ngbAccordionHeader id="bodyOne">
-                                    <button ngbAccordionButton type="button" data-bs-toggle="collapse"
-                                    [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true" aria-controls="collapseOne">
-                                        Body
-                                    </button>
-                                </h2>
-                                <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
-                                    aria-labelledby="bodyOne" [attr.data-bs-parent]="'#bodyOne'+i">
-                                    <div ngbAccordionBody>
-                                        <input type="text" class="form-control" placeholder="Body..."
-                                            aria-label="Body" [(ngModel)]="bodyTitle[i]" />
+                @if(body.length > 0){
+                @for (body of body; track body;let i = $index) {
+                <div ngbAccordion [id]="'body'+i" class="mt-3">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader id="bodyOne">
+                            <button ngbAccordionButton type="button" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                Body
+                            </button>
+                        </h2>
+                        <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
+                            aria-labelledby="bodyOne" [attr.data-bs-parent]="'#bodyOne'+i">
+                            <div ngbAccordionBody>
+                                <input type="text" class="form-control" placeholder="Body..." aria-label="Body"
+                                    [(ngModel)]="bodyTitle[i]" />
 
-                                        <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
-                                            <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
-                                                ngbTooltip="Delete" (click)="bodyContentRemoveMethod(i)">
-                                                <i class="bi bi-trash3-fill"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
+                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                        ngbTooltip="Delete" (click)="bodyContentRemoveMethod(i)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    }
-                 }
+                    </div>
+                </div>
+                }
+                }
 
                 <!-- Short Answer  -->
                 @if (shortAnswers.length > 0) {
@@ -110,7 +112,7 @@
 
                                 <div>
                                     <input type="text" class="form-control" placeholder="Enter screen title"
-                                        aria-label="Footer Name"  />
+                                        aria-label="Footer Name" />
                                 </div>
                                 <div class="mt-2">
                                     <label for="ins">Instructions</label>
@@ -137,63 +139,62 @@
 
                 <!-- Single Choice Content -->
                 @if (singleChoiceContent.length > 0) {
-                @for (singleChoiceContent of singleChoiceContent; track singleChoiceContent;let i = $index) {
-                <div ngbAccordion [id]="'dropdownTitle'+i" class="mt-3">
+                <div *ngFor="let singleChoice of singleChoiceContent; let i = index" class="mt-3" ngbAccordion
+                    [id]="'dropdownTitle'+i">
                     <div ngbAccordionItem [collapsed]="false">
                         <h2 ngbAccordionHeader id="headingOne">
                             <button ngbAccordionButton type="button" data-bs-target="#collapseOne"
                                 [attr.data-bs-target]="'#collapseOne' + i" aria-expanded="true"
                                 aria-controls="collapseOne">
-                                Single Choice Dropdown
+                                Single Choice Dropdown 
                             </button>
                         </h2>
                         <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
                             aria-labelledby="headingOne" [attr.data-bs-parent]="'#dropdownTitle'+i">
+                            <!-- Input for Label -->
                             <div ngbAccordionBody>
-                                <input type="text" class="form-control" placeholder="Label" aria-label="Label" />
-
-                                @if (dropdownOptions.length > 0) {
-                                @for (dropdownOptions of dropdownOptions; track dropdownOptions;let j = $index) {
-                                <div class="d-flex align-items-center justify-content-between">
-
-                                    <div class="mt-2">
-                                        <label for="options">Options</label>
-                                        <input type="text" class="form-control" [placeholder]="'Options ' + (j+1)"
-                                            aria-label="Label" />
-                                    </div>
-                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
-                                        ngbTooltip="Delete" (click)="dropdownOptionsRemoveMethod(j)">
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </button>
-                                </div>
-
-                                }
-                                }
-
-                                <button type="button" class="btn btn-outline-light btn-wave mt-1"
-                                    (click)="dropdownOptionsMethod()">Add options</button>
-
-                                <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
-                                    <mat-slide-toggle class="example-margin">
-                                        Required
-                                    </mat-slide-toggle>
-
-                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
-                                        ngbTooltip="Delete" (click)="singleChoiceContentRemoveMethod(i)">
-                                        <i class="bi bi-trash3-fill"></i>
-                                    </button>
-                                </div>
+                                <input type="text" class="form-control" [(ngModel)]="singleChoice.label"
+                                    placeholder="Single Choice Label" />
                             </div>
+                            @if (singleChoice?.options?.length > 0) {
+                            @for(option of singleChoice.options;track option;let j = $index){
+                            <!-- Options for this Label -->
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="mt-2">
+                                    <label for="option{{j}}">Option {{j + 1}}</label>
+                                    <input type="text" class="form-control" [(ngModel)]="option.title"
+                                        placeholder="Option {{j + 1}}" aria-label="Label" />
+                                </div>
+                                <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                    ngbTooltip="Delete" (click)="dropdownOptionsRemoveMethod(i, j)">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </button>
+                            </div>
+                            }
+                            }
+                            <!-- Add New Option -->
+                            <button type="button" class="btn btn-outline-light btn-wave mt-1"
+                                (click)="dropdownOptionsMethod(i)">Add Options</button>
+                            <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
+                                <mat-slide-toggle class="example-margin">
+                                    Required
+                                </mat-slide-toggle>
+
+                                <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                    ngbTooltip="Delete" (click)="singleChoiceContentRemoveMethod(i)">
+                                    <i class="bi bi-trash3-fill"></i>
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 }
-                }
 
-                <!-- Muti Choice Content -->
+
                 @if (multiChoiceContent.length > 0) {
-                    @for (multiChoiceContent of multiChoiceContent; track multiChoiceContent;let i = $index) {
-                    <div ngbAccordion [id]="'multipleChoiceDropdownTitle'+i" class="mt-3">
+                    <div *ngFor="let multiChoiceContent of multiChoiceContent; let i = index" class="mt-3" ngbAccordion
+                    [id]="'multipleChoiceDropdownTitle'+i">
                         <div ngbAccordionItem [collapsed]="false">
                             <h2 ngbAccordionHeader id="headingOne">
                                 <button ngbAccordionButton type="button" data-bs-target="#collapseOne"
@@ -204,46 +205,45 @@
                             </h2>
                             <div [id]="'collapseOne' + i" class="accordion-collapse collapse show" ngbAccordionCollapse
                                 aria-labelledby="headingOne" [attr.data-bs-parent]="'#multipleChoiceDropdownTitle'+i">
+                                <!-- Input for Label -->
                                 <div ngbAccordionBody>
-                                    <input type="text" class="form-control" placeholder="Label" aria-label="Label" [(ngModel)]="multipleChoiceLabel"/>
-    
-                                    @if (multipleChoiceOptions.length > 0) {
-                                    @for (multipleChoiceOptions of multipleChoiceOptions; track multipleChoiceOptions;let j = $index) {
-                                    <div class="d-flex align-items-center justify-content-between">
-    
-                                        <div class="mt-2">
-                                            <label for="options">Options</label>
-                                            <input type="text" class="form-control" [placeholder]="'Options ' + (j+1)"
-                                                aria-label="Label" />
-                                        </div>
-                                        <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
-                                            ngbTooltip="Delete" (click)="multipleChoiceOptionsRemoveMethod(j)">
-                                            <i class="bi bi-trash3-fill"></i>
-                                        </button>
-                                    </div>
-    
-                                    }
-                                    }
-    
-                                    <button type="button" class="btn btn-outline-light btn-wave mt-1"
-                                        (click)="multipleChoiceDropdownOptionsMethod()">Add options</button>
-    
-                                    <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
-                                        <mat-slide-toggle class="example-margin">
-                                            Required
-                                        </mat-slide-toggle>
-    
-                                        <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
-                                            ngbTooltip="Delete" (click)="singleChoiceContentRemoveMethod(i)">
-                                            <i class="bi bi-trash3-fill"></i>
-                                        </button>
-                                    </div>
+                                    <input type="text" class="form-control" [(ngModel)]="multiChoiceContent.label"
+                                        placeholder="Multi Choice Label" />
                                 </div>
+                                @if (multiChoiceContent?.options?.length > 0) {
+                                @for(option of multiChoiceContent.options;track option;let j = $index){
+                                <!-- Options for this Label -->
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="mt-2">
+                                        <label for="option{{j}}">Option {{j + 1}}</label>
+                                        <input type="text" class="form-control" [(ngModel)]="option.title"
+                                            placeholder="Option {{j + 1}}" aria-label="Label" />
+                                    </div>
+                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                        ngbTooltip="Delete" (click)="multiDropdownOptionsRemoveMethod(i, j)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </div>
+                                }
+                                }
+                                <!-- Add New Option -->
+                                <button type="button" class="btn btn-outline-light btn-wave mt-1"
+                                    (click)="multiDropdownOptionsMethod(i)">Add Options</button>
+                                <div class="mt-4 d-flex gap-4 justify-content-end align-items-center">
+                                    <mat-slide-toggle class="example-margin">
+                                        Required
+                                    </mat-slide-toggle>
+    
+                                    <button class="btn btn-icon btn-primary btn-wave" data-bs-toggle="tooltip"
+                                        ngbTooltip="Delete" (click)="multiChoiceContentRemoveMethod(i)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </div>
+    
                             </div>
                         </div>
                     </div>
                     }
-                }
 
 
 
@@ -265,7 +265,8 @@
                                 Text
                             </button>
                             <div ngbDropdownMenu>
-                                <button class="dropdown-item" type="button" (click)="headingContentMethod()">Heading</button>
+                                <button class="dropdown-item" type="button"
+                                    (click)="headingContentMethod()">Heading</button>
                                 <button class="dropdown-item" type="button" (click)="bodyContentMethod()">Body</button>
                             </div>
                         </div>
@@ -288,9 +289,11 @@
                                 Selection
                             </button>
                             <div ngbDropdownMenu>
-                                <button class="dropdown-item" type="button" (click)="singleChoiceContentMethod()">Single Choice</button>
-                                <button class="dropdown-item" type="button" (click)="multiChoiceContentMethod()">Multiple Choice</button>
-                                <button class="dropdown-item" type="button">Opt-in</button>
+                                <button class="dropdown-item" type="button" (click)="singleChoiceContentMethod()">Single
+                                    Choice</button>
+                                <button class="dropdown-item" type="button"
+                                    (click)="multiChoiceContentMethod()">Multiple Choice</button>
+                                <!-- <button class="dropdown-item" type="button">Opt-in</button> -->
                             </div>
                         </div>
                     </div>
@@ -308,7 +311,7 @@
                     <div class="mobile-header">
                         {{screenTitle}} <!-- Screen title displayed here -->
                     </div>
-                    <div class="mobile-body" >
+                    <div class="mobile-body">
                         <h5 *ngFor="let title of headingTitle; let i = index;">
                             {{headingTitle[i]}} <!-- Heading title displayed here -->
                         </h5>
@@ -316,36 +319,41 @@
                             {{bodyTitle[i]}} <!-- Body text displayed here -->
                         </p>
                         <!-- Single Choice Button -->
-                        @if(singleChoiceContent.length > 0){
-                            <h6>Multiple Choice Options</h6>
-                            <div class="form-group" *ngFor="let option of dropdownOptions; let j = index;">
-                                <label >
-                                    <input type="radio" 
-                                           name="radioGroup" 
-                                           >
-                                    {{ option.title ? option.title : ('Option ' + (j+1)) }} 
-                                </label>
-                            </div>
-                        }
 
-                        <!-- Multiple Choice Checkbox -->
-                        <div *ngIf="multiChoiceContent.length > 0">
-                            <h6>{{multipleChoiceLabel}}</h6>
-                            <div class="form-group" *ngFor="let option of multipleChoiceOptions; let j = index;">
-                                <label>
-                                    <input type="checkbox" 
-                                        [(ngModel)]="option.selected"> <!-- Two-way data binding for checkbox -->
-                                    {{ option.title ? option.title : ('Option ' + (j+1)) }} 
-                                </label>
+                        <div *ngFor="let singleChoice of singleChoiceContent; let i = index" class="card mt-3">
+                            <div class="card-body">
+                                <!-- Display Label in Preview -->
+                                <h5>{{singleChoice.label || 'Single Choice Dropdown'}}</h5>
+
+                                <div *ngFor="let option of singleChoice.options; let j = index">
+                                    <label>
+                                        <input type="radio" [name]="'radioGroup' + i" /> {{option.title || 'Option ' +
+                                        (j + 1)}}
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- Multiple Choice Checkbox -->
+                        <div *ngFor="let multiChoiceContent of multiChoiceContent; let i = index" class="card mt-3">
+                            <div class="card-body">
+                                <!-- Display Label in Preview -->
+                                <h5>{{multiChoiceContent.label || 'Multi Choice Dropdown'}}</h5>
+
+                                <div *ngFor="let option of multiChoiceContent.options; let j = index">
+                                    <label>
+                                        <input type="checkbox" /> {{option.title || 'Option ' +
+                                        (j + 1)}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <!-- Additional mobile content can be placed here -->
                 </div>
             </div>
-            
+
 
         </div>
     </div>
