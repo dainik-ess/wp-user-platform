@@ -1,102 +1,171 @@
 <!-- Button to Open Modal -->
 <div class="container mt-4">
-    <div class="d-flex justify-content-end mb-3">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#messageModal"
-            (click)="openModal(content)">
-            Open Message Form
-        </button>
+  <div class="d-flex justify-content-end mb-3">
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#messageModal"
+      (click)="openModal(content)"
+    >
+      Open Message Form
+    </button>
+  </div>
+
+  <!-- Grid of Cards for User and Bot Messages -->
+  <div class="row">
+    <!-- Display this message when dummyStoreMessageReplies is empty -->
+    <div
+      *ngIf="!storeMessageReplies || storeMessageReplies.length === 0"
+      class="col-12 text-center"
+    >
+      <div class="alert alert-info">
+        <h4 class="alert-heading">No Messages Found</h4>
+        <p>It looks like there are no messages to display at the moment.</p>
+      </div>
     </div>
 
-    <!-- Grid of Cards for User and Bot Messages -->
-    <div class="row">
-        <!-- Display this message when dummyStoreMessageReplies is empty -->
-        <div *ngIf="!storeMessageReplies || storeMessageReplies.length === 0" class="col-12 text-center">
-            <div class="alert alert-info">
-                <h4 class="alert-heading">No Messages Found</h4>
-                <p>It looks like there are no messages to display at the moment.</p>
-
-            </div>
+    <div class="col-md-4 mb-4" *ngFor="let data of storeMessageReplies">
+      <!-- Card Container -->
+      <div class="card border-light shadow-sm rounded">
+        <!-- Card Body -->
+        <div class="card-body p-4">
+          <!-- User Message -->
+          <div class="mb-3">
+            <h6 class="card-title mb-2 text-dark">User</h6>
+            <p class="card-text mb-1">
+              <strong>Type:</strong> <i> {{ data?.type }}</i>
+            </p>
+            <p class="card-text">{{ data?.message }}</p>
+          </div>
+          <!-- Bot Message Section -->
+          <div class="border-top pt-3 mt-3">
+            <h6 class="card-title mb-2 text-dark">Bot</h6>
+            <p class="card-text mb-1">
+              <strong>Reply Type:</strong> <i> {{ data?.replyType }}</i>
+            </p>
+            <p class="card-text">{{ data?.replyContent }}</p>
+          </div>
         </div>
-
-        <div class="col-md-4 mb-4" *ngFor="let data of storeMessageReplies">
-            <!-- Card Container -->
-            <div class="card border-light shadow-sm rounded">
-                <!-- Card Body -->
-                <div class="card-body p-4">
-                    <!-- User Message -->
-                    <div class="mb-3">
-                        <h6 class="card-title mb-2 text-dark">User</h6>
-                        <p class="card-text mb-1"><strong>Type:</strong> <i> {{data?.type}}</i></p>
-                        <p class="card-text">{{data?.message}}</p>
-                    </div>
-                    <!-- Bot Message Section -->
-                    <div class="border-top pt-3 mt-3">
-                        <h6 class="card-title mb-2 text-dark">Bot</h6>
-                        <p class="card-text mb-1"><strong>Reply Type:</strong> <i> {{data?.replyType}}</i></p>
-                        <p class="card-text">{{data?.replyContent}}</p>
-                    </div>
-                </div>
-                <!-- Card Footer -->
-                <!-- <div class="card-footer bg-light text-end border-top">
+        <!-- Card Footer -->
+        <!-- <div class="card-footer bg-light text-end border-top">
                     <button class="btn btn-primary btn-sm" (click)="viewButton(content, data)">
                         <i class="fa fa-eye me-2"></i> View
                     </button>
                 </div> -->
-            </div>
-        </div>
-
-
-
+      </div>
     </div>
-
+  </div>
 </div>
 
 <!-- Modal -->
 <ng-template #content role="document" let-modal>
-    <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Message and Reply Form</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
-            (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="card-body p-4">
-        <form [formGroup]="messageForm" (ngSubmit)="validSubmit()">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Message and Reply Form</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+      id="close-modal"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="card-body p-4">
+    <form [formGroup]="messageForm" (ngSubmit)="validSubmit()">
+      <!-- Message -->
+      <div class="mb-3">
+        <label for="form-text" class="form-label fs-14 text-dark"
+          >Message</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="form-text"
+          placeholder="Enter your message"
+          formControlName="message"
+        />
+      </div>
 
-            <!-- Message -->
-            <div class="mb-3">
-                <label for="form-text" class="form-label fs-14 text-dark">Message</label>
-                <input type="text" class="form-control" id="form-text" placeholder="Enter your message" formControlName="message">
-            </div>
+      <!-- Type -->
+      <div class="mb-3">
+        <label for="form-password" class="form-label fs-14 text-dark"
+          >Type Password</label
+        >
+        <select
+          id="inputState"
+          class="form-select form-select-lg"
+          formControlName="type"
+        >
+          <option value="" disabled selected>Please select type</option>
+          @for (data of type; track $index) {
+          <option [value]="data.value">{{ data.title }}</option>
+          }
+        </select>
+      </div>
 
-            <!-- Type -->
-            <div class="mb-3">
-                <label for="form-password" class="form-label fs-14 text-dark">Type
-                    Password</label>
-                <select id="inputState" class="form-select form-select-lg" formControlName="type" >
-                    <option value="" disabled selected>Please select type</option>
-                    @for (data of type; track $index) {
-                        <option  [value]="data.value">{{data.title}}</option>
-                    }
-                </select>
-            </div>
+      <!-- Reply Type -->
+      <div class="mb-3">
+        <label for="form-password" class="form-label fs-14 text-dark"
+          >Reply Type</label
+        >
+        <select
+          id="inputState"
+          class="form-select form-select-lg"
+          formControlName="replyType"
+        >
+          <option value="" disabled selected>Please select reply type</option>
+          @for (data of replytype; track $index) {
+          <option [value]="data.value">{{ data.title }}</option>
+          }
+        </select>
+      </div>
 
-            <!-- Reply Type -->
-            <div class="mb-3">
-                <label for="form-password" class="form-label fs-14 text-dark">Reply Type</label>
-                <select id="inputState" class="form-select form-select-lg" formControlName="replyType" >
-                    <option value="" disabled selected>Please select reply type</option>
-                    @for (data of replytype; track $index) {
-                        <option  [value]="data.value">{{data.title}}</option>
-                    }
-                </select>
-            </div>
+      <!-- Reply Content -->
+      @if(messageForm.get('replyType')?.value === 'text'){
+      <div class="mb-3">
+        <label for="form-text" class="form-label fs-14 text-dark"
+          >Reply Content</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="form-text"
+          placeholder="Enter reply content"
+          formControlName="replyContent"
+        />
+      </div>
+      }
 
-             <!-- Reply Content -->
-             <div class="mb-3">
-                <label for="form-text" class="form-label fs-14 text-dark">Reply Content</label>
-                <input type="text" class="form-control" id="form-text" placeholder="Enter reply content" formControlName="replyContent">
-            </div>
+      <!-- Template Content -->
+      @if(messageForm.get('replyType')?.value === 'template'){
+        <div class="mb-3">
+        <ng-select
+          [items]="getTemplateStoreRecords"
+          bindLabel="name"
+          bindValue="id"
+          formControlName="category"
+          id="ng-select-dropdown"
+          ></ng-select>
+        </div>
+      }
 
-            <button class="btn btn-primary" type="submit">Submit</button>
-        </form>
-    </div>
+      <!-- Flow Content -->
+      @if(messageForm.get('replyType')?.value === 'flow'){
+        <div class="mb-3">
+        <ng-select
+          [items]="getFlowStoreRecords"
+          bindLabel="name"
+          bindValue="id"
+          formControlName="category"
+          id="ng-select-dropdown"
+          ></ng-select>
+        </div>
+      }
+
+
+
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </div>
 </ng-template>

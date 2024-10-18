@@ -13,12 +13,14 @@ import { LoaderService } from '../../../shared/services/loader.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FlowModalComponent } from './flow-modal/flow-modal.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-template',
   standalone: true,
   imports: [
     MatStepperModule,
+    NgbDropdownModule,
     NgSelectModule,
     AngularEditorModule,
     FormsModule,
@@ -43,6 +45,41 @@ export class TemplateComponent implements OnInit {
     bodyContent: null as string | null,
     imagePreview: null as string | null,
   };
+
+  buttonValue = {
+    call_phone_btn:'',
+  }
+
+  addButtonFlow = [
+    {
+      id:1,
+      maximum_button:2,
+      label:'Visit website',
+      value:'visit_website'
+    },
+    {
+      id:2,
+      maximum_button:1,
+      label:'Call phone number',
+      value:'call_phone_btn'
+    },
+    {
+      id:3,
+      maximum_button:1,
+      label:'Complete Flow',
+      value:'complete_flow'
+    },
+    {
+      id:4,
+      maximum_button:1,
+      label:'Copy offer code',
+      value:'copy_offer_code'
+    }
+  ]
+
+  tempButton: any = {};
+
+  selectedButtonType: string = '';
 
   headerContent: any[] = [
     { id: 1, name: 'None', value: '' },
@@ -126,6 +163,7 @@ export class TemplateComponent implements OnInit {
         name: this.customTemp.tempName,
         category: 'marketing',
         language: 'en_US',
+        allowCategoryChange: true,
         components: [
           {
             type: 'BODY',
@@ -174,5 +212,14 @@ export class TemplateComponent implements OnInit {
       width: '70%',
       height:'80%'
     });
+  }
+
+  public selectButtonTypeMethod(addButtonFlow: any) {
+    this.selectedButtonType = addButtonFlow.value;
+    this.tempButton = { 
+      max: addButtonFlow.maximum_button, 
+      data: new Array(addButtonFlow.maximum_button).fill({ type: this.selectedButtonType, text: '', url: '' }),
+      type: addButtonFlow.value 
+    };
   }
 }

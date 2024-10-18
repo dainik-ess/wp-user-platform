@@ -5,10 +5,10 @@
                 <div class="card-body form-card">
                     <mat-horizontal-stepper [linear]="true" #stepper  [(selectedIndex)]="currentStepIndex">
                         <!-- Step 1: Verify Token -->
-                        <mat-step label="Verify Token">
+                        <mat-step label="Generate Verify Token">
                             <div class="container mx-auto mt-4">
                                 @if(businessDetailsForm.get('webhookVerifyToken')?.value){
-                                    <h3 class="text-center mb-3" style="color: #007bff; font-weight: 700;"> Token Verified
+                                    <h3 class="text-center mb-3" style="color: #007bff; font-weight: 700;">  Verified Token Generated
                                         Successfully!
                                     </h3>
                                     <p class="text-center mb-4" style="color: #6c757d;">
@@ -19,13 +19,13 @@
                                     </h3>
                                     <p class="text-center mb-4" style="color: #6c757d;">
                                         To proceed, please verify your token. Make sure you have the correct token before
-                                        clicking "Verify Token."
+                                        clicking "Generate Verify Token."
                                     </p>
                                     <div class="text-center">
                                         <button class="btn btn-success btn-lg px-4 py-2" (click)="tokenVerify()">
                                             <img
                                                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAATNJREFUSEu9Ve2xgjAQ3I2NaCdaydNK9FWiVvLoRBoh51weiUkE5BiVGX8F9+NusxAffvhhfCwiEJE1vP8BuQWwBtBCpOFq9VsLNhOIyBYifyPOW5A7km08NxEE5SK3DDwoz5zoUUvnNssIuu4Mct//OQFlIzuFM5FTHJfNgfeqXmcelELkEoF6d2cAupeGzu30JSuBVLMvSbzX3ShBcmclyB1ErkQi0eG/s4PJwcCCczOaGv2pet2BjeAFeJ1YW4qM4OjvQTMrpjPGUiQKzl3zSza5g5fg5IFkUjrWaYMpmgQnN7XKqcJ8IpgEz9Ixt4ULgncqH1yylF3zELlA+TDB46rHc23Ka+iWrILnjucpRemqJ/qQlIsFsH633EHXHfs6Hv1CWclMZWcFN5XdEvCvENwB5fO1GQWDYO0AAAAASUVORK5CYII=" />
-                                            Verify Token
+                                            Generate Verify Token
                                         </button>
                                     </div>
                                 }

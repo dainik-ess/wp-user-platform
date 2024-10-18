@@ -193,4 +193,11 @@ export class FlowModalComponent {
     this.multiChoiceContent[labelIndex].options.splice(optionIndex, 1);
   }
 
+
+  public flowSave() {
+
+    
+  } 
+
+
 }

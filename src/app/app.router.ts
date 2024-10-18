@@ -4,7 +4,7 @@ export const url = {
   login: environment.apiURL + "/auth/login",
 
   // Whatsapp Business
-  tokenWebHook: environment.apiURL + '/meta/webhook',
+  tokenWebHook: environment.apiURL + '/meta/whatsapp-business/create-webhook-verify-token',
   getToken: environment.apiURL + '/meta/whatsapp-business/get-whatsapp-business-details',
   addBusinessDetails : environment.apiURL + '/meta/whatsapp-business/add-whatsapp-business-details',
   updateBusinessDetails : environment.apiURL + '/meta/whatsapp-business/update-whatsapp-business-details',
@@ -26,5 +26,9 @@ export const url = {
   saveMessageReplies : environment.apiURL + '/meta/messages-and-replies/create-message-and-reply',
 
   // Template
-  saveTemplate : environment.apiURL + '/meta/message-template/create-message-template'
+  saveTemplate : environment.apiURL + '/meta/message-template/create-message-template',
+  getAllTemplate : environment.apiURL + '/meta/message-template/get-all-message-templates',
+
+  // Flows
+  getAllFlows : environment.apiURL + '/meta/flows/get-all-flows',
 };

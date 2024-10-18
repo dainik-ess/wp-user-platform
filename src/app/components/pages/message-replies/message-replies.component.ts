@@ -11,11 +11,13 @@ import { ReplyType, Type } from './message-replies.constant';
 import { Validators } from 'ngx-editor';
 import { BaseService } from '../../../shared/services/base.service';
 import { url } from '../../../app.router';
+import { LoaderService } from '../../../shared/services/loader.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-message-replies',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule,NgSelectModule],
   templateUrl: './message-replies.component.html',
   styleUrl: './message-replies.component.scss',
 })
@@ -30,10 +32,14 @@ export class MessageRepliesComponent {
 
   public storeMessageReplies: any = [];
 
+  public getTemplateStoreRecords:any[] =[];
+  public getFlowStoreRecords:any[] =[];
+
   constructor(
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private _baseService: BaseService
+    private _baseService: BaseService,
+    private loader: LoaderService
   ) {
     this.messageForm = this.formBuilder.group({
       message: ['', [Validators.required]],
@@ -56,6 +62,8 @@ export class MessageRepliesComponent {
    */
   private initializer() {
     this.getMessageReplies();
+    this.getAllFlows();
+    this.getTemplate();
   }
 
   /**
@@ -69,7 +77,9 @@ export class MessageRepliesComponent {
     };
     this._baseService.get(url.getMessageReplies, params).subscribe({
       next: (response) => {
-        this.storeMessageReplies = response.data;
+        if(response?.success){
+          this.storeMessageReplies = response?.data?.data;
+        }
       },
       error: (error) => {
         console.error(error);
@@ -88,6 +98,48 @@ export class MessageRepliesComponent {
       replyType: '',
       replyContent: '',
     });
+  }
+
+  /**
+   * get all flows
+   */
+  getAllFlows(){
+    this.loader.showLoader();
+
+    this._baseService.get(url.getAllFlows,{}).subscribe({
+      next: (response) => {
+        if(response?.success){
+          this.getFlowStoreRecords = response?.data?.data
+        }
+      },
+      error: (error) => {
+        this.getFlowStoreRecords = []
+      },
+      complete: () => {
+        this.loader.hideLoader();
+      },
+    })
+  }
+
+  /**
+   * get all flows
+   */
+  getTemplate(){
+    this.loader.showLoader();
+
+    this._baseService.get(url.getAllTemplate,{}).subscribe({
+      next: (response) => {
+        if(response?.success){
+          this.getTemplateStoreRecords = response?.data?.data
+        }
+      },
+      error: (error) => {
+        this.getFlowStoreRecords = []
+      },
+      complete: () => {
+        this.loader.hideLoader();
+      },
+    })
   }
 
   /*---------------------------------
@@ -114,6 +166,7 @@ export class MessageRepliesComponent {
           error: (error) => {
             console.error(error);
           },
+          
         });
     }
   }

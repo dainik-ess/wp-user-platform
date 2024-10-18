@@ -119,24 +119,94 @@
                                 <input type="text" class="form-control" placeholder="Enter text"
                                     aria-label="Footer Name" [(ngModel)]="customTemp.footerText" />
                             </div>
+
+                            <!-- Add Button Flow -->
+                            <h6>Buttons</h6>
+                            <span>Create buttons that let customers response to your message or take action. You can add up to 10 buttons, If you add more that 3 buttons. they will appear in a list</span>
+
+                            <div ngbDropdown class="dropdown mt-1">
+                                <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
+                                    Add Button
+                                </button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+                                    <button class="dropdown-item" type="button" *ngFor="let addButtonFlow of addButtonFlow" (click)="selectButtonTypeMethod(addButtonFlow)">
+                                        <h6>{{addButtonFlow.label}}</h6>
+                                        <h6>{{addButtonFlow.maximum_button}} buttons maximum</h6>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- CTA Section -->
+                            <!-- @if(buttonType == 'visit_website'){
+                                <h1>Visit Website</h1>
+                            } @else if (buttonType == 'complete_flow') {
+                                <h1>complete_flow</h1>
+                            }@else if (buttonType == 'call_phone_btn') {
+                                <div class="mt-3">
+                                    <label>Button text</label>
+                                    <input type="text" class="form-control" placeholder="Please enter label here.."
+                                        aria-label="Label test"  [(ngModel)]="buttonValue.call_phone_btn"/>
+                                </div>
+                                <div class="mt-3">
+                                    <label>Phone number</label>
+                                    <input type="text" class="form-control" placeholder="Enter number"
+                                        aria-label="Mobile number"  />
+                                </div>
+
+                            }@else if (buttonType == 'copy_offer_code') {
+                                <div class="mt-3">
+                                    <label>Offer code</label>
+                                    <input type="text" class="form-control" placeholder="Enter sample"
+                                        aria-label="Enter sample"  />
+                                </div>
+                            } -->
+                            <div *ngIf="selectedButtonType">
+                                <div *ngFor="let button of tempButton.data; let i = index">
+                                    @if(selectedButtonType !== 'copy_offer_code'){
+
+                                        <div class="mt-3">
+                                            <label>   
+                                               Button Text
+                                            </label>
+                                            <input type="text" class="form-control" 
+                                            [(ngModel)]="button.text"
+                                            [placeholder]="selectedButtonType === 'call_phone_btn' ? 'Enter phone number' : 
+                                            selectedButtonType === 'visit_website' ? 'Enter website label' : 
+                                            selectedButtonType === 'complete_flow' ? 'Enter flow name' : 
+                                            'Enter text here'"
+                                                  />
+                                        </div>
+                                    }
+                                    <div class="mt-3">
+                                        <label>   
+                                            {{ selectedButtonType === 'call_phone_btn' ? 'Phone Number' : 
+                                            selectedButtonType === 'visit_website' ? 'Website Label' : 
+                                            selectedButtonType === 'complete_flow' ? 'Flow Name' : 
+                                            selectedButtonType === 'copy_offer_code' ? 'Offer Code' : 
+                                            '' }}
+                                        </label>
+                                        <input type="text" class="form-control"  
+                                        [(ngModel)]="button.url" 
+                                        [placeholder]="selectedButtonType === 'call_phone_btn' ? 'Enter phone number' : 
+                                        selectedButtonType === 'visit_website' ? 'Enter website ' : 
+                                        selectedButtonType === 'complete_flow' ? 'Enter flow ' : 
+                                        selectedButtonType === 'copy_offer_code' ? 'Enter offer code' : 
+                                        'Enter text here'"
+                                            />
+                                    </div>
+                                </div>
+                              </div>
+                              
                         </div>
                         <!-- Content Section End-->
 
                         <div class="d-flex justify-content-between mt-3 custom-btn">
-
                             <button class="btn btn-light m-1" matStepperPrevious>Previous</button>
-                            <button class="btn btn-primary-light m-1" matStepperNext>Next</button>
+                            <button class="btn btn-primary-light m-1" (click)="templateSave()">Save</button>
                         </div>
                     </div>
                 </mat-step>
-
-                <mat-step label="Submit for review">
-
-                    <div class="d-flex justify-content-between mt-3 custom-btn">
-                        <button class="btn btn-light m-1" matStepperPrevious>Previous</button>
-                        <button class="btn btn-primary-light m-1" (click)="templateSave()">Finish</button>
-                    </div>
-                </mat-step>
+                
             </mat-horizontal-stepper>
 
         </div>
@@ -169,6 +239,7 @@
 
                                 <!-- Timestamp -->
                                 <p class="time float-right">{{ currentTime | date: 'HH:mm' }}</p>
+
                             </div>
                         }
                     </div>
