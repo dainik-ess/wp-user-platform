@@ -13,6 +13,7 @@ import { BaseService } from '../../../shared/services/base.service';
 import { url } from '../../../app.router';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ToastService } from '../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-message-replies',
@@ -39,7 +40,9 @@ export class MessageRepliesComponent {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private _baseService: BaseService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private toastr: ToastService,
+
   ) {
     this.messageForm = this.formBuilder.group({
       message: ['', [Validators.required]],
@@ -155,6 +158,8 @@ export class MessageRepliesComponent {
     if (this.messageForm.invalid) {
       return;
     } else {
+      this.loader.showLoader();
+
       this._baseService
         .post(url.saveMessageReplies, this.messageForm.value)
         .subscribe({
@@ -162,11 +167,15 @@ export class MessageRepliesComponent {
             this.getMessageReplies();
             this.formReset();
             this.modalService.dismissAll();
+            this.toastr.showToastMessage(response.message, 'success-style');
+
           },
           error: (error) => {
-            console.error(error);
+            this.toastr.showToastMessage(error, 'error-style');
           },
-          
+          complete: () => {
+            this.loader.hideLoader();
+          },          
         });
     }
   }

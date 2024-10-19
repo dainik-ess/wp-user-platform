@@ -28,6 +28,7 @@ export const url = {
   // Template
   saveTemplate : environment.apiURL + '/meta/message-template/create-message-template',
   getAllTemplate : environment.apiURL + '/meta/message-template/get-all-message-templates',
+  deleteTemplate : environment.apiURL +'/meta/message-template/delete-message-template/',
 
   // Flows
   getAllFlows : environment.apiURL + '/meta/flows/get-all-flows',

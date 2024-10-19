@@ -13,7 +13,7 @@ import { LoaderService } from '../../../shared/services/loader.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FlowModalComponent } from './flow-modal/flow-modal.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-template',
@@ -27,6 +27,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     DatePipe,
     CommonModule,
+    NgbPaginationModule
   ],
   templateUrl: './template.component.html',
   styleUrl: './template.component.scss',
@@ -36,6 +37,8 @@ export class TemplateComponent implements OnInit {
 
   templateType: string = 'custom';
   currentTime: Date = new Date();
+  addTemplate:boolean = false;
+  getAllTemplateList:any;
 
   customTemp = {
     tempName: null as string | null,
@@ -77,7 +80,7 @@ export class TemplateComponent implements OnInit {
     }
   ]
 
-  tempButton: any = {};
+  tempButton: Array<{ type: string; text: string; url: string }> = []; 
 
   selectedButtonType: string = '';
 
@@ -136,7 +139,9 @@ export class TemplateComponent implements OnInit {
     private toastr: ToastService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllTemplate();
+  }
 
   onFileSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
@@ -153,11 +158,10 @@ export class TemplateComponent implements OnInit {
   }
 
   public templateSave() {
-    console.log('called Data');
     if (!this.templateType || this.templateType == null) {
       return;
     }
-
+    this.loader.showLoader();
     if (this.templateType === 'custom') {
       let customTempObj: any = {
         name: this.customTemp.tempName,
@@ -179,6 +183,13 @@ export class TemplateComponent implements OnInit {
         });
       }
 
+      if(this.selectedButtonType){
+        customTempObj.components.push({
+          type: "BUTTONS",
+          buttons : this.tempButton
+        })
+      }
+
       if (this.customTemp.selectedHeaderType === 'text') {
         customTempObj.components.push({
           type: 'HEADER',
@@ -194,7 +205,9 @@ export class TemplateComponent implements OnInit {
       this._baseService.post(url.saveTemplate, customTempObj).subscribe({
         next: (response) => {
           if (response) {
-            
+            this.addTemplate = false
+            this.toastr.showToastMessage(response.message, 'success-style');
+
           }
         },
         error: (err) => {
@@ -216,10 +229,57 @@ export class TemplateComponent implements OnInit {
 
   public selectButtonTypeMethod(addButtonFlow: any) {
     this.selectedButtonType = addButtonFlow.value;
-    this.tempButton = { 
-      max: addButtonFlow.maximum_button, 
-      data: new Array(addButtonFlow.maximum_button).fill({ type: this.selectedButtonType, text: '', url: '' }),
-      type: addButtonFlow.value 
-    };
+
+    if (!Array.isArray(this.tempButton)) {
+      this.tempButton = [];
+    }
+  
+    // Create new button data
+    const newButtons = Array.from({ length: addButtonFlow.maximum_button }, () => ({
+      type: this.selectedButtonType,
+      text: '',
+      url: ''
+    }));
+  
+    // Concatenate the new buttons with the existing ones
+    this.tempButton = [...this.tempButton, ...newButtons];
   }
+
+  public deleteTemplate(id:string){
+    this.loader.showLoader();this._baseService.delete(url.deleteTemplate+id).subscribe({
+      next: (response) => {
+        if(response?.success){
+          this.getAllTemplate();
+          this.toastr.showToastMessage(response.message, 'success-style');
+        }
+      },
+      error: (err) => {
+        this.toastr.showToastMessage(err, 'error-style');
+      },
+      complete: () => {
+        this.loader.hideLoader();
+      },
+    });
+  }
+
+  private getAllTemplate(){
+    this.loader.showLoader();
+    this._baseService.get(url.getAllTemplate, {}).subscribe({
+      next: (response) => {
+        if(response?.success){
+          this.getAllTemplateList = response?.data?.data
+        }
+      },
+      error: (err) => {
+        this.toastr.showToastMessage(err, 'error-style');
+      },
+      complete: () => {
+        this.loader.hideLoader();
+      },
+    });
+  }
+
+ 
+  
+  
 }

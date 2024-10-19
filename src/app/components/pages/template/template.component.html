@@ -1,253 +1,316 @@
 <div class="container-fluid position-relative">
-    <div class="row">
-        <div class="col-md-8">
-            <!-- </div> -->
-            <mat-horizontal-stepper [linear]="true" #stepper>
-                <mat-step label="Set up template">
-                    <div class="mt-4">
-                        <h6 class="font-weight-bold">Set up your template</h6>
-                        <p class="mt-3">Choose the category that best describes your message template. Then select the
-                            type
-                            of message you
-                            want to send. <a href="#" class="text-primary">Learn more about categories.</a></p>
-
-                        <div class="form-check custom-check mt-3">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                value="custom" checked [(ngModel)]="templateType">
-                            <div class="text-container">
-                                <label class="form-check-label" for="exampleRadios1">Custom</label>
-                                <p>Send promotions or announcements to increase awareness and engagement.</p>
-                            </div>
-                        </div>
-
-                        <div class="form-check custom-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
-                                value="flows" [(ngModel)]="templateType">
-                            <div class="text-container">
-                                <label class="form-check-label" for="exampleRadios3">Flows</label>
-                                <p>Send a form to capture customer interests, appointment requests, or run surveys.</p>
-                            </div>
-                        </div>
-
-                        <!-- <div class="form-check custom-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                value="option2">
-                            <div class="text-container">
-                                <label class="form-check-label" for="exampleRadios2">Order Details</label>
-                                <p>Send messages through which customers can pay you.</p>
-                            </div>
-                        </div> -->
-                    </div>
-
-                    <div class="d-flex justify-content-between mt-3 custom-btn">
-
-                        <button class="btn btn-primary-light m-1 float-right" matStepperNext>Next</button>
-                    </div>
-                </mat-step>
-
-                <mat-step label="Edit template">
-                    <div class="h-55">
+   
+    @if(addTemplate){
+        <div class="row">
+            <div class="col-md-8">
+                <!-- </div> -->
+                <mat-horizontal-stepper [linear]="true" #stepper>
+                    <mat-step label="Set up template">
                         <div class="mt-4">
-                            <h6>Template name</h6>
-                            <input type="text" class="form-control" placeholder="Enter template name"
-                                aria-label="Template Name" [(ngModel)]="customTemp.tempName"/>
+                            <h6 class="font-weight-bold">Set up your template</h6>
+                            <p class="mt-3">Choose the category that best describes your message template. Then select the
+                                type
+                                of message you
+                                want to send. <a href="#" class="text-primary">Learn more about categories.</a></p>
+    
+                            <div class="form-check custom-check mt-3">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                    value="custom" checked [(ngModel)]="templateType">
+                                <div class="text-container">
+                                    <label class="form-check-label" for="exampleRadios1">Custom</label>
+                                    <p>Send promotions or announcements to increase awareness and engagement.</p>
+                                </div>
+                            </div>
+    
+                            <div class="form-check custom-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                                    value="flows" [(ngModel)]="templateType">
+                                <div class="text-container">
+                                    <label class="form-check-label" for="exampleRadios3">Flows</label>
+                                    <p>Send a form to capture customer interests, appointment requests, or run surveys.</p>
+                                </div>
+                            </div>
+    
+                            <!-- <div class="form-check custom-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                    value="option2">
+                                <div class="text-container">
+                                    <label class="form-check-label" for="exampleRadios2">Order Details</label>
+                                    <p>Send messages through which customers can pay you.</p>
+                                </div>
+                            </div> -->
                         </div>
-
-                        <!-- Flow Setup Button -->
-                         <div class="content mt-4" *ngIf="templateType === 'flows'">
-                            <h6>Flow Setup</h6>
-                            <span class="info_text">Choose an exiting Flow or create a new one.</span>
-
-                             <div class="f-flex mt-2">
-                                <button class="btn btn-light m-1" (click)="openFlowModal('new')">Create New</button>
-                                <button class="btn btn-light m-1" (click)="openFlowModal('userExiting')">User Exiting</button>
-                             </div>
-                         </div>
-
-                        <!-- Content Section Start-->
-                        <div class="content mt-4">
-                            <div>
-                                <h6>Content</h6>
-                                <span class="info_text">Fill out the header, body and footer section of your
-                                    template.</span>
-                            </div>
-
-                            <!-- Header -->
+    
+                        <div class="d-flex justify-content-between mt-3 custom-btn">
+    
+                            <button class="btn btn-light m-1" (click)="addTemplate = false">Cancel</button>
+                            <button class="btn btn-primary-light m-1 float-right" matStepperNext>Next</button>
+                        </div>
+                    </mat-step>
+    
+                    <mat-step label="Edit template">
+                        <div class="h-55">
                             <div class="mt-4">
-                                <div class="d-inline-flex">
-                                    <div class="form-label">Header</div>
-                                    <span class="ms-3 info_text">Optional</span>
-                                </div>
-                                <ng-select [items]="headerContent" bindLabel="name" id="ng-select-dropdown"
-                                    bindValue="value" [(ngModel)]="customTemp.selectedHeaderType">
-                                </ng-select>
-
-                                <!-- Header Widget -->
-
-                                <!-- Text -->
-                                @if ( customTemp.selectedHeaderType === 'text') {
-                                <div class="mt-3">
-                                    <input type="text" class="form-control" placeholder="Enter text"
-                                        aria-label="Header Text Name" [(ngModel)]="customTemp.headerText" />
-                                </div>
-                                }
-
-                                <!-- Image -->
-                                @if ( customTemp.selectedHeaderType === 'image') {
-                                <div class="mt-3 ">
-                                    <div>Sample for header content</div>
-                                    <input type="file" class="form-control" id="fileInput"
-                                        (change)="onFileSelected($event)" />
-                                </div>
-                                }
-
+                                <h6>Template name</h6>
+                                <input type="text" class="form-control" placeholder="Enter template name"
+                                    aria-label="Template Name" [(ngModel)]="customTemp.tempName"/>
                             </div>
-
-                            <!-- Body -->
-                            <div class="mt-7">
-                                <div class="form-label">Body</div>
+    
+                            <!-- Flow Setup Button -->
+                             <div class="content mt-4" *ngIf="templateType === 'flows'">
+                                <h6>Flow Setup</h6>
+                                <span class="info_text">Choose an exiting Flow or create a new one.</span>
+    
+                                 <div class="f-flex mt-2">
+                                    <button class="btn btn-light m-1" (click)="openFlowModal('new')">Create New</button>
+                                    <button class="btn btn-light m-1" (click)="openFlowModal('userExiting')">User Exiting</button>
+                                 </div>
+                             </div>
+    
+                            <!-- Content Section Start-->
+                            <div class="content mt-4">
                                 <div>
-                                    <angular-editor [config]="config" [(ngModel)]="customTemp.bodyContent">
-                                        <div></div>
-                                    </angular-editor>
+                                    <h6>Content</h6>
+                                    <span class="info_text">Fill out the header, body and footer section of your
+                                        template.</span>
                                 </div>
-                            </div>
-
-                            <!-- Footer -->
-                            <div class="mt-7">
-                                <div class="form-label">Footer</div> <span>Optional</span>
-                                <input type="text" class="form-control" placeholder="Enter text"
-                                    aria-label="Footer Name" [(ngModel)]="customTemp.footerText" />
-                            </div>
-
-                            <!-- Add Button Flow -->
-                            <h6>Buttons</h6>
-                            <span>Create buttons that let customers response to your message or take action. You can add up to 10 buttons, If you add more that 3 buttons. they will appear in a list</span>
-
-                            <div ngbDropdown class="dropdown mt-1">
-                                <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
-                                    Add Button
-                                </button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-                                    <button class="dropdown-item" type="button" *ngFor="let addButtonFlow of addButtonFlow" (click)="selectButtonTypeMethod(addButtonFlow)">
-                                        <h6>{{addButtonFlow.label}}</h6>
-                                        <h6>{{addButtonFlow.maximum_button}} buttons maximum</h6>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- CTA Section -->
-                            <!-- @if(buttonType == 'visit_website'){
-                                <h1>Visit Website</h1>
-                            } @else if (buttonType == 'complete_flow') {
-                                <h1>complete_flow</h1>
-                            }@else if (buttonType == 'call_phone_btn') {
-                                <div class="mt-3">
-                                    <label>Button text</label>
-                                    <input type="text" class="form-control" placeholder="Please enter label here.."
-                                        aria-label="Label test"  [(ngModel)]="buttonValue.call_phone_btn"/>
-                                </div>
-                                <div class="mt-3">
-                                    <label>Phone number</label>
-                                    <input type="text" class="form-control" placeholder="Enter number"
-                                        aria-label="Mobile number"  />
-                                </div>
-
-                            }@else if (buttonType == 'copy_offer_code') {
-                                <div class="mt-3">
-                                    <label>Offer code</label>
-                                    <input type="text" class="form-control" placeholder="Enter sample"
-                                        aria-label="Enter sample"  />
-                                </div>
-                            } -->
-                            <div *ngIf="selectedButtonType">
-                                <div *ngFor="let button of tempButton.data; let i = index">
-                                    @if(selectedButtonType !== 'copy_offer_code'){
-
-                                        <div class="mt-3">
-                                            <label>   
-                                               Button Text
-                                            </label>
-                                            <input type="text" class="form-control" 
-                                            [(ngModel)]="button.text"
-                                            [placeholder]="selectedButtonType === 'call_phone_btn' ? 'Enter phone number' : 
-                                            selectedButtonType === 'visit_website' ? 'Enter website label' : 
-                                            selectedButtonType === 'complete_flow' ? 'Enter flow name' : 
-                                            'Enter text here'"
-                                                  />
-                                        </div>
-                                    }
+    
+                                <!-- Header -->
+                                <div class="mt-4">
+                                    <div class="d-inline-flex">
+                                        <div class="form-label">Header</div>
+                                        <span class="ms-3 info_text">Optional</span>
+                                    </div>
+                                    <ng-select [items]="headerContent" bindLabel="name" id="ng-select-dropdown"
+                                        bindValue="value" [(ngModel)]="customTemp.selectedHeaderType">
+                                    </ng-select>
+    
+                                    <!-- Header Widget -->
+    
+                                    <!-- Text -->
+                                    @if ( customTemp.selectedHeaderType === 'text') {
                                     <div class="mt-3">
-                                        <label>   
-                                            {{ selectedButtonType === 'call_phone_btn' ? 'Phone Number' : 
-                                            selectedButtonType === 'visit_website' ? 'Website Label' : 
-                                            selectedButtonType === 'complete_flow' ? 'Flow Name' : 
-                                            selectedButtonType === 'copy_offer_code' ? 'Offer Code' : 
-                                            '' }}
-                                        </label>
-                                        <input type="text" class="form-control"  
-                                        [(ngModel)]="button.url" 
-                                        [placeholder]="selectedButtonType === 'call_phone_btn' ? 'Enter phone number' : 
-                                        selectedButtonType === 'visit_website' ? 'Enter website ' : 
-                                        selectedButtonType === 'complete_flow' ? 'Enter flow ' : 
-                                        selectedButtonType === 'copy_offer_code' ? 'Enter offer code' : 
-                                        'Enter text here'"
-                                            />
+                                        <input type="text" class="form-control" placeholder="Enter text"
+                                            aria-label="Header Text Name" [(ngModel)]="customTemp.headerText" />
+                                    </div>
+                                    }
+    
+                                    <!-- Image -->
+                                    @if ( customTemp.selectedHeaderType === 'image') {
+                                    <div class="mt-3 ">
+                                        <div>Sample for header content</div>
+                                        <input type="file" class="form-control" id="fileInput"
+                                            (change)="onFileSelected($event)" />
+                                    </div>
+                                    }
+    
+                                </div>
+    
+                                <!-- Body -->
+                                <div class="mt-7">
+                                    <div class="form-label">Body</div>
+                                    <div>
+                                        <angular-editor [config]="config" [(ngModel)]="customTemp.bodyContent">
+                                            <div></div>
+                                        </angular-editor>
                                     </div>
                                 </div>
-                              </div>
-                              
-                        </div>
-                        <!-- Content Section End-->
-
-                        <div class="d-flex justify-content-between mt-3 custom-btn">
-                            <button class="btn btn-light m-1" matStepperPrevious>Previous</button>
-                            <button class="btn btn-primary-light m-1" (click)="templateSave()">Save</button>
-                        </div>
-                    </div>
-                </mat-step>
-                
-            </mat-horizontal-stepper>
-
-        </div>
-        <div class="col-md-4 bg-white p-4 preview-box shadow-sm">
-            <h6 class="font-weight-bold">Preview</h6>
-            <div class="whatsapp-bft-color">
-                <div class="chat_window">
-                    <!-- User's message -->
-                    <div class="message-container">
-                        @if (templateType == 'custom') {
-                            <div class="message sent">
-                                <!-- Header -->
-                                @if(customTemp.selectedHeaderType === 'text' && customTemp.headerText!==null){
-                                <p class="header-text">{{ customTemp.headerText }}</p>
-                                }
-                                <!-- Image preview (optional) -->
-                                <img *ngIf="customTemp.selectedHeaderType === 'image'"
-                                    [src]="customTemp.imagePreview ? customTemp.imagePreview : '../../../../assets/images/bydefault-image.png'"
-                                    alt="Image Preview" class="chat-img">
-
-                                <!-- Body content -->
-                                @if(customTemp.bodyContent!=null){
-                                <p class="body-content" [innerHTML]="customTemp.bodyContent"></p>
-                                } @else {
-                                <p class="body-content">No content available</p>
-                                }
-
-                                <!-- Footer (optional) -->
-                                <p *ngIf="customTemp.footerText" class="footer-text">{{ customTemp.footerText }}</p>
-
-                                <!-- Timestamp -->
-                                <p class="time float-right">{{ currentTime | date: 'HH:mm' }}</p>
-
+    
+                                <!-- Footer -->
+                                <div class="mt-7">
+                                    <div class="form-label">Footer</div> <span>Optional</span>
+                                    <input type="text" class="form-control" placeholder="Enter text"
+                                        aria-label="Footer Name" [(ngModel)]="customTemp.footerText" />
+                                </div>
+    
+                                <!-- Add Button Flow -->
+                                <h6>Buttons</h6>
+                                <span>Create buttons that let customers response to your message or take action. You can add up to 10 buttons, If you add more that 3 buttons. they will appear in a list</span>
+    
+                                <div ngbDropdown class="dropdown mt-1">
+                                    <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" ngbDropdownToggle>
+                                        Add Button
+                                    </button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+                                        <button class="dropdown-item" type="button" *ngFor="let addButtonFlow of addButtonFlow" (click)="selectButtonTypeMethod(addButtonFlow)">
+                                            <h6>{{addButtonFlow.label}}</h6>
+                                            <h6>{{addButtonFlow.maximum_button}} buttons maximum</h6>
+                                        </button>
+                                    </div>
+                                </div>
+    
+                                <!-- CTA Section -->
+                                <!-- @if(buttonType == 'visit_website'){
+                                    <h1>Visit Website</h1>
+                                } @else if (buttonType == 'complete_flow') {
+                                    <h1>complete_flow</h1>
+                                }@else if (buttonType == 'call_phone_btn') {
+                                    <div class="mt-3">
+                                        <label>Button text</label>
+                                        <input type="text" class="form-control" placeholder="Please enter label here.."
+                                            aria-label="Label test"  [(ngModel)]="buttonValue.call_phone_btn"/>
+                                    </div>
+                                    <div class="mt-3">
+                                        <label>Phone number</label>
+                                        <input type="text" class="form-control" placeholder="Enter number"
+                                            aria-label="Mobile number"  />
+                                    </div>
+    
+                                }@else if (buttonType == 'copy_offer_code') {
+                                    <div class="mt-3">
+                                        <label>Offer code</label>
+                                        <input type="text" class="form-control" placeholder="Enter sample"
+                                            aria-label="Enter sample"  />
+                                    </div>
+                                } -->
+                                <div *ngIf="selectedButtonType">
+                                    <div *ngFor="let button of tempButton; let i = index">
+                                        @if(selectedButtonType !== 'copy_offer_code'){
+    
+                                            <div class="mt-3">
+                                                <label>   
+                                                   Button Text
+                                                </label>
+                                                <input type="text" class="form-control" 
+                                                [(ngModel)]="button.text"
+                                                [placeholder]="button.type === 'call_phone_btn' ? 'Enter phone number' : 
+                                                button.type === 'visit_website' ? 'Enter website label' : 
+                                                button.type === 'complete_flow' ? 'Enter flow name' : 
+                                                'Enter text here'"
+                                                      />
+                                            </div>
+                                        }
+                                        <div class="mt-3">
+                                            <label>   
+                                                {{ button.type === 'call_phone_btn' ? 'Phone Number' : 
+                                                button.type === 'visit_website' ? 'Website Label' : 
+                                                button.type === 'complete_flow' ? 'Flow Name' : 
+                                                button.type === 'copy_offer_code' ? 'Offer Code' : 
+                                                '' }}
+                                            </label>
+                                            <input type="text" class="form-control"  
+                                            [(ngModel)]="button.url" 
+                                            [placeholder]="button.type === 'call_phone_btn' ? 'Enter phone number' : 
+                                            button.type === 'visit_website' ? 'Enter website ' : 
+                                            button.type === 'complete_flow' ? 'Enter flow ' : 
+                                            button.type === 'copy_offer_code' ? 'Enter offer code' : 
+                                            'Enter text here'"
+                                                />
+                                        </div>
+                                    </div>
+                                  </div>
+                                  
                             </div>
-                        }
+                            <!-- Content Section End-->
+    
+                            <div class="d-flex justify-content-between mt-3 custom-btn">
+                                <button class="btn btn-light m-1" matStepperPrevious>Previous</button>
+                                <button class="btn btn-primary-light m-1" (click)="templateSave()">Save</button>
+                            </div>
+                        </div>
+                    </mat-step>
+                    
+                </mat-horizontal-stepper>
+    
+            </div>
+            <div class="col-md-4 bg-white p-4 preview-box shadow-sm">
+                <h6 class="font-weight-bold">Preview</h6>
+                <div class="whatsapp-bft-color">
+                    <div class="chat_window">
+                        <!-- User's message -->
+                        <div class="message-container">
+                            @if (templateType == 'custom') {
+                                <div class="message sent">
+                                    <!-- Header -->
+                                    @if(customTemp.selectedHeaderType === 'text' && customTemp.headerText!==null){
+                                    <p class="header-text">{{ customTemp.headerText }}</p>
+                                    }
+                                    <!-- Image preview (optional) -->
+                                    <img *ngIf="customTemp.selectedHeaderType === 'image'"
+                                        [src]="customTemp.imagePreview ? customTemp.imagePreview : '../../../../assets/images/bydefault-image.png'"
+                                        alt="Image Preview" class="chat-img">
+    
+                                    <!-- Body content -->
+                                    @if(customTemp.bodyContent!=null){
+                                    <p class="body-content" [innerHTML]="customTemp.bodyContent"></p>
+                                    } @else {
+                                    <p class="body-content">No content available</p>
+                                    }
+    
+                                    <!-- Footer (optional) -->
+                                    <p *ngIf="customTemp.footerText" class="footer-text">{{ customTemp.footerText }}</p>
+    
+                                    <!-- Timestamp -->
+                                    <p class="time float-right">{{ currentTime | date: 'HH:mm' }}</p>
+    
+                                    <!-- Add Button -->
+                                    @if(selectedButtonType){
+                                       <div class="horizontal_number"></div>
+    
+                                       <div *ngFor="let button of tempButton; let i = index" class="border-bottom">
+                                            <p>
+                                                {{button.type === 'copy_offer_code' ? 'Copy offer code' :button.text}}
+                                            </p>
+                                       </div>
+                                    }
+    
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
+    
         </div>
-
-    </div>
+    } @else {
+        <div class="card custom-card">
+            <div class="card-header justify-content-between">
+              <div class="card-title" >
+                Template Manage
+              </div>
+              <div class="d-flex" >
+                <button class="btn btn-sm btn-primary btn-wave waves-light" (click)="addTemplate = true"><i class="ri-add-line fw-semibold align-middle me-1"></i> Create Template</button>
+                
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table text-nowrap table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (getAllTemplateList of getAllTemplateList; track getAllTemplateList;let i = $index) {
+                      <tr class="invoice-list">
+                        <td>
+                            {{i+1}}
+                        </td>
+                        <td>
+                          {{getAllTemplateList.name}}
+                        </td>
+                        <td>
+                          {{getAllTemplateList.category}}
+                        </td>
+                        <td>
+                         {{getAllTemplateList.status}}
+                        </td>
+                        <td>
+                          <button class="btn btn-danger-light btn-icon ms-1 btn-sm getAllTemplateList-btn" (click)="deleteTemplate(getAllTemplateList.id)"><i class="ri-delete-bin-5-line"></i></button>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    }
 </div>
 
 
