@@ -21,7 +21,7 @@ import { url } from '../../../app.router';
     NgbModule,
     RouterModule,
     FormsModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
@@ -32,7 +32,8 @@ export class ChatComponent implements OnInit {
   RecentData = CHAT;
   tempUserData = CHAT;
 
-  getAllConverstionList:any;
+  getAllConversationList: any;
+  userMessage:any;
 
   activeUser = this.RecentData[0];
 
@@ -42,11 +43,11 @@ export class ChatComponent implements OnInit {
     public elementRef: ElementRef,
     private toastr: ToastService,
     private loader: LoaderService,
-    private _baseService: BaseService,
-    ) {}
+    private _baseService: BaseService
+  ) {}
 
   ngOnInit(): void {
-    this.getAllConverstion();
+    this.getAllConversation();
   }
 
   Bodyclick() {
@@ -82,22 +83,20 @@ export class ChatComponent implements OnInit {
     }
 
     const query = this.searchUser.toLowerCase();
-    
-    
 
     this.RecentData = this.tempUserData.filter((user: any) =>
       user.name.toLowerCase().includes(query)
     );
-    
   }
 
-  private getAllConverstion(){
+  private getAllConversation() {
     this.loader.showLoader();
-    this._baseService.get(url.getAllConvertion, {}).subscribe({
+    this._baseService.get(url.getAllConversation, {}).subscribe({
       next: (res: any) => {
         if (res) {
-          this.getAllConverstionList = res?.data?.data || res?.data 
-          console.log('this.getAllConverstionList: ', this.getAllConverstionList);
+          this.getAllConversationList = res?.data?.data || res?.data;
+          
+          this.getUserMessage(this.getAllConversationList[0])
         }
       },
       error: (err: any) => {
@@ -109,4 +108,27 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  public getUserMessage(user:any) {
+    this.loader.showLoader();
+    let payload = {
+      conversationId : user.id,
+      page : 1,
+    }
+    this._baseService.get(url.getSingleConversation, payload).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.userMessage = {
+           message : res?.data?.data || res?.data
+          };
+          this.userMessage = {user,...this.userMessage}
+        }
+      },
+      error: (err: any) => {
+        this.toastr.showToastMessage(err, 'error-style');
+      },
+      complete: () => {
+        this.loader.hideLoader();
+      },
+    });
+  }
 }

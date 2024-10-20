@@ -28,23 +28,22 @@
           </p>
         </li>
         }
-        @for(data of RecentData;track $index){
+        @for(data of getAllConversationList;track $index){
         <li class="checkforactive">
-          <a href="javascript:void(0);" (click)="handleClick(data)">
+          <a href="javascript:void(0);" (click)="handleClick(data);getUserMessage(data)">
             <div class="d-flex align-items-top">
               <div class="me-1 lh-1">
-                <span class="avatar avatar-md {{
-                    data.status
-                  }} me-2 avatar-rounded">
-                  <img src="{{ data.src }}" alt="img" />
+                <span class="avatar avatar-md online me-2 avatar-rounded">
+                  <img src="https://static.vecteezy.com/system/resources/thumbnails/036/280/650/small/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg" alt="img" />
                 </span>
               </div>
               <div class="flex-fill">
                 <p class="mb-0 fw-semibold">
-                  {{ data.name
-                  }}<span class="float-end text-muted fw-normal fs-11">{{data.time}}</span>
+                  {{ data.whatsappUser.name
+                  }}
+                  <span class="float-end text-muted fw-normal fs-11">{{data?.time ? data?.time : '-'}}</span>
                 </p>
-                <p class="fs-12 mb-0">
+                <!-- <p class="fs-12 mb-0">
                   <span class="chat-msg text-truncate">{{
                     data.messages[0].text
                     }}</span>
@@ -61,13 +60,13 @@
                   @if(data.pendingMessage){
                     <span class="badge bg-success-transparent rounded-circle float-end">{{ data.pendingMessage }}</span>
                   }
-                </p>
+                </p> -->
               </div>
             </div>
           </a>
         </li>
         }
-        @if(RecentData.length==0){
+        @if(getAllConversationList?.length==0){
         <li class="text-danger">
           No user found
         </li>
@@ -82,16 +81,16 @@
       <!-- Chat Header Section Start -->
       <div class="d-flex align-items-center p-2 border-bottom">
         <div class="me-2 lh-1">
-          <span class="avatar avatar-lg {{activeUser.status}} me-2 avatar-rounded chatstatusperson">
-            <img class="chatimageperson" [src]="activeUser.src" alt="img" />
+          <span class="avatar avatar-lg online me-2 avatar-rounded chatstatusperson">
+            <img class="chatimageperson" src="https://static.vecteezy.com/system/resources/thumbnails/036/280/650/small/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg" alt="img" />
           </span>
         </div>
         <div class="flex-fill">
           <p class="mb-0 fw-semibold fs-14">
-            <a (click)="detailsclick()" href="javascript:void(0);"
-              class="chatnameperson responsive-userinfo-open">{{activeUser.name}}</a>
+            <a href="javascript:void(0);"
+              class="chatnameperson responsive-userinfo-open">{{userMessage?.user?.whatsappUser?.name}}</a>
           </p>
-          <p class="text-muted mb-0 chatpersonstatus">{{activeUser.status}}</p>
+          <!-- <p class="text-muted mb-0 chatpersonstatus">{{activeUser.status}}</p> -->
         </div>
         <!-- <div class="d-flex flex-wrap rightIcons">
           <button (click)="detailsclick()" aria-label="button" type="button"

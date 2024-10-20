@@ -35,5 +35,6 @@ export const url = {
   getAllFlows : environment.apiURL + '/meta/flows/get-all-flows',
 
   // Chat
-  getAllConvertion : environment.apiURL + '/conversations/get-all-conversations'
+  getAllConversation : environment.apiURL + '/conversations/get-all-conversations',
+  getSingleConversation : environment.apiURL +'/messages/get-user-messages'
 };
