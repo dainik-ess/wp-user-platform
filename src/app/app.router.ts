@@ -24,6 +24,7 @@ export const url = {
   // 
   getMessageReplies : environment.apiURL + '/meta/messages-and-replies/get-all-message-and-reply',
   saveMessageReplies : environment.apiURL + '/meta/messages-and-replies/create-message-and-reply',
+  deleteMessageReplies : environment.apiURL + '/meta/messages-and-replies/delete-message-and-reply/',
 
   // Template
   saveTemplate : environment.apiURL + '/meta/message-template/create-message-template',
@@ -32,4 +33,7 @@ export const url = {
 
   // Flows
   getAllFlows : environment.apiURL + '/meta/flows/get-all-flows',
+
+  // Chat
+  getAllConvertion : environment.apiURL + '/conversations/get-all-conversations'
 };

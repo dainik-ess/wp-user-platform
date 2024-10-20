@@ -48,11 +48,14 @@
           </div>
         </div>
         <!-- Card Footer -->
-        <!-- <div class="card-footer bg-light text-end border-top">
+        <div class="card-footer bg-light text-end border-top">
                     <button class="btn btn-primary btn-sm" (click)="viewButton(content, data)">
-                        <i class="fa fa-eye me-2"></i> View
+                        View
                     </button>
-                </div> -->
+                    <button class="btn btn-danger btn-sm" (click)="deleteMessage(data.id)">
+                       Delete
+                    </button>
+        </div>
       </div>
     </div>
   </div>

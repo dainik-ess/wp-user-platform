@@ -198,6 +198,28 @@ export class MessageRepliesComponent {
   public viewButton(content: any, data: any) {
     this.viewForm = true;
     this.modalService.open(content, { size: 'md', centered: true });
-    this.messageForm.setValue(data);
+    this.messageForm.get('message')?.setValue(data.message);
+    this.messageForm.get('type')?.setValue(data.type);
+    this.messageForm.get('replyType')?.setValue(data.replyType);
+    this.messageForm.get('replyContent')?.setValue(data.replyContent);
+  }
+
+  public deleteMessage(id:string){
+    this.loader.showLoader();
+    this._baseService
+    .delete(url.deleteMessageReplies + id)
+    .subscribe({
+      next: (response) => {
+        this.getMessageReplies();
+        this.toastr.showToastMessage(response.message, 'success-style');
+
+      },
+      error: (error) => {
+        this.toastr.showToastMessage(error, 'error-style');
+      },
+      complete: () => {
+        this.loader.hideLoader();
+      },          
+    });
   }
 }
