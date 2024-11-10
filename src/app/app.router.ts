@@ -36,5 +36,6 @@ export const url = {
 
   // Chat
   getAllConversation : environment.apiURL + '/conversations/get-all-conversations',
-  getSingleConversation : environment.apiURL +'/messages/get-user-messages'
+  getSingleConversation : environment.apiURL +'/messages/get-user-messages',
+  sendMessage: environment.apiURL + '/messages/send-reply'
 };

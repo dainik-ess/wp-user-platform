@@ -13,7 +13,7 @@ import { LoaderService } from '../../../shared/services/loader.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FlowModalComponent } from './flow-modal/flow-modal.component';
-import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-template',
@@ -27,7 +27,8 @@ import { NgbDropdownModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstr
     ReactiveFormsModule,
     DatePipe,
     CommonModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    NgbTooltipModule,
   ],
   templateUrl: './template.component.html',
   styleUrl: './template.component.scss',
@@ -80,7 +81,7 @@ export class TemplateComponent implements OnInit {
     }
   ]
 
-  tempButton: Array<{ type: string; text: string; url: string }> = []; 
+  tempButton: Array<{ type: string; text: string; url?: string;phone_number?:string }> = []; 
 
   selectedButtonType: string = '';
 
@@ -132,6 +133,8 @@ export class TemplateComponent implements OnInit {
 
   readonly dialog = inject(MatDialog);
 
+  imageMeta:any = {}
+
 
   constructor(
     private _baseService: BaseService,
@@ -144,6 +147,7 @@ export class TemplateComponent implements OnInit {
   }
 
   onFileSelected(event: Event): void {
+    this.imageMeta = {}
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files[0]) {
       const file = fileInput.files[0];
@@ -154,6 +158,10 @@ export class TemplateComponent implements OnInit {
       };
 
       reader.readAsDataURL(file); // Convert image to base64
+
+      this.imageMeta.fileLength = file.size;
+      this.imageMeta.fileType = file.type;
+      this.imageMeta.fileName = file.name;
     }
   }
 
@@ -196,10 +204,15 @@ export class TemplateComponent implements OnInit {
           text: this.customTemp.headerText,
         });
       } else if (this.customTemp.selectedHeaderType === 'image') {
-        customTempObj.components.push({
-          type: 'HEADER',
-          image: this.customTemp.imagePreview,
-        });
+
+        // Passed Image in binary
+
+
+        // customTempObj.components.push({
+        //   type: 'HEADER',
+        //   image: this.customTemp.imagePreview,
+        // });
+        this.createUploadSession(this.imageMeta.fileLength,this.imageMeta.fileType,this.imageMeta.fileName)
       }
 
       this._baseService.post(url.saveTemplate, customTempObj).subscribe({
@@ -262,6 +275,11 @@ export class TemplateComponent implements OnInit {
     });
   }
 
+  public deleteButton(id:any){
+    this.tempButton.splice(id,1);
+    this.tempButton = this.tempButton
+  }
+
   private getAllTemplate(){
     this.loader.showLoader();
     this._baseService.get(url.getAllTemplate, {}).subscribe({
@@ -279,7 +297,16 @@ export class TemplateComponent implements OnInit {
     });
   }
 
- 
+ private createUploadSession(file_length:number,file_type:string,file_name:string){
+  console.log('file_name: ', file_name);
+  console.log('file_type: ', file_type);
+  console.log('file_length: ', file_length);
+
+ }
+
+ private uploadMediaMeta(){
+
+ }
   
   
 }

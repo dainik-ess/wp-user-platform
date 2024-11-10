@@ -170,7 +170,14 @@
 
 
 .horizontal_number{
-    border: 1px solid rgb(218, 218, 218);
     height: 1px;
+    background-color: transparent;
     width: 100% ;
-  }
+    margin-top: 30px;
+}
+
+.preview_btn{
+    background-color: #f4f4f4;
+    padding: 5px;
+    border-radius: 12px;
+}

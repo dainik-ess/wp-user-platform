@@ -10,6 +10,8 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { LoaderService } from '../../../shared/services/loader.service';
 import { BaseService } from '../../../shared/services/base.service';
 import { url } from '../../../app.router';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ChatService } from './service/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,6 +24,7 @@ import { url } from '../../../app.router';
     RouterModule,
     FormsModule,
     CommonModule,
+    InfiniteScrollModule,
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
@@ -33,17 +36,19 @@ export class ChatComponent implements OnInit {
   tempUserData = CHAT;
 
   getAllConversationList: any;
-  userMessage:any;
+  userMessage: any;
 
   activeUser = this.RecentData[0];
 
   searchUser: string | null = null;
-
+  pageIndex: number = 1;
+  message:string = ''
   constructor(
     public elementRef: ElementRef,
     private toastr: ToastService,
     private loader: LoaderService,
-    private _baseService: BaseService
+    private _baseService: BaseService,
+    private _chatService:ChatService
   ) {}
 
   ngOnInit(): void {
@@ -95,8 +100,8 @@ export class ChatComponent implements OnInit {
       next: (res: any) => {
         if (res) {
           this.getAllConversationList = res?.data?.data || res?.data;
-          
-          this.getUserMessage(this.getAllConversationList[0])
+
+          this.getUserMessage(this.getAllConversationList[0]);
         }
       },
       error: (err: any) => {
@@ -108,19 +113,48 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  public getUserMessage(user:any) {
+  public getUserMessage(user: any) {
     this.loader.showLoader();
     let payload = {
-      conversationId : user.id,
-      page : 1,
-    }
+      conversationId: user.id,
+      page: this.pageIndex,
+    };
     this._baseService.get(url.getSingleConversation, payload).subscribe({
       next: (res: any) => {
         if (res) {
           this.userMessage = {
-           message : res?.data?.data || res?.data
+            message: res?.data?.data || res?.data,
           };
-          this.userMessage = {user,...this.userMessage}
+          console.log('res?.data?.data?.conversationId: ', res?.data?.data);
+          this._chatService.joinRoom(res?.data?.data[0].conversationId);
+
+          this.userMessage = { user, ...this.userMessage };
+        }
+      },
+      error: (err: any) => {
+        this.toastr.showToastMessage(err, 'error-style');
+      },
+      complete: () => {
+        this.loader.hideLoader();
+      },
+    });
+  }
+
+  onScroll() {
+    this.pageIndex++;
+    this.getUserMessage(this.userMessage);
+  }
+
+  public sendMessage() {
+    this.loader.showLoader();
+    let payload = {
+      to: this.userMessage?.user?.whatsappUser?.phoneNumber,
+      message: this.message,
+    };
+    this._baseService.post(url.sendMessage, payload).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.message = '';
         }
       },
       error: (err: any) => {

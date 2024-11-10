@@ -22,5 +22,17 @@ export const ReplyType = [
         value: "template",
         title: "Template",
     },
+    {
+      value:"image",
+      title: "Image",
+    },
+    {
+      value: "video",
+      title: "Video",
+    },
+    {
+      value: "document",
+      title: "Document",
+    },
     
 ]

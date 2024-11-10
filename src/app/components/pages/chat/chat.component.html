@@ -120,7 +120,12 @@
 
 
       <ngx-simplebar class="chat-content" id="main-chat-content" (click)="Bodyclick()">
-        <ul class="list-unstyled">
+        <ul class="list-unstyled" 
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()"
+  >
           <li class="chat-day-label">
             <span>Today</span>
           </li>
@@ -168,11 +173,11 @@
       </ngx-simplebar>
 
       <div class="chat-footer">
-        <input class="form-control" placeholder="Type your message here..." type="text" />
+        <input class="form-control" placeholder="Type your message here..." type="text" [(ngModel)]="message"/>
         <!-- <a aria-label="anchor" class="btn btn-icon mx-2 btn-success-light" href="javascript:void(0)">
           <i class="ri-emotion-line"></i>
         </a> -->
-        <a aria-label="anchor" class="btn btn-primary btn-icon btn-send" href="javascript:void(0)">
+        <a aria-label="anchor" class="btn btn-primary btn-icon btn-send" href="javascript:void(0)" (click)="sendMessage()">
           <i class="ri-send-plane-2-line"></i>
         </a>
       </div>

@@ -52,7 +52,7 @@
                     <button class="btn btn-primary btn-sm" (click)="viewButton(content, data)">
                         View
                     </button>
-                    <button class="btn btn-danger btn-sm" (click)="deleteMessage(data.id)">
+                    <button class="btn btn-danger btn-sm mx-3" (click)="deleteMessage(data.id)">
                        Delete
                     </button>
         </div>
@@ -93,7 +93,7 @@
       <!-- Type -->
       <div class="mb-3">
         <label for="form-password" class="form-label fs-14 text-dark"
-          >Type Password</label
+          >Message Type</label
         >
         <select
           id="inputState"
@@ -166,7 +166,19 @@
         </div>
       }
 
-
+      <!-- Reply type Image || Video || Document -->
+      @if(messageForm.get('replyType')?.value === 'image' || messageForm.get('replyType')?.value === 'video' || messageForm.get('replyType')?.value === 'document'){
+        <div class="mb-3">
+          <file-pond
+            #myPond
+            [options]="pondOptions"
+            class="multiple-filepond box-container flex-col"
+            [files]="pondFiles"
+            (onaddfile)="pondHandleAddFile($event)"
+            (onremovefile)="pondRemoveFile($event)"
+          ></file-pond>
+        </div>
+      }
 
       <button class="btn btn-primary" type="submit">Submit</button>
     </form>
