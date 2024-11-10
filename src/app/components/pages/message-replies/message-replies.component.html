@@ -147,11 +147,25 @@
           [items]="getTemplateStoreRecords"
           bindLabel="name"
           bindValue="id"
-          formControlName="replyContent"
+          formControlName="templateId"
           id="ng-select-dropdown"
+          (change)="onTemplateSelect($event)"
           ></ng-select>
         </div>
       }
+
+      <div *ngIf="templateComponents.length > 0">
+        <label>Select components:</label>
+        <div *ngFor="let component of templateComponents">
+          <input
+            type="checkbox"
+            [value]="component"
+            (change)="onComponentSelect($event, component)"
+          />
+          {{ component.type }}: {{ component.text }}
+        </div>
+      </div>
+      
 
       <!-- Flow Content -->
       @if(messageForm.get('replyType')?.value === 'flow'){

@@ -43,6 +43,8 @@ export class MessageRepliesComponent {
 
   public getTemplateStoreRecords: any[] = [];
   public getFlowStoreRecords: any[] = [];
+  public templateComponents: any[] = [];
+  public selectedComponents: any[] = [];
 
   //# Start Region for the POND package config
   public pondOptions: FilePond.FilePondOptions = {
@@ -82,6 +84,7 @@ export class MessageRepliesComponent {
       type: ['', [Validators.required]],
       replyType: ['', [Validators.required]],
       replyContent: ['', [Validators.required]],
+      templateId: ['', [Validators.required]],
     });
   }
 
@@ -199,10 +202,15 @@ export class MessageRepliesComponent {
       formData.append('message', this.messageForm.get('message')?.value);
       formData.append('type', this.messageForm.get('type')?.value);
       formData.append('replyType', this.messageForm.get('replyType')?.value);
-      formData.append(
-        'replyContent',
-        this.messageForm.get('replyContent')?.value
-      );
+      
+      if(this.messageForm.get('replyType')?.value === 'template'){
+        formData.append('replyContent', JSON.stringify(this.selectedComponents));
+        formData.append('templateId', this.messageForm.get('templateId')?.value);
+      } else {
+        formData.append('replyContent',this.messageForm.get('replyContent')?.value
+        );
+      }
+
 
       if (this.pondFiles) {
         this.pondFiles.forEach((file: any) => {
@@ -302,4 +310,28 @@ export class MessageRepliesComponent {
       }
     }
   }
+
+  public onTemplateSelect(templateId: any) {
+    // Fetch components for the selected template by templateId
+    const selectedTemplate = this.getTemplateStoreRecords.find(
+      (template) => template.id === templateId.id
+    );
+    
+    if (selectedTemplate) {
+      this.templateComponents = selectedTemplate.components;
+    }
+  }
+
+  public onComponentSelect(event: Event, component: any) {
+    const isChecked = (event.target as HTMLInputElement).checked;
+
+    if (isChecked) {
+      this.selectedComponents.push(component);
+      console.log('this.selectedComponents: ', this.selectedComponents);
+    } else {
+      const index = this.selectedComponents.findIndex((c) => c === component);
+      if (index >= 0) this.selectedComponents.splice(index, 1);
+    }
+  }
+
 }
