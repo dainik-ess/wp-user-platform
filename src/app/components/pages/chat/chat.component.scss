@@ -1,17 +1,67 @@
-.checkforactive:hover{
+.checkforactive:hover {
     background-color: #dbdbdb;
     transition: all .3s ease-in-out;
 }
 
-.msg-sent-time{
+.msg-sent-time {
     font-size: 10px;
     color: #5f5f5fdd;
 }
 
-.chatting-user-info{
-    .msg-sent-time-user{
+.chatting-user-info {
+    .msg-sent-time-user {
         font-size: 10px;
         color: #5f5f5fdd;
     }
-    
+
+}
+
+textarea {
+    resize: none;
+}
+
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 90%;
+    text-align: center;
+    margin: auto;
+}
+
+.preview-image img {
+    width: 100%;
+    height: 340px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.attachment-container {
+    position: relative;
+    display: inline-block;
+}
+
+.popover-menu button {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+}
+
+.popover-menu button:hover {
+    background-color: #f0f0f0;
 }

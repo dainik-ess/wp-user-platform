@@ -53,11 +53,11 @@ export class ProductsComponent implements OnInit {
     translate: (value: number, label: LabelType): string => {
       switch (label) {
         case LabelType.Low:
-          return '<b></b> $' + value;
+          return '<b></b> ₹' + value;
         case LabelType.High:
-          return '<b></b> $' + value;
+          return '<b></b> ₹' + value;
         default:
-          return '$' + value;
+          return '₹' + value;
       }
     },
   };

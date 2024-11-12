@@ -6,21 +6,19 @@ import io from 'socket.io-client';
   providedIn: 'root'
 })
 export class ChatService {
-  private socket = io('http://localhost:11022');
+  private socket = io('https://api.nidhiji.com');
 
   joinRoom(conversationId: string){
-    console.log('conversationId: ', conversationId);
+    console.log("Join Room Event Called...");
     this.socket.emit('joinRoom', conversationId);
   }
 
   getMessages() {
-    let observable = new Observable<{ user: String, message: String }>(observer => {
-      this.socket.on('messages', (data) => {
-        observer.next(data);
+    return new Observable(observer => {
+      this.socket.on('messages', (message) => {
+        observer.next(message);
       });
-      return () => { this.socket.disconnect(); };  
     });
-    return observable;
   }
 
   constructor() { }
