@@ -21,13 +21,6 @@
         </div>
       </div>
       <ngx-simplebar class="list-unstyled mb-0 mt-2 chat-users-tab" id="chat-msg-scroll">
-        @if(RecentData.length>0){
-        <li class="pb-0">
-          <p class="text-muted fs-11 fw-semibold mb-2 op-7">
-            ACTIVE CHATS
-          </p>
-        </li>
-        }
         @for(data of getAllConversationList;track $index){
         <li class="checkforactive">
           <a href="javascript:void(0);" (click)="handleClick(data);getUserMessage(data)">
@@ -88,7 +81,7 @@
         <div class="flex-fill">
           <p class="mb-0 fw-semibold fs-14">
             <a href="javascript:void(0);"
-              class="chatnameperson responsive-userinfo-open">{{userMessage?.user?.whatsappUser?.name}}</a>
+              class="chatnameperson responsive-userinfo-open">{{activeUser?.whatsappUser?.name}}</a>
           </p>
         </div>
       </div>
@@ -96,18 +89,13 @@
 
 
       @if(!showPreview){
-        <ngx-simplebar class="chat-content" id="main-chat-content" (click)="bodyClick()">
+        <ngx-simplebar class="chat-content" id="main-chat-content" (click)="bodyClick()" >
           <ul class="list-unstyled" 
-          infiniteScroll
-          [infiniteScrollDistance]="2"
-          [infiniteScrollThrottle]="50"
-          (scrolled)="onScroll()"
+          #chatContainer
     >
-            <li class="chat-day-label">
-              <span>Today</span>
-            </li>
-            @if(userMessage?.message?.length > 0){
-              @for (message of userMessage?.message; track message;let i = $index) {
+           
+            @if(userMessage?.length > 0){
+              @for (message of userMessage; track message;let i = $index) {
               @if(message?.sendBy === 'USER'){
               <li class="chat-item-start">
                 <div class="chat-list-inner">
@@ -120,6 +108,15 @@
                           </p>
                         } @else if(message?.type === 'image'){
                           <img [src]="message.content" alt="" style="height: 300px;width: 300px;object-fit: contain;">
+                        } @else if (message?.type === 'document') {
+                          <a [href]="message.content" target="_blank" download>
+                            <i class="fa fa-file"></i> Download Document
+                          </a>
+                        } @else if (message?.type === 'video') {
+                          <video controls style="height: 300px; width: 300px; object-fit: contain;">
+                            <source [src]="message.content" type="video/mp4">
+                            Your browser does not support the video tag.
+                          </video>
                         }
                       </div>
                       <span class="msg-sent-time">{{message.updatedAt | date: 'h:mm a'}}</span>
@@ -142,6 +139,15 @@
                           </p>
                         } @else if(message?.type === 'image'){
                           <img [src]="message.content" alt="" style="height: 300px;width: 300px;object-fit: contain;">
+                        } @else if (message?.type === 'document') {
+                          <a [href]="message.content" target="_blank" download>
+                            <i class="fa fa-file"></i> Download Document
+                          </a>
+                        } @else if (message?.type === 'video') {
+                          <video controls style="height: 300px; width: 300px; object-fit: contain;">
+                            <source [src]="message.content" type="video/mp4">
+                            Your browser does not support the video tag.
+                          </video>
                         }
                        
                       </div>

@@ -38,14 +38,12 @@ import { ChatService } from './service/chat.service';
 export class ChatComponent implements OnInit {
   @ViewChild('chatuserdetails') chatuserdetails!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-
-  RecentData = CHAT;
-  tempUserData = CHAT;
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
 
   getAllConversationList: any;
   userMessage: any;
 
-  activeUser:any = this.RecentData[0];
+  activeUser:any;
 
   searchUser: string | null = null;
   pageIndex: number = 1;
@@ -89,20 +87,22 @@ export class ChatComponent implements OnInit {
   }
 
   public searchUserMethod() {
-    if (!this.searchUser) {
-      // If no search query is entered, reset to the full list
-      this.RecentData = this.tempUserData;
-      return;
-    }
+    // if (!this.searchUser) {
+    //   // If no search query is entered, reset to the full list
+    //   this.RecentData = this.tempUserData;
+    //   return;
+    // }
 
-    const query = this.searchUser.toLowerCase();
+    // const query = this.searchUser.toLowerCase();
 
-    this.RecentData = this.tempUserData.filter((user: any) =>
-      user.name.toLowerCase().includes(query)
-    );
+    // this.RecentData = this.tempUserData.filter((user: any) =>
+    //   user.name.toLowerCase().includes(query)
+    // );
   }
 
   public getUserMessage(user: any) {
+    this.activeUser = user;
+    console.log('user: ', user);
     this.loader.showLoader();
     let payload = {
       conversationId: user.id,
@@ -111,12 +111,10 @@ export class ChatComponent implements OnInit {
     this._baseService.get(url.getSingleConversation, payload).subscribe({
       next: async (res: any) => {
         if (res) {
-          this.userMessage = {
-            message: (res?.data?.data || res?.data).slice().reverse(),
-          };
+          this.userMessage = (res?.data?.data || res?.data).slice().reverse()
           this._chatService.joinRoom(res?.data?.data[0].conversationId);
-          this.userMessage = { user, ...this.userMessage };
-          
+          console.log(this.userMessage,'this.userMessage');
+          this.scrollToBottom();
         }
       },
       error: (err: any) => {
@@ -143,14 +141,14 @@ export class ChatComponent implements OnInit {
     }
     this.loader.showLoader();
     const formData = new FormData();
-    formData.append('to', this.userMessage?.user?.whatsappUser?.phoneNumber);
+    formData.append('to', this.activeUser?.whatsappUser?.phoneNumber);
 
     if (this.chatType == 'image') {
       this.chatType = 'image';
     } else if (this.chatType == 'video') {
       this.chatType = 'video';
-    } else if (this.chatType == 'chatType') {
-      this.chatType = 'chatType';
+    } else if (this.chatType == 'document') {
+      this.chatType = 'document';
     } else {
       this.chatType = 'text';
     }
@@ -172,7 +170,7 @@ export class ChatComponent implements OnInit {
           this.file = null; // Reset file after sending
         }
         this.getAllConversation();
-        this.getAllMessage();
+        // this.getAllMessage();
         this.closePreview();
       },
       error: (err: any) => {
@@ -213,11 +211,8 @@ export class ChatComponent implements OnInit {
   private getAllMessage(): void {
     this._chatService.getMessages().subscribe({
       next: async (res: any) => {
-        this.userMessage = {
-          message: res.slice().reverse(),
-        };
+        this.userMessage = res.slice().reverse()
         this._chatService.joinRoom(res?.data?.data[0].conversationId);
-        this.userMessage = {...this.userMessage };
       }
     });
   }
@@ -239,5 +234,15 @@ export class ChatComponent implements OnInit {
         this.loader.hideLoader();
       },
     });
+  }
+
+    
+
+  scrollToBottom(): void {
+    try {
+      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error("Scroll Error: ", err);
+    }
   }
 }

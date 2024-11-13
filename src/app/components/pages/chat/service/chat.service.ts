@@ -16,6 +16,7 @@ export class ChatService {
   getMessages() {
     return new Observable(observer => {
       this.socket.on('messages', (message) => {
+        console.log('message: ', message);
         observer.next(message);
       });
     });
