@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { SimplebarAngularModule } from 'simplebar-angular';
+import { SimplebarAngularComponent, SimplebarAngularModule } from 'simplebar-angular';
 import { SharedModule } from '../../../shared/shared.module';
 import {
   NgbModal,
@@ -38,7 +38,6 @@ import { ChatService } from './service/chat.service';
 export class ChatComponent implements OnInit {
   @ViewChild('chatuserdetails') chatuserdetails!: ElementRef;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('chatContainer') chatContainer!: ElementRef;
 
   getAllConversationList: any;
   userMessage: any;
@@ -102,7 +101,6 @@ export class ChatComponent implements OnInit {
 
   public getUserMessage(user: any) {
     this.activeUser = user;
-    console.log('user: ', user);
     this.loader.showLoader();
     let payload = {
       conversationId: user.id,
@@ -113,7 +111,6 @@ export class ChatComponent implements OnInit {
         if (res) {
           this.userMessage = (res?.data?.data || res?.data).slice().reverse()
           this._chatService.joinRoom(res?.data?.data[0].conversationId);
-          console.log(this.userMessage,'this.userMessage');
           this.scrollToBottom();
         }
       },
@@ -169,7 +166,7 @@ export class ChatComponent implements OnInit {
           this.message = ''; // Clear message input
           this.file = null; // Reset file after sending
         }
-        this.getAllConversation();
+        this.getUserMessage(this.activeUser);
         // this.getAllMessage();
         this.closePreview();
       },
@@ -224,7 +221,7 @@ export class ChatComponent implements OnInit {
         if (res) {
           this.getAllConversationList = res?.data?.data || res?.data;
 
-          this.getUserMessage(this.getAllConversationList[0]);
+          // this.getUserMessage(this.getAllConversationList[0]);
         }
       },
       error: (err: any) => {
@@ -236,13 +233,16 @@ export class ChatComponent implements OnInit {
     });
   }
 
-    
+  @ViewChild('componentRef', { read: SimplebarAngularComponent })
+  componentRef!: SimplebarAngularComponent;
 
   scrollToBottom(): void {
-    try {
-      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
-    } catch (err) {
-      console.error("Scroll Error: ", err);
-    }
+    setTimeout(() => {
+        const scrollElement = this.componentRef.SimpleBar.getScrollElement();
+        scrollElement.scrollTo({
+          top: scrollElement.scrollHeight,
+          behavior: 'smooth'
+        });
+    }, 0);
   }
 }
