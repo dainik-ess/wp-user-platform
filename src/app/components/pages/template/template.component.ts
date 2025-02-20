@@ -14,6 +14,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FlowModalComponent } from './flow-modal/flow-modal.component';
 import { NgbDropdownModule, NgbPaginationModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-template',
@@ -55,30 +56,30 @@ export class TemplateComponent implements OnInit {
   }
 
   addButtonFlow = [
-    {
-      id:1,
-      maximum_button:2,
-      label:'Visit website',
-      value:'visit_website'
-    },
-    {
-      id:2,
-      maximum_button:1,
-      label:'Call phone number',
-      value:'call_phone_btn'
-    },
+    // {
+    //   id:1,
+    //   maximum_button:2,
+    //   label:'Visit website',
+    //   value:'visit_website'
+    // },
+    // {
+    //   id:2,
+    //   maximum_button:1,
+    //   label:'Call phone number',
+    //   value:'call_phone_btn'
+    // },
     {
       id:3,
       maximum_button:1,
-      label:'Complete Flow',
-      value:'complete_flow'
+      label:'Quick Reply',
+      value:'QUICK_REPLY'
     },
-    {
-      id:4,
-      maximum_button:1,
-      label:'Copy offer code',
-      value:'copy_offer_code'
-    }
+    // {
+    //   id:4,
+    //   maximum_button:1,
+    //   label:'Copy offer code',
+    //   value:'copy_offer_code'
+    // }
   ]
 
   tempButton: Array<{ type: string; text: string; url?: string;phone_number?:string }> = []; 
@@ -158,14 +159,12 @@ export class TemplateComponent implements OnInit {
       };
 
       reader.readAsDataURL(file); // Convert image to base64
-
-      this.imageMeta.fileLength = file.size;
-      this.imageMeta.fileType = file.type;
-      this.imageMeta.fileName = file.name;
+      this.imageMeta.fileName = file.name; // Get the name of the file
+      this.imageMeta.file = fileInput.files[0];
     }
   }
 
-  public templateSave() {
+  public async templateSave() {
     if (!this.templateType || this.templateType == null) {
       return;
     }
@@ -184,14 +183,14 @@ export class TemplateComponent implements OnInit {
         ],
       };
 
-      if (this.customTemp.footerText) {
-        customTempObj.components.push({
-          type: 'FOOTER',
-          text: this.customTemp.footerText,
-        });
-      }
+      // if (this.customTemp.footerText) {
+      //   customTempObj.components.push({
+      //     type: 'FOOTER',
+      //     text: this.customTemp.footerText,
+      //   });
+      // }
 
-      if(this.selectedButtonType){
+      if(this.selectedButtonType && this.tempButton.length > 0){
         customTempObj.components.push({
           type: "BUTTONS",
           buttons : this.tempButton
@@ -202,23 +201,40 @@ export class TemplateComponent implements OnInit {
         customTempObj.components.push({
           type: 'HEADER',
           text: this.customTemp.headerText,
+          format:"TEXT"
         });
       } else if (this.customTemp.selectedHeaderType === 'image') {
-
-        // Passed Image in binary
-
-
-        // customTempObj.components.push({
-        //   type: 'HEADER',
-        //   image: this.customTemp.imagePreview,
-        // });
-        this.createUploadSession(this.imageMeta.fileLength,this.imageMeta.fileType,this.imageMeta.fileName)
+        try {
+          const imageTokenResponse:any = await this.uploadMediaMeta();
+          const imageToken = imageTokenResponse?.data.h;
+          if (imageToken) {
+            customTempObj.components.push({
+              type: 'HEADER',
+              example: {
+                "header_handle": [imageToken]
+              },
+              format: "IMAGE",
+            });
+          } 
+        } catch (error:any) {
+          this.toastr.showToastMessage(error, 'error-style');
+          return;
+        }
       }
 
       this._baseService.post(url.saveTemplate, customTempObj).subscribe({
         next: (response) => {
           if (response) {
-            this.addTemplate = false
+            this.addTemplate = false;
+            this.tempButton = [];
+            this.customTemp = {
+              tempName: null,
+              headerText: null,
+              footerText: null,
+              selectedHeaderType: null,
+              bodyContent: null,
+              imagePreview: null,
+            };
             this.toastr.showToastMessage(response.message, 'success-style');
 
           }
@@ -250,8 +266,7 @@ export class TemplateComponent implements OnInit {
     // Create new button data
     const newButtons = Array.from({ length: addButtonFlow.maximum_button }, () => ({
       type: this.selectedButtonType,
-      text: '',
-      url: ''
+      text: '',      
     }));
   
     // Concatenate the new buttons with the existing ones
@@ -297,16 +312,35 @@ export class TemplateComponent implements OnInit {
     });
   }
 
- private createUploadSession(file_length:number,file_type:string,file_name:string){
-  console.log('file_name: ', file_name);
-  console.log('file_type: ', file_type);
-  console.log('file_length: ', file_length);
 
- }
+  private async uploadMediaMeta(): Promise<any> {
+    const formData = new FormData();
+    formData.append('file', this.imageMeta.file);
+  
+    // Return a promise that resolves when the API call completes
+    return new Promise((resolve, reject) => {
+      this._baseService.post(url.uploadMedia, formData).subscribe({
+        next: (response) => {
+          resolve(response); // Resolve the promise with the response
+        },
+        error: (err) => {
+          console.error('Error uploading media:', err);
+          reject(err); // Reject the promise with the error
+        }
+      });
+    });
+  }
+  
 
- private uploadMediaMeta(){
 
- }
+ readFileAsBinary(file: File): Promise<ArrayBuffer> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as ArrayBuffer);
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file); // Reads the file as binary data
+  });
+}
   
   
 }

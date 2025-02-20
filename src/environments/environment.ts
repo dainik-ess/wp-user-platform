@@ -12,7 +12,7 @@ export const environment = {
     appId: '********************************',
     measurementId: '********************************',
   },
-  apiURL:'http://65.0.52.36:11011/api/v1',
+  apiURL:'https://api.nidhiji.com/api/v1',
   // apiURL:'http://13.233.101.162:11011/api/v1',
 };
 

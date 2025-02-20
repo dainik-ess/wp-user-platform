@@ -24,7 +24,7 @@
     
                             <div class="form-check custom-check">
                                 <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
-                                    value="flows" [(ngModel)]="templateType">
+                                    value="flows" [(ngModel)]="templateType" disabled="true">
                                 <div class="text-container">
                                     <label class="form-check-label" for="exampleRadios3">Flows</label>
                                     <p>Send a form to capture customer interests, appointment requests, or run surveys.</p>
@@ -53,7 +53,7 @@
                             <div class="mt-4">
                                 <h6>Template name</h6>
                                 <input type="text" class="form-control" placeholder="Enter template name"
-                                    aria-label="Template Name" [(ngModel)]="customTemp.tempName"/>
+                                    aria-label="Template Name" [(ngModel)]="customTemp.tempName" />
                             </div>
     
                             <!-- Flow Setup Button -->
@@ -117,11 +117,11 @@
                                 </div>
     
                                 <!-- Footer -->
-                                <div class="mt-5">
+                                <!-- <div class="mt-5">
                                     <div class="form-label">Footer</div> <span>Optional</span>
                                     <input type="text" class="form-control" placeholder="Enter text"
                                         aria-label="Footer Name" [(ngModel)]="customTemp.footerText" />
-                                </div>
+                                </div> -->
     
                                 <!-- Add Button Flow -->
                                 <h6 class="mt-7">Buttons</h6>
@@ -134,7 +134,7 @@
                                     <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
                                         <button class="dropdown-item" type="button" *ngFor="let addButtonFlow of addButtonFlow" (click)="selectButtonTypeMethod(addButtonFlow)">
                                             <h6>{{addButtonFlow.label}}</h6>
-                                            <h6>{{addButtonFlow.maximum_button}} buttons maximum</h6>
+                                            <!-- <h6>{{addButtonFlow.maximum_button}} buttons maximum</h6> -->
                                         </button>
                                     </div>
                                 </div>
@@ -173,7 +173,7 @@
                                             </svg>
                                         </div>
 
-                                        @if(button.type !== 'copy_offer_code'){
+                                        @if(button.type !== 'copy_offer_code' && button.type !== 'QUICK_REPLY'){
     
                                             <div class="mt-3">
                                                 <label>   
@@ -188,7 +188,18 @@
                                                       />
                                             </div>
                                         }
-                                        <div class="mt-3">
+                                        @if(button.type == 'QUICK_REPLY'){
+                                            <div class="mt-3">
+                                                <label>   
+                                                   Button Text
+                                                </label>
+                                                <input type="text" class="form-control" 
+                                                [(ngModel)]="button.text"
+                                                placeholder='Enter text here'
+                                                      />
+                                            </div>
+                                        } @else{                                        
+                                            <div class="mt-3">
                                             <label>   
                                                 {{ button.type === 'call_phone_btn' ? 'Phone Number' : 
                                                 button.type === 'visit_website' ? 'Website Label' : 
@@ -206,7 +217,8 @@
                                                     [(ngModel)]="button.phone_number" 
                                                     placeholder="Enter phone number"
                                                 />
-                                            } @else {
+                                            } 
+                                            @else {
                                                 <input type="text" class="form-control"  
                                                 [(ngModel)]="button.url" 
                                                 [placeholder]="
@@ -215,11 +227,9 @@
                                                 'Enter text here'"
                                                     />
                                             }
-
-
-                                            <!-- Flow -->
-                                             <!-- copy_code -->
-                                        </div>
+                                          
+                                            </div>
+                                        }
                                     </div>
                                   </div>
                                   

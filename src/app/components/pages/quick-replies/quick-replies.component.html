@@ -1,0 +1,279 @@
+<div class="container mx-auto mt-6 p-4 bg-white shadow-lg rounded-lg">
+    <div class="d-flex mb-3 gap-4" style="justify-content: space-between !important;">
+        <div class="input-group " style="width: 70% !important;">
+            <input type="text" class="form-control bg-light border-0" placeholder="Search quick reply..."
+                aria-describedby="button-addon2" [formControl]="search" (input)="searchTemp($event)" #filter />
+            <button aria-label="button" class="btn btn-light" type="button" id="button-addon2"
+                (click)="!search?.value ? getAllQuickReplies() : resetSearch()">
+                <i class="ri-search-line text-muted" *ngIf="!search?.value"></i>
+                <i class="bi bi-x-circle-fill text-muted" *ngIf="!!search?.value"></i>
+            </button>
+        </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#messageModal"
+            (click)="openModal(content)">
+            <i class="bi bi-plus-lg"></i>
+            Create Quick
+        </button>
+    </div>
+
+    <div class="table-responsive" style="margin-bottom: 12px;">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Main Table Rows -->
+                <tr *ngFor="let item of storeQuickReplies; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td (click)="toggleRow(item)" style="cursor: pointer;">
+                        {{ item.name }}
+                        <i class="bi bi-chevron-double-down ml-2 rotate-icon"
+                            *ngIf="expandedElement?.id !== item?.id"></i>
+                        <i class="bi bi-chevron-double-up" *ngIf="expandedElement?.id === item?.id"></i>
+                    </td>
+                    <td>
+                        <!-- Edit Button -->
+                        <button class="btn btn-primary-light btn-icon ms-1 btn-sm editQuickReplies-btn"
+                            (click)="editQuickReplies(item,content)">
+                            <i class="ri-edit-line"></i>
+                        </button>
+
+                        <!-- Delete Button -->
+                        <button class="btn btn-danger-light btn-icon ms-1 btn-sm getAllTemplateList-btn"
+                            (click)="removeQuickReplies(item.id)">
+                            <i class="ri-delete-bin-5-line"></i>
+                        </button>
+                    </td>
+                </tr>
+
+                <!-- Expanded Row Content -->
+                <tr *ngIf="expandedElement">
+                    <td colspan="3" class="bg-light">
+                        <div class="p-3 border rounded">
+                            <h6>Details</h6>
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Reply Content</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let msg of expandedElement.QuickReplyMessages">
+                                        <td>{{ msg.type }}</td>
+                                        <td>
+                                            <ul style="padding: 0px !important;margin: 0px !important;">
+                                                <li style="list-style: none;">
+                                                    <ng-container *ngIf="msg.type =='audio'">
+                                                        <i class="bi bi-music-note-beamed mr-2"></i>
+                                                        <a [href]="msg.messageContent.mediaUrl" target="_blank">{{
+                                                            msg.messageContent.fileName }}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="msg.type =='video'">
+                                                        <i class="bi bi-camera-video mr-2"></i>
+                                                        <a [href]="msg.messageContent.mediaUrl" target="_blank">{{
+                                                            msg.messageContent.fileName }}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="msg.type =='image'">
+                                                        <i class="bi bi-image mr-2"></i>
+                                                        <a [href]="msg.messageContent.mediaUrl" target="_blank">{{
+                                                            msg.messageContent.fileName }}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="msg.type =='document'">
+                                                        <i class="bi bi-attachement mr-2"></i>
+                                                        <a [href]="msg.messageContent.mediaUrl" target="_blank">{{
+                                                            msg.messageContent.fileName }}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="msg.type =='text'">
+                                                        <span>{{msg.messageContent}}</span>
+                                                    </ng-container>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <ngb-pagination [(page)]="pageIndex" [pageSize]="pageSize" (pageChange)="onPageChange($event)"
+        [collectionSize]="totalItems" />
+
+
+
+</div>
+
+
+<!-- Quick Replies Start -->
+<ng-template #content role="document" let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Quick Replies Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+            (click)="modal.dismiss('Cross click');reset()"></button>
+    </div>
+    <div class="card-body p-4">
+
+        <!-- Exiting Message -->
+        <div class="p-3 border rounded" *ngIf="exitingMessage.length > 0">
+            <h6>Exiting Message</h6>
+            <table class="table table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Reply Content</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let msg of exitingMessage">
+                        <td>{{ msg.type }}</td>
+                        <td>
+                            <ul style="padding: 0px !important;margin: 0px !important;">
+                                <li style="list-style: none;">
+                                    <ng-container *ngIf="msg.type =='audio'">
+                                        <i class="bi bi-music-note-beamed mr-2"></i>
+                                        <a [href]="msg.messageContent.mediaUrl" target="_blank">{{
+                                            msg.messageContent.fileName }}</a>
+                                    </ng-container>
+                                    <ng-container *ngIf="msg.type =='video'">
+                                        <i class="bi bi-camera-video mr-2"></i>
+                                        <a [href]="msg.messageContent.mediaUrl" target="_blank">{{
+                                            msg.messageContent.fileName }}</a>
+                                    </ng-container>
+                                    <ng-container *ngIf="msg.type =='image'">
+                                        <i class="bi bi-image mr-2"></i>
+                                        <a [href]="msg.messageContent.mediaUrl" target="_blank">{{
+                                            msg.messageContent.fileName }}</a>
+                                    </ng-container>
+                                    <ng-container *ngIf="msg.type =='text'">
+                                        <span>{{msg.messageContent}}</span>
+                                    </ng-container>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <!-- Delete Button -->
+                            <button class="btn btn-danger-light btn-icon ms-1 btn-sm getAllTemplateList-btn"
+                                (click)="removeExitingQuickReply(msg)">
+                                <i class="ri-delete-bin-5-line"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <form [formGroup]="quickReplyForm" (ngSubmit)="onSubmit()">
+
+            <!-- Quick Replies Name -->
+            <div class="mb-3">
+                <label for="form-text" class="form-label fs-14 text-dark">Name</label>
+                <input type="text" class="form-control" id="form-text" placeholder="Enter your your quick replies name"
+                    formControlName="name" />
+            </div>
+
+
+
+            <!-- Define Dropdown here -->
+            <div class="my-3">
+                <label for="form-password" class="form-label fs-14 text-dark">Message Type</label>
+                <select id="inputState" formControlName="messageType" (change)="onTypeChange()"
+                    class="form-select form-select-lg">
+                    <option value="" disabled selected>Please select type</option>
+                    @for (data of replytype; track $index) {
+                    <option [value]="data.value">{{ data.title }}</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Dynamic Fields based on Selected Type -->
+            <div formArrayName="items" class="mt-3">
+                <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+                    <!-- Text Input -->
+                    <div *ngIf="item.value.type === 'text'">
+                        <div
+                            style="display: flex; flex-direction: row;align-items: center;justify-content: space-between;">
+                            <label for="textInput">Text Message</label>
+                            <div style="display: flex; flex-direction: row;align-items: center;gap:8px">
+                                <i class="bx bx-trash" (click)="removeItem(i)" style="color: red; cursor: pointer;"></i>
+                                <i class="bi bi-plus-lg" (click)="addItem()" style="color: green; cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <input formControlName="text" type="text" class="form-control" id="textInput"
+                            placeholder="Enter text message" />
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div *ngIf="item.value.type === 'image'">
+                        <div
+                            style="display: flex; flex-direction: row;align-items: center;justify-content: space-between;">
+                            <label for="imageInput">Image Upload</label>
+                            <div style="display: flex; flex-direction: row;align-items: center;gap:8px">
+                                <i class="bx bx-trash" (click)="removeItem(i)" style="color: red; cursor: pointer;"></i>
+                                <i class="bi bi-plus-lg" (click)="addItem()" style="color: green; cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <input formControlName="image" type="file" class="form-control" id="imageInput"
+                            (change)="onFileSelected($event, i, 'image')" />
+                    </div>
+
+                    <!-- Video Upload -->
+                    <div *ngIf="item.value.type === 'video'">
+                        <div
+                            style="display: flex; flex-direction: row;align-items: center;justify-content: space-between;">
+                            <label for="videoInput">Video Upload</label>
+                            <div style="display: flex; flex-direction: row;align-items: center;gap:8px">
+                                <i class="bx bx-trash" (click)="removeItem(i)" style="color: red; cursor: pointer;"></i>
+                                <i class="bi bi-plus-lg" (click)="addItem()" style="color: green; cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <input formControlName="video" type="file" class="form-control" id="videoInput"
+                            (change)="onFileSelected($event, i, 'video')" />
+                    </div>
+
+                    <!-- Audio Upload -->
+                    <div *ngIf="item.value.type === 'audio'">
+                        <div
+                            style="display: flex; flex-direction: row;align-items: center;justify-content: space-between;">
+                            <label for="audioInput">Audio Upload</label>
+                            <div style="display: flex; flex-direction: row;align-items: center;gap:8px">
+                                <i class="bx bx-trash" (click)="removeItem(i)" style="color: red; cursor: pointer;"></i>
+                                <i class="bi bi-plus-lg" (click)="addItem()" style="color: green; cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <input formControlName="audio" type="file" class="form-control" id="audioInput"
+                            (change)="onFileSelected($event, i, 'audio')" />
+                    </div>
+
+                    <!-- Document Upload -->
+                    <div *ngIf="item.value.type === 'document'">
+                        <div
+                            style="display: flex; flex-direction: row;align-items: center;justify-content: space-between;">
+                            <label for="docInput">Document Upload</label>
+                            <div style="display: flex; flex-direction: row;align-items: center;gap:8px">
+                                <i class="bx bx-trash" (click)="removeItem(i)" style="color: red; cursor: pointer;"></i>
+                                <i class="bi bi-plus-lg" (click)="addItem()" style="color: green; cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <input formControlName="doc" type="file" class="form-control" id="docInput"
+                            (change)="onFileSelected($event, i, 'document')" />
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+
+        </form>
+
+    </div>
+</ng-template>
+<!-- Quick Replies End -->

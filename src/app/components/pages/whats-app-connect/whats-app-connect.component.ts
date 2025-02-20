@@ -35,6 +35,10 @@ export class WhatsAppConnectComponent {
     private toastr: ToastService
   ) {
     this.businessDetailsForm = this.fb.group({
+      appId: [
+        '',
+        [Validators.required],
+      ],
       businessPhoneNumberId: [
         '',
         [Validators.required, Validators.pattern(/^(?!\s*$).+/)],
@@ -90,6 +94,9 @@ export class WhatsAppConnectComponent {
       next: (response) => {
         console.log('response: ', response?.data);
         if (response.data) {
+          this.businessDetailsForm
+            .get('appId')
+            ?.setValue(response?.data?.appId);
           this.businessDetailsForm
             .get('businessPhoneNumberId')
             ?.setValue(response?.data?.businessPhoneNumberId);

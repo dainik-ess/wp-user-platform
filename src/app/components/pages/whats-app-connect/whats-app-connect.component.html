@@ -39,6 +39,16 @@
                         <!-- Step 2: Business Detail -->
                         <mat-step [stepControl]="businessDetailsForm" label="Business Detail">
                             <form [formGroup]="businessDetailsForm" class="mt-4">
+                                <!-- Meta APP ID -->
+                                <div class="row mb-3">
+                                    <label class="col-md-3 form-label bold-normal">Meta APP ID <span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-md-9">
+                                        <input matInput class="form-control" type="text"
+                                            formControlName="appId" />
+                                    </div>
+                                </div>
+
                                 <!-- Business Phone ID -->
                                 <div class="row mb-3">
                                     <label class="col-md-3 form-label bold-normal">Business Phone ID <span
@@ -112,6 +122,13 @@
                 <div class="card-body">
 
                     <h4 class="card-title mb-4 text-center main-title">Business Details Form</h4>
+                    <div class="mb-3 row mt-5">
+                        <label for="example-text-input" class="col-md-2 col-form-label">Meta APP ID</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="text"
+                                [value]="businessDetailsForm.get('appId')?.value" disabled>
+                        </div>
+                    </div>
                     <div class="mb-3 row mt-5">
                         <label for="example-text-input" class="col-md-2 col-form-label">Business Number</label>
                         <div class="col-md-10">

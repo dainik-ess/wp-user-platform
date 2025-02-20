@@ -1,0 +1,90 @@
+<div class="container mx-auto mt-6 p-4 bg-white shadow-lg rounded-lg">
+    <div class="d-flex mb-3 gap-4" style="justify-content: space-between !important;">
+        <div class="input-group " style="width: 70% !important;">
+            <input type="text" class="form-control bg-light border-0" placeholder="Search label..."
+                aria-describedby="button-addon2" [formControl]="search" (input)="searchTemp($event)" #filter />
+            <button aria-label="button" class="btn btn-light" type="button" id="button-addon2"
+                (click)="!search?.value ? getAllLabels() : resetSearch()">
+                <i class="ri-search-line text-muted" *ngIf="!search?.value"></i>
+                <i class="bi bi-x-circle-fill text-muted" *ngIf="!!search?.value"></i>
+            </button>
+        </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#messageModal"
+            (click)="openModal(content)">
+            <i class="bi bi-plus-lg"></i>
+            Add new label
+        </button>
+    </div>
+
+    <div class="table-responsive" style="margin-bottom: 12px;">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Main Table Rows -->
+                <tr *ngFor="let item of storeLabels; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td style="cursor: pointer;">
+                        {{ item.name }}
+                    </td>
+                    <td style="cursor: pointer;" [ngStyle]="{'background-color': item.color}">
+                        {{ item.color }}
+                    </td>
+                    <td>
+                        <!-- Edit Button -->
+                        <button class="btn btn-primary-light btn-icon ms-1 btn-sm editQuickReplies-btn"
+                            (click)="editLabel(item,content)">
+                            <i class="ri-edit-line"></i>
+                        </button>
+
+                        <!-- Delete Button -->
+                        <!-- <button class="btn btn-danger-light btn-icon ms-1 btn-sm getAllTemplateList-btn"
+                            (click)="removeQuickReplies(item.id)">
+                            <i class="ri-delete-bin-5-line"></i>
+                        </button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <ngb-pagination [(page)]="pageIndex" [pageSize]="pageSize" (pageChange)="onPageChange($event)"
+        [collectionSize]="totalItems" />
+</div>
+
+
+<!-- Quick Replies Start -->
+<ng-template #content role="document" let-modal>
+    <form [formGroup]="labelForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add New Label</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+            (click)="modal.dismiss('Cross click');"></button>
+        </div>
+    
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="labelText" class="form-label">Label Text</label>
+            <input type="text" class="form-control" id="labelText" formControlName="name" placeholder="Enter label name">
+          </div>
+    
+          <div class="mb-3">
+            <label for="colorPicker" class="form-label">Select Color</label>
+            <input [(colorPicker)]="color" [style.background]="color" [value]="color" class="form-control" id="colorPicker" /> 
+          </div>
+        </div>
+    
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss('Cross click');">Cancel</button>
+          <button type="submit" class="btn btn-primary" (click)="submitLabel()" [disabled]="labelForm.invalid">Save</button>
+        </div>
+      </form>
+</ng-template>
+<!-- Quick Replies End -->

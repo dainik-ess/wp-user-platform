@@ -1,7 +1,8 @@
 <div class="container-fluid">
-  <div class="main-chart-wrapper gap-2 d-lg-flex">
+  <div class="main-chart-wrapper d-lg-flex">
     <div class="chat-info border customtab" (click)="bodyClick()">
-      <a aria-label="anchor" href="javascript:void(0)" class="btn btn-secondary btn-icon rounded-circle chat-add-icon">
+      <a aria-label="anchor" (click)="newCustomer(newContent)"
+        class="btn btn-secondary btn-icon rounded-circle chat-add-icon">
         <i class="ri-add-line"></i>
       </a>
       <div class="d-flex align-items-center justify-content-between w-100 p-3 border-bottom">
@@ -10,64 +11,128 @@
         </div>
 
       </div>
-  
 
-        <div class="chat-search p-3 border-bottom">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border-0" placeholder="Search User"
-              aria-describedby="button-addon2" [(ngModel)]="searchUser" />
-            <button aria-label="button" class="btn btn-light" type="button" id="button-addon2"
-              (click)="searchUserMethod()">
-              <i class="ri-search-line text-muted"></i>
-            </button>
-          </div>
+
+      <div class="chat-search p-3 border-bottom">
+        <div class="input-group">
+          <input type="text" class="form-control bg-light border-0" placeholder="Search User"
+            aria-describedby="button-addon2" [formControl]="searchUser" (input)="search($event)" #filter />
+          <button aria-label="button" class="btn btn-light" type="button" id="button-addon2"
+            (click)="!searchUser?.value ? searchUserMethod() : resetSearch()">
+            <i class="ri-search-line text-muted" *ngIf="!searchUser?.value"></i>
+            <i class="bi bi-x-circle-fill text-muted" *ngIf="!!searchUser?.value"></i>
+          </button>
         </div>
-        <ngx-simplebar class="list-unstyled mb-0 mt-2 chat-users-tab" id="chat-msg-scroll">
-          @for(data of getAllConversationList;track $index){
-          <li class="checkforactive">
-            <a href="javascript:void(0);" (click)="handleClick(data);getUserMessage(data)">
-              <div class="d-flex align-items-top">
-                <div class="me-1 lh-1">
-                  <span class="avatar avatar-md online me-2 avatar-rounded">
-                    <img src="https://static.vecteezy.com/system/resources/thumbnails/036/280/650/small/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg" alt="img" />
-                  </span>
-                </div>
-                <div class="flex-fill">
-                  <p class="mb-0 fw-semibold">
-                    {{ data.whatsappUser.name
-                    }}
-                    <span class="float-end text-muted fw-normal fs-11">{{data?.time ? data?.time : '-'}}</span>
-                  </p>
-                  <!-- <p class="fs-12 mb-0">
-                    <span class="chat-msg text-truncate">{{
-                      data.messages[0].text
-                      }}</span>
-                    @if(data.isMessageRead){
+      </div>
+      <div class="d-flex mt-2 px-2 w-full mx-auto" >
 
-                      <span class="chat-read-icon float-end align-middle"><i
-                          class="ri-check-double-line"></i>
-                          </span>
-                    } @else if(!data.isMessageRead){
-                      <span class="chat-read-icon float-end align-middle"><i
-                        class="ri-check-single-line"></i>
-                        </span>
-                    }
-                    @if(data.pendingMessage){
-                      <span class="badge bg-success-transparent rounded-circle float-end">{{ data.pendingMessage }}</span>
-                    }
-                  </p> -->
+        <button class="btn btn-wave"  (click)="unRead = false;labelID=null;actionID=null;getAllConversation();" [ngClass]="!unRead ? 'btn-dark' : 'btn-light'">All</button>
+
+        <button class="btn btn-wave" style="margin-left: 4px;" (click)="unRead = true;getAllConversation()" [ngClass]="unRead ? 'btn-dark' : 'btn-light'">Unread</button>
+
+        <div class="dropdown" style="width: 100%; margin-left: 4px;">
+          <select id="inputState" class="form-select form-select-lg" [(ngModel)]="labelID" (change)="onLabelChange()">
+            <option value=null disabled selected>Label</option>
+            @for (data of labelList; track $index) {
+            <option [value]="data.id">{{ data.name }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="dropdown" style="width: 100%; margin-left: 4px;">
+          <select id="action" class="form-select form-select-lg" [(ngModel)]="actionID" (change)="onActionChange()">
+            <option value=null disabled selected>Action</option>
+            @for (data of storeActions; track $index) {
+            <option [value]="data.id">{{ data.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <ngx-simplebar class="list-unstyled mb-0 mt-2 chat-users-tab" id="chat-msg-scroll">
+
+        @for(data of getAllConversationList;track $index){
+        <li class="checkforactive">
+          <a href="javascript:void(0);" (click)="handleClick(data);getUserMessage(data)">
+            <div class="d-flex align-items-top">
+              <div class="me-1 lh-1">
+                <!-- [ngClass]="data.unReadMessageCount <= 0 ? 'offline' : 'online'" -->
+                <span class="avatar avatar-md  me-2 avatar-rounded">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/thumbnails/036/280/650/small/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"
+                    alt="img" />
+                </span>
+              </div>
+              <div class="flex-fill">
+                <p class="mb-0 fw-semibold" (click)="updateUserName(content,data,$event)"
+                  style="cursor: text;width: fit-content;">
+                  {{ data.whatsappUser.name}}
+                </p>
+                <p class="fs-12 mb-0">
+                  <span class="chat-msg text-truncate"
+                    *ngIf="data?.Messages[0]?.type == 'text' || data?.Messages?.type  == 'text' || data?.Messages[0]?.type == 'button' || data?.Messages?.type  == 'button'">
+                    {{
+                    data?.Messages[0]?.content ? data?.Messages[0]?.content : data?.Messages?.content
+                    }}
+                  </span>
+
+                  <span class="chat-msg text-truncate"
+                    *ngIf="data?.Messages[0]?.type == 'image' || data?.Messages?.type  == 'image'">
+                    <i class="bi bi-camera-fill"></i> Photo
+                  </span>
+
+                  <span class="chat-msg text-truncate"
+                    *ngIf="data?.Messages[0]?.type == 'video' || data?.Messages?.type  == 'video'">
+                    <i class="bi bi-play-btn-fill"></i> Video
+                  </span>
+
+                  <span class="chat-msg text-truncate"
+                    *ngIf="data?.Messages[0]?.type == 'document' || data?.Messages?.type  == 'document'">
+                    <i class="bi bi-file-earmark-pdf"></i> Document
+                  </span>
+
+                  <!-- Template -->
+                  <span class="chat-msg text-truncate"
+                    *ngIf="data?.Messages[0]?.type == 'template' || data?.Messages?.type  == 'template'">
+                    Template
+                  </span>
+
+                  <!-- Audio -->
+                  <span class="chat-msg text-truncate"
+                    *ngIf="data?.Messages[0]?.type == 'audio' || data?.Messages?.type  == 'audio'">
+                    <i class="bi bi-mic-fill"></i> Audio
+                  </span>
+
+                  @if(data.unReadMessageCount >= 1){
+                  <span class="badge bg-success-transparent rounded-circle float-end">{{data.unReadMessageCount}}</span>
+                  }
+                </p>
+                <div class="d-flex flex-row gap-1">
+                  @for (item of data.Labels; track $index) {
+                  <div>
+                    <span [ngStyle]="{'background-color': item.color}"
+                      style="padding: 2px;font-size: 8px;">{{item.name}}</span>
+                  </div>
+                  }
+                  @for (item of data.Actions; track $index) {
+                  <div>
+                    <span 
+                      style="padding: 2px;font-size: 8px;background-color: rgb(219, 219, 250);color: black;">{{item.name}}</span>
+                  </div>
+                  }
                 </div>
               </div>
-            </a>
-          </li>
-          }
-          @if(getAllConversationList?.length==0){
-          <li class="text-danger">
-            No user found
-          </li>
-          }
-        </ngx-simplebar>
-  
+            </div>
+          </a>
+        </li>
+        }
+        @if(getAllConversationList?.length==0){
+        <li class="text-danger">
+          No user found
+        </li>
+        }
+      </ngx-simplebar>
+
       <div class="mt-2"></div>
 
     </div>
@@ -76,167 +141,444 @@
     <div class="main-chat-area border">
       <!-- Chat Header Section Start -->
       <div class="d-flex align-items-center p-2 border-bottom">
-        <div class="me-2 lh-1">
-          <span class="avatar avatar-lg online me-2 avatar-rounded chatstatusperson">
-            <img class="chatimageperson" src="https://static.vecteezy.com/system/resources/thumbnails/036/280/650/small/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg" alt="img" />
+        <div class="me-3">
+          <span class="avatar avatar-lg online avatar-rounded chatstatusperson">
+            <img class="chatimageperson"
+              src="https://static.vecteezy.com/system/resources/thumbnails/036/280/650/small/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illustration-vector.jpg"
+              alt="img" />
           </span>
         </div>
-        <div class="flex-fill">
+        <div class="flex-grow-1">
           <p class="mb-0 fw-semibold fs-14">
-            <a href="javascript:void(0);"
-              class="chatnameperson responsive-userinfo-open">{{activeUser?.whatsappUser?.name}}</a>
+            <a href="javascript:void(0);" class="chatnameperson responsive-userinfo-open text-decoration-none">
+              {{ activeUser?.whatsappUser?.name }}
+            </a>
+            <br>
+            <span class="text-muted fs-12">
+              {{ activeUser?.whatsappUser?.phoneNumber }}
+
+            </span>
           </p>
+          <!-- Label -->
+          <div class="d-flex flex-row gap-1 mt-2">
+            @for (item of activeUser.Labels; track $index) {
+            <div>
+              <span [ngStyle]="{'background-color': item.color}" class="p-1">{{item.name}}</span>
+            </div>
+            }
+            @for (item of activeUser.Actions; track $index) {
+              <div>
+                <span 
+                  style="padding: 2px;font-size: 8px;background-color: rgb(219, 219, 250);color: black;">{{item.name}}</span>
+              </div>
+              }
+          </div>
         </div>
+        <div>
+          <button type="button" class="btn btn-primary-light btn-icon ms-1 btn-sm " [ngbPopover]="moreActionPopover"
+            #p="ngbPopover" (dblclick)="p.open()" placement="auto" triggers="click:outsideClick"
+            [autoClose]="'outside'">
+            <i class="bi bi-three-dots-vertical"></i>
+          </button>
+          <ng-template #moreActionPopover>
+            <div class="popover-content" (click)="$event.stopPropagation()">
+              <div class="d-flex flex-column bd-highlight">
+
+                <button type="button" class="btn btn-sm btn-primary btn-rounded mb-1 px-3"
+                  (click)="actionMethod()">
+                  Action
+                </button>
+                <button type="button" class="btn btn-sm btn-primary btn-rounded mb-1 px-3" [ngbPopover]="labelPopover"
+                  #labelP="ngbPopover" (click)="labelP.open();getLabelList()" placement="left"
+                  triggers="click:outsideClick" [autoClose]="'outside'">
+                  Label
+                </button>
+
+                <ng-template #labelPopover>
+                  <div class="popover-content" (click)="$event.stopPropagation()">
+                    <div class="d-flex flex-column" style="width: 200px; max-height: 250px; overflow-y: auto;">
+                      @for (item of labelList; track $index) {
+                      <div class="d-flex align-items-center py-2 px-2 label-item" style="font-size: 18px;"
+                        (click)="item?.isSelected ? removeLabel(item) : setLabel(item) ">
+                        <!-- Label Icon with Custom Color -->
+                        <i class="bi bi-tags-fill me-2" [style.color]="item.color" style="font-size: 22px;"></i>
+
+                        <!-- Label Name -->
+                        <span class="flex-grow-1">{{ item.name }}</span>
+
+                        <!-- Checkmark (✔) for Selected Label -->
+                        <i *ngIf="item?.isSelected" class="bi bi-check-circle-fill text-success"
+                          style="font-size: 20px;"></i>
+                      </div>
+                      }
+                    </div>
+                  </div>
+                </ng-template>
+
+                <button type="button" class="btn btn-sm btn-primary btn-rounded px-3" (click)="filterStarMessage()">
+                  {{isStar ? 'All' : 'Star'}}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+
+
+
+        </div>
+
       </div>
+
       <!-- Chat Header Section End -->
 
 
       @if(!showPreview){
-        <ngx-simplebar class="chat-content" id="main-chat-content"  #componentRef>
-          <ul class="list-unstyled" 
-          id="user-chat" (click)="bodyClick()"
-    >
-           
-            @if(userMessage?.length > 0){
-              @for (message of userMessage; track message;let i = $index) {
-              @if(message?.sendBy === 'USER'){
-              <li class="chat-item-start">
-                <div class="chat-list-inner">
-                  <div class="ms-3">
-                    <div class="main-chat-msg">
-                      <div>
-                        @if(message?.type === 'text'){
-                          <p class="mb-0">
-                            {{message.content}}
-                          </p>
-                        } @else if(message?.type === 'image'){
-                          <img [src]="message.content" alt="" style="height: 300px;width: 300px;object-fit: contain;">
-                        } @else if (message?.type === 'document') {
-                          <a [href]="message.content" target="_blank" download>
-                            <i class="fa fa-file"></i> Download Document
-                          </a>
-                        } @else if (message?.type === 'video') {
-                          <video controls style="height: 300px; width: 300px; object-fit: contain;">
-                            <source [src]="message.content" type="video/mp4">
-                            Your browser does not support the video tag.
-                          </video>
-                        }
+      <ngx-simplebar class="chat-content" id="main-chat-content" #componentRef>
+        <ul class="list-unstyled" id="user-chat" (click)="bodyClick()">
+
+          @if(userMessage?.length > 0){
+          @for (message of userMessage; track message;let i = $index) {
+          @if(message?.sendBy === 'USER'){
+          <li class="chat-item-start">
+            <div class="chat-list-inner">
+              <div class="ms-3">
+                <div class="main-chat-msg" style="cursor: pointer;" [ngbPopover]="actionPopover" #p="ngbPopover"
+                  (dblclick)="p.open()" placement="auto" triggers="click:outsideClick" [autoClose]="'outside'">
+                  <div>
+                    @if(message?.type === 'text' || message?.type === 'button'){
+                    <p class="mb-0">
+                      {{message.content}}
+                    </p>
+                    } @else if(message?.type === 'image'){
+                    <img [src]="message.content" alt="" style="height: 300px;width: 300px;object-fit: contain;">
+                    } @else if (message?.type === 'document') {
+                    <a [href]="message.content" target="_blank" download>
+                      <i class="fa fa-file"></i> Download Document
+                    </a>
+                    } @else if (message?.type === 'video') {
+                    <video controls style="height: 300px; width: 300px; object-fit: contain;">
+                      <source [src]="message.content" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                    }
+                    @else if (message?.type === 'template'){
+                    <div class="flex-col">
+                      @for(template of message?.MessageTemplate.components; track $index) {
+                      @if(template.type === 'header') {
+                      @for(content of template.parameters; track $index) {
+                      @if(content.type === 'image'){
+                      <div class="media-wrapper">
+                        <img [src]="content.image.link" alt="Template Image">
                       </div>
-                      <span class="msg-sent-time">{{message.updatedAt | date: 'h:mm a'}}</span>
+                      }
+                      }
+                      }
+                      @if(template.type === 'BODY') {
+                      <div class="body">{{template.text}}</div>
+                      }
+                      @if(template.type === 'BUTTONS') {
+                      @for(button of template.buttons; track $index) {
+                      <button class="btn-chat">{{button.text}}</button>
+                      }
+                      }
+                      }
                     </div>
+                    <span class="message-meta">
+                      <span class="message-time">{{message.createdAt | date: 'h:mm a'}}</span>
+                      @if(message?.sendBy === 'OWNER') {
+                      <span class="chat-read-mark"><i class="ri-check-double-line"></i></span>
+                      }
+                    </span>
+                    }
+                    @else if(message?.type === 'audio'){
+                    <audio controls>
+                      <source [src]="message.content" type="audio/mpeg">
+                    </audio>
+                    }
                   </div>
+
+                  <span class="msg-sent-time">
+                    <i class="bi bi-star-fill" *ngIf="message.isStarred"></i>
+                    {{message.createdAt | date: "MMM d, yy h:mm a"}}
+                  </span>
                 </div>
-              </li>
-    
-              } @else if(message?.sendBy === 'OWNER') {
-              <li class="chat-item-end">
-                <div class="chat-list-inner">
-                  <div class="me-3">
-                   
-                    <div class="main-chat-msg">
-                      <div>
-            
-                        @if(message?.type === 'text'){
-                          <p class="mb-0">
-                            {{message.content}}
-                          </p>
-                        } @else if(message?.type === 'image'){
-                          <img [src]="message.content" alt="" style="height: 300px;width: 300px;object-fit: contain;">
-                        } @else if (message?.type === 'document') {
-                          <a [href]="message.content" target="_blank" download>
-                            <i class="fa fa-file"></i> Download Document
-                          </a>
-                        } @else if (message?.type === 'video') {
-                          <video controls style="height: 300px; width: 300px; object-fit: contain;">
-                            <source [src]="message.content" type="video/mp4">
-                            Your browser does not support the video tag.
-                          </video>
-                        }
-                       
-                      </div>
-                      <span class="chatting-user-info">
-                        <span>
-                          <span class="chat-read-mark align-middle d-inline-flex"><i class="ri-check-double-line"></i></span>
-                          <span class="msg-sent-time-user">{{message.updatedAt | date: 'h:mm a'}}</span>
-                        </span>
-                      </span>
-                    </div>
-                  </div>
-                  
-                </div>
-              </li>
-    
-              }
-              }
-            }
-          </ul>
-        </ngx-simplebar>
-      } @else {
-        <div (click)="closePreview()" class="my-2">
-          <div class="modal-content" (click)="$event.stopPropagation()">
-            <button class="close-button" (click)="closePreview()">
-              <i class="ri-close-line"></i>
-            </button>
-            <h4>File Preview</h4>
-            <div *ngIf="fileType === 'image'" class="preview-image">
-              <img [src]="filePreview" alt="Image Preview" />
+              </div>
             </div>
-            <div *ngIf="fileType === 'pdf'" class="preview-pdf">
-              <p>PDF Preview Not Available</p>
-            </div>
-          </div>
-        </div>
-      }
-      <div class="chat-footer">
-        <textarea class="form-control" placeholder="Type your message here..." type="text" [(ngModel)]="message" rows="2"></textarea>
-       
-        @if(!showPreview){
-          <div class="attachment-container">
-            <!-- File Input -->
-            <input 
-              type="file" 
-              [accept]="fileAccept" 
-              (change)="handleFileUpload($event)" 
-              style="display: none;" 
-              #fileInput 
-            />
-          
-            <!-- Attachment Button with Popover -->
-            <button 
-            aria-label="upload" 
-            class="btn btn-icon mx-2 btn-info" 
-            [ngbPopover]="popoverContent"          
-             #p="ngbPopover" 
-             placement="top"
-            triggers="click:outsideClick" 
-            (click)="p.open()"
-          >
-              <i class="ri-attachment-line"></i>
-            </button>
-          
-            <!-- Popover Content -->
-            <ng-template #popoverContent>
-              <div class="popover-menu">
-                <button class="btn btn-link" (click)="selectFileType('image/*');chatType='image'">Image</button>
-                <button class="btn btn-link" (click)="selectFileType('video/*');chatType='video'">Video</button>
-                <button class="btn btn-link" (click)="selectFileType('.pdf,.doc,.docx,.xlsx');chatType='document'">Document</button>
+
+            <ng-template #actionPopover>
+              <div class="popover-content" (click)="$event.stopPropagation()">
+                <button class="btn btn-md btn-light w-100 px-5" (click)="saveStarMessage(message,p)">{{message.isStarred
+                  ? 'Unstar' : 'Star'}}</button>
               </div>
             </ng-template>
+          </li>
+
+          }
+          @else if(message?.sendBy === 'OWNER') {
+          <li class="chat-item-end">
+            <div class="chat-list-inner">
+              <div class="main-chat-msg" style="cursor: pointer;" [ngbPopover]="userActionPopover" #p="ngbPopover"
+                (dblclick)="p.open()" placement="auto" triggers="click:outsideClick" [autoClose]="'outside'">
+                @if(message?.type === 'text' || message?.type === 'button'){
+                <div class="message-content">
+                  <p class="mb-0">{{message.content}}</p>
+                  <span class="message-meta">
+                    <span class="message-time">
+                      <i class="bi bi-star-fill" *ngIf="message.isStarred"></i>
+                      {{message.createdAt | date: "MMM d, yy h:mm a"}}</span>
+                  </span>
+                </div>
+                } @else if(message?.type === 'image'){
+                <div class="message-content">
+                  <div class="media-wrapper">
+                    <img [src]="message.content" alt="Image" class="chat-media">
+                  </div>
+                  <span class="message-meta">
+                    <span class="message-time">
+                      <i class="bi bi-star-fill" *ngIf="message.isStarred"></i>
+                      {{message.createdAt | date: "MMM d, yy h:mm a"}}</span>
+                  </span>
+                </div>
+                } @else if(message?.type === 'document'){
+                <div class="message-content document">
+                  <div class="document-wrapper">
+                    <i class="fa fa-file-pdf document-icon"></i>
+                    <span class="document-info">Document</span>
+                    <a [href]="message.content" target="_blank" download class="document-download">
+                      <i class="ri-download-2-line"></i>
+                    </a>
+                  </div>
+                  <span class="message-meta">
+                    <span class="message-time">
+                      <i class="bi bi-star-fill" *ngIf="message.isStarred"></i>
+                      {{message.createdAt | date: "MMM d, yy h:mm a"}}</span>
+                  </span>
+                </div>
+                } @else if(message?.type === 'video'){
+                <div class="message-content">
+                  <div class="media-wrapper">
+                    <video controls class="chat-media">
+                      <source [src]="message.content" type="video/mp4">
+                    </video>
+                  </div>
+                  <span class="message-meta">
+                    <span class="message-time">
+                      <i class="bi bi-star-fill" *ngIf="message.isStarred"></i>
+                      {{message.createdAt | date: "MMM d, yy h:mm a"}}</span>
+                  </span>
+                </div>
+                } @else if(message?.type === 'template'){
+                <div class="message-content template">
+                  @for(template of message?.MessageTemplate.components; track $index) {
+                  @if(template.type === 'header') {
+                  @for(content of template.parameters; track $index) {
+                  @if(content.type === 'image'){
+                  <div class="media-wrapper">
+                    <img [src]="content.image.link" alt="Template Image" class="chat-media">
+                  </div>
+                  }
+                  }
+                  }
+                  @if(template.type === 'BODY') {
+                  <p class="template-body" style="text-align: start;">{{template.text}}</p>
+                  }
+                  @if(template.type === 'BUTTONS') {
+                  <div class="template-buttons" style="padding: 0px !important;">
+                    @for(button of template.buttons; track $index) {
+                    <button class="template-button">{{button.text}}</button>
+                    }
+                  </div>
+                  }
+                  }
+                  <span class="message-meta">
+                    <span class="message-time">
+                      <i class="bi bi-star-fill" *ngIf="message.isStarred"></i>
+                      {{message.createdAt | date: "MMM d, yy h:mm a"}}</span>
+                  </span>
+                </div>
+                } @else if(message?.type === 'audio'){
+                <div class="message-content audio">
+                  <div class="audio-wrapper">
+                    <audio controls class="chat-audio">
+                      <source [src]="message.content" type="audio/mpeg">
+                    </audio>
+                  </div>
+                  <span class="message-meta">
+                    <span class="message-time">
+                      <i class="bi bi-star-fill" *ngIf="message.isStarred"></i>
+                      {{message.createdAt | date: "MMM d, yy h:mm a"}}</span>
+                  </span>
+                </div>
+                }
+              </div>
+            </div>
+            <ng-template #userActionPopover>
+              <div class="popover-content" (click)="$event.stopPropagation()">
+                <button class="btn btn-md btn-light w-100 px-5" (click)="saveStarMessage(message,p)">{{message.isStarred
+                  ? 'Unstar' : 'Star'}}</button>
+              </div>
+            </ng-template>
+          </li>
+
+          }
+          }
+          }
+        </ul>
+      </ngx-simplebar>
+      } @else {
+      <div (click)="closePreview()" class="my-2">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <button class="close-button" (click)="closePreview()">
+            <i class="ri-close-line"></i>
+          </button>
+          <h4>File Preview</h4>
+          <div class="image-gallery">
+            <!-- Full Image View -->
+            <div *ngIf="selectedFile && selectedFile.type === 'image'" class="main-image">
+              <img [src]="selectedFile.preview" alt="Selected Image" />
+            </div>
+            <div *ngIf="selectedFile && selectedFile.type === 'pdf'" class="main-pdf">
+              <p>PDF Preview Not Available: {{ selectedFile.name }}</p>
+            </div>
+
+            <!-- Thumbnail Gallery -->
+            <div class="thumbnail-gallery">
+              <div *ngFor="let file of filePreviews; let i = index" class="thumbnail"
+                [class.active]="file === selectedFile" (click)="selectFile(file)">
+                <img *ngIf="file.type === 'image'" [src]="file.preview" [alt]="'Thumbnail ' + (i + 1)"
+                  class="thumbnail-image" />
+                <p *ngIf="file.type !== 'image'" class="thumbnail-pdf">{{ file.name }}</p>
+
+                <div class="delete-icon" (click)="deleteFile(i, $event)">
+                  <i class="ri-close-circle-fill"></i>
+                </div>
+              </div>
+            </div>
           </div>
-          
+
+        </div>
+      </div>
+      }
+      <div class="chat-footer">
+        <textarea class="form-control" placeholder="Type your message" type="text" [(ngModel)]="message"
+          rows="1"></textarea>
+
+        <!-- Quick Replies -->
+        <div class="quick-replies" style="margin-left: 8px !important;">
+          <button class="btn btn-primary" [ngbPopover]="quickRepliesPopover" #quickReplyp="ngbPopover" placement="top"
+            triggers="click:outsideClick" (click)="quickReplyp.open()" [autoClose]="'outside'">
+            <i class="ri-chat-2-line"></i>
+          </button>
+
+          <!-- Quick Replies Popover -->
+          <ng-template #quickRepliesPopover>
+            <div class="popover-content" (click)="$event.stopPropagation()"> <!-- Prevent popover from closing -->
+
+              <ng-select [items]="storeQuickRepliesList" bindLabel="name" bindValue="id"
+                placeholder="Select Quick Replies" [(ngModel)]="selectedQuickReplies" [multiple]="true">
+              </ng-select>
+
+              <div class="popover-menu my-2">
+                <button aria-label="send" class="btn btn-icon btn-primary" (click)="sendQuickReplies(quickReplyp)">
+                  Send
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+
+        @if(!showPreview){
+        <div class="attachment-container">
+
+          <!-- File Input -->
+          <input type="file" multiple [accept]="fileAccept" (change)="handleFileUpload($event)" style="display: none;"
+            #fileInput />
+
+          <!-- Attachment Button with Popover -->
+          <button aria-label="upload" class="btn btn-icon mx-2 btn-info" [ngbPopover]="popoverContent" #p="ngbPopover"
+            placement="top" triggers="click:outsideClick" (click)="p.open()">
+            <i class="ri-attachment-line"></i>
+          </button>
+
+          <!-- Popover Content -->
+          <ng-template #popoverContent>
+            <div class="popover-menu">
+              <button class="btn btn-link" (click)="selectFileType('image/*');chatType='image'">Image</button>
+              <button class="btn btn-link" (click)="selectFileType('video/*');chatType='video'">Video</button>
+              <button class="btn btn-link" (click)="selectFileType('audio/*');chatType='audio'">Audio</button>
+              <button class="btn btn-link"
+                (click)="selectFileType('.pdf,.doc,.docx,.xlsx');chatType='document'">Document</button>
+            </div>
+          </ng-template>
+
+
+
+        </div>
+
         }
-        <a aria-label="anchor" class="btn btn-primary btn-icon btn-send" href="javascript:void(0)" (click)="sendMessage()">
+
+        <a aria-label="anchor" class="btn btn-primary btn-icon btn-send" href="javascript:void(0)"
+          (click)="sendMessage()">
           <i class="ri-send-plane-2-line"></i>
         </a>
       </div>
     </div>
     } @else {
-      <div class="d-flex justify-content-center align-items-center" style="background: #ffffff4f;width: 100%;">
-        <h1>No User Chat Preview</h1>
-      </div>
+    <div class="d-flex justify-content-center align-items-center"
+      style="background: #E5DDD5;width: 100%;height: calc(100vh - 4rem) !important;">
+      <h1>No User Chat Preview</h1>
+    </div>
     }
 
   </div>
 </div>
 
 <!-- End::app-content -->
+
+
+
+<!-- Modal -->
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Customer Form</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+      (click)="modal.dismiss('Cross click');formReset()"></button>
+  </div>
+  <div class="card-body p-4">
+    <form [formGroup]="customerForm" (ngSubmit)="validSubmit()">
+      <!-- Message -->
+      <div class="mb-3">
+        <label for="form-text" class="form-label fs-14 text-dark">Customer Name</label>
+        <input type="text" class="form-control" id="form-text" placeholder="Enter your name"
+          formControlName="customerName" />
+      </div>
+
+      <button class="btn btn-primary" type="submit">Update</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #newContent role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Customer Form</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"
+      (click)="modal.dismiss('Cross click');formReset()"></button>
+  </div>
+  <div class="card-body p-4">
+    <form [formGroup]="newCustomerForm" (ngSubmit)="validNewSubmit()">
+      <!-- Message -->
+      <div class="mb-3">
+        <label for="form-text" class="form-label fs-14 text-dark">Customer Name</label>
+        <input type="text" class="form-control" id="form-text" placeholder="Enter customer name"
+          formControlName="customerName" />
+      </div>
+
+      <div class="mb-3">
+        <label for="form-text" class="form-label fs-14 text-dark">Customer Contact Number</label>
+        <input type="text" class="form-control" id="form-text" placeholder="Enter customer number"
+          formControlName="customerNumber" />
+      </div>
+
+      <button class="btn btn-primary" type="submit">Save</button>
+    </form>
+  </div>
+</ng-template>

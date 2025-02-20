@@ -3,22 +3,30 @@ import { Observable } from 'rxjs';
 import io from 'socket.io-client';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
   private socket = io('https://api.nidhiji.com');
 
-  joinRoom(conversationId: string){
-    this.socket.emit('joinRoom', conversationId);
+  joinRoom(joinConversationId: string,leaveConversationId:string) {
+    this.socket.emit("joinRoom", JSON.stringify({joinConversationId,leaveConversationId}));
   }
 
   getMessages() {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       this.socket.on('messages', (message) => {
         observer.next(message);
       });
     });
   }
 
-  constructor() { }
+  getConversation() {
+    return new Observable((observer) => {
+      this.socket.on('conversations', (conversations) => {
+        observer.next(conversations);
+      });
+    });
+  }
+
+  constructor() {}
 }

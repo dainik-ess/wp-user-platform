@@ -1,6 +1,20 @@
 <!-- Button to Open Modal -->
 <div class="container mt-4">
-  <div class="d-flex justify-content-end mb-3">
+
+  
+
+  <div class="d-flex  mb-3 gap-4" style="justify-content: space-between !important;">
+    <!-- <div class="chat-search p-3 border-bottom"> -->
+      <div class="input-group" style="width: 70% !important;">
+        <input type="text" class="form-control bg-light border-0" placeholder="Search User"
+          aria-describedby="button-addon2" [formControl]="search"   (input)="searchTemp($event)" #filter style="background: white !important;"/>
+        <button aria-label="button" class="btn btn-light" type="button" id="button-addon2" (click)="!search?.value ? getMessageReplies() : resetSearch()"
+          >
+          <i class="ri-search-line text-muted" *ngIf="!search?.value"></i>
+          <i class="bi bi-x-circle-fill text-muted" *ngIf="!!search?.value"></i>
+        </button>
+      <!-- </div> -->
+    </div>
     <button
       type="button"
       class="btn btn-primary"
@@ -44,7 +58,17 @@
             <p class="card-text mb-1">
               <strong>Reply Type:</strong> <i> {{ data?.replyType }}</i>
             </p>
-            <p class="card-text">{{ data?.replyContent }}</p>
+            <p class="card-text" *ngIf="data?.replyType === 'text'">{{ data?.replyContent }}</p>
+            <a [href]="data?.replyContent" target="_blank" class="btn btn-secondary btn-sm" *ngIf="data?.replyType === 'video' || data?.replyType === 'image' || data?.replyType === 'document'">
+              View 
+              @if(data?.replyType == 'video'){
+                Video
+              } @if (data?.replyType == 'image') {
+                Image
+              } @if (data?.replyType == 'document') {
+                Document
+              }
+            </a>
           </div>
         </div>
         <!-- Card Footer -->
@@ -57,8 +81,18 @@
                     </button>
         </div>
       </div>
+
     </div>
   </div>
+  <div>
+    <ul class="pagination justify-content-end">
+        <ngb-pagination [page]="pageIndex" [collectionSize]="totalItems" [pageSize]="pageSize"
+            (pageChange)="onPageChange($event)" aria-label="Custom pagination">
+            <ng-template ngbPaginationPrevious>Prev</ng-template>
+            <ng-template ngbPaginationNext>Next</ng-template>
+        </ngb-pagination>
+    </ul>
+</div>
 </div>
 
 <!-- Modal -->
@@ -71,11 +105,26 @@
       data-bs-dismiss="modal"
       aria-label="Close"
       id="close-modal"
-      (click)="modal.dismiss('Cross click')"
+      (click)="modal.dismiss('Cross click');formReset()"
     ></button>
   </div>
   <div class="card-body p-4">
     <form [formGroup]="messageForm" (ngSubmit)="validSubmit()">
+
+       <!-- Message -->
+       <div class="mb-3">
+        <label for="form-text" class="form-label fs-14 text-dark"
+          >Unique Name</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="form-text"
+          placeholder="Enter your your unique name"
+          formControlName="name"
+        />
+      </div>
+
       <!-- Message -->
       <div class="mb-3">
         <label for="form-text" class="form-label fs-14 text-dark"
@@ -124,6 +173,39 @@
         </select>
       </div>
 
+      <!-- Message and Replies ID -->
+      <div class="mb-3">
+        <label for="form-password" class="form-label fs-14 text-dark"
+          >Message and Replies ID</label
+        >
+        <select
+          id="inputState2"
+          class="form-select form-select-lg"
+          formControlName="MessagesAndRepliesId"
+        >
+          <option value="" disabled selected>Please select message and replies</option>
+          @for (data of storeAllMessageReplies; track $index) {
+          <option [value]="data.id">{{ data.name }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Timer Input -->
+      <div class="mb-3">
+        <label for="timer" class="form-label fs-14 text-dark">Timer (HH:mm:ss)</label>
+        <input
+          type="text"
+          class="form-control"
+          id="timer"
+          placeholder="Enter time (e.g., 01:30:00)"
+          formControlName="timer"
+          [ngClass]="{'is-invalid': messageForm.get('timer')?.invalid && messageForm.get('timer')?.touched}"
+        />
+        <div class="invalid-feedback" *ngIf="messageForm.get('timer')?.errors?.['pattern'] && messageForm.get('timer')?.touched">
+          Please enter a valid time in HH:mm:ss format (e.g., 01:30:00)
+        </div>
+      </div>
+
       <!-- Reply Content -->
       @if(messageForm.get('replyType')?.value === 'text'){
       <div class="mb-3">
@@ -155,14 +237,58 @@
       }
 
       <div *ngIf="templateComponents.length > 0">
-        <label>Select components:</label>
         <div *ngFor="let component of templateComponents">
-          <input
-            type="checkbox"
-            [value]="component"
-            (change)="onComponentSelect($event, component)"
-          />
-          {{ component.type }}: {{ component.text }}
+          <!-- Body -->
+          <!-- <div *ngIf="component.type === 'BODY'">
+            <div class="mb-3">
+              <label for="form-text" class="form-label fs-14 text-dark">
+                {{replacePlaceholders(component.text,{'1':headerName}) }}
+              </label>
+              <input
+
+              
+                placeholder="Enter name" 
+                type="text"
+                class="form-control"
+                placeholder="Button Text"
+              />
+            </div>
+          </div> -->
+          <div *ngIf="component.type === 'HEADER' && component.format === 'IMAGE'">
+            <div class="mb-3">
+              <!-- <label for="form-text" class="form-label fs-14 text-dark">Preview Image</label>
+              @for (headerImage of component.example.header_handle; track $index) {
+                <div class="form-control">
+                  <img [src]="headerImage" alt="" height="200" style="object-fit: contain;width: fit-content;">
+                </div>
+              } -->
+              <file-pond
+              #myPond
+              [options]="pondOptions"
+              class="multiple-filepond box-container flex-col"
+              [files]="pondFiles"
+              (onaddfile)="pondHandleAddFile($event)"
+              (onremovefile)="pondRemoveFile($event)"
+            ></file-pond>
+            </div>
+
+          </div>
+
+
+          <!-- Buttons -->
+          <div *ngIf="component.type === 'BUTTONS'">
+            <h6 class="text-center mb-3">Buttons</h6>
+            <div class="mb-3" *ngFor="let button of component.buttons; let i = index">
+              <label for="form-text" class="form-label fs-14 text-dark">Button {{ button.type }}:</label>
+              <input
+              [(ngModel)]="button.text"
+              [ngModelOptions]="{ standalone: true }"
+                type="text"
+                class="form-control"
+                placeholder="Button Text"
+              />
+            </div>
+          </div>
         </div>
       </div>
       
@@ -181,7 +307,7 @@
       }
 
       <!-- Reply type Image || Video || Document -->
-      @if(messageForm.get('replyType')?.value === 'image' || messageForm.get('replyType')?.value === 'video' || messageForm.get('replyType')?.value === 'document'){
+      @if(messageForm.get('replyType')?.value === 'image' || messageForm.get('replyType')?.value === 'video' || messageForm.get('replyType')?.value === 'document' || messageForm.get('replyType')?.value === 'audio'){
         <div class="mb-3">
           <file-pond
             #myPond
@@ -194,7 +320,7 @@
         </div>
       }
 
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="btn btn-primary" type="submit">{{viewForm ?'Update':'Submit'}}</button>
     </form>
   </div>
 </ng-template>

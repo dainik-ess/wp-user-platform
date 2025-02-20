@@ -116,6 +116,24 @@ export const admin: Routes = [
         title: 'YNEX - Message & Replies',
       },
       {
+        path:'quick-replies',
+        loadComponent:() =>
+          import('./quick-replies/quick-replies.component').then((m) => m.QuickRepliesComponent),
+        title: 'YNEX - Quick Replies',
+      },
+      {
+        path:'label',
+        loadComponent:() =>
+          import('./label/label.component').then((m) => m.LabelComponent),
+        title: 'YNEX - Label',
+      },
+      {
+        path:'actions/:conversationID',
+        loadComponent:() =>
+          import('./actions/actions.component').then((m) => m.ActionsComponent),
+        title: 'YNEX - Actions',
+      },
+      {
         path:'template',
         loadComponent:() =>
           import('./template/template.component').then((m) => m.TemplateComponent),

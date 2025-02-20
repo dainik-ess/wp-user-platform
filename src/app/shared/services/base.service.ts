@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, finalize, Observable, throwError } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -29,10 +29,10 @@ get(url: string, data?: any): Observable<any> {
         })
     );
 }
-post(url: string, data: any): Observable<any> {
+post(url: string, data: any,options?: { headers?: HttpHeaders }): Observable<any> {
     this.spinner.show();
     return this.http
-        .post(`${url}`, data)
+        .post(`${url}`, data,options)
         .pipe(catchError(this.handleError),
             finalize(() => {
                 // Hide the spinner when the request is complete (success or error)

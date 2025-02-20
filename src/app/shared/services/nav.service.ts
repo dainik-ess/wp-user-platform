@@ -183,11 +183,23 @@ export class NavService implements OnDestroy {
           dirchange: false,
         },
         {
+          path:'/pages/quick-replies',
+          title: 'Quick Replies',
+          type: 'link',
+          dirchange: false,
+        },
+        {
           path:'/pages/template',
           title: 'Template',
           type: 'link',
           dirchange: false,
-        }
+        },
+        {
+          path:'/pages/label',
+          title: 'Label',
+          type: 'link',
+          dirchange: false,
+        },
       ],
     },
     {
